@@ -1,0 +1,109 @@
+// Write your overrides
+@forward "@core/scss/base/variables";
+
+
+.layout-wrapper.layout-nav-type-horizontal .layout-navbar-and-nav-container {
+  box-shadow: none !important;
+}
+.layout-wrapper.layout-nav-type-horizontal .layout-navbar-and-nav-container {
+  box-shadow: none !important;
+}
+
+
+@mixin theme-select-header {
+  .v-theme--light & {
+    color: rgb(var(--v-theme-rubi-red)) !important;
+  }
+  .v-theme--dark & {
+    color: rgba(var(--v-theme-on-background), var(--v-high-emphasis-opacity)) !important;
+  }
+}
+@mixin theme-select-header-items {
+  .v-theme--light & {
+    background-color: rgb(var(--v-theme-rubi-red)) !important;
+  }
+  .v-theme--dark & {
+    background-color: rgb(var(--v-theme-rubi-red)) !important;
+  }
+}
+
+.app-select-header .v-field__append-inner svg {
+  @include theme-select-header;
+}
+
+.app-select-header .v-field__append-inner svg {
+  @include theme-select-header;
+}
+
+.app-select-header .v-select__selection-text {
+  @include theme-select-header;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 18px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.43px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+
+.app-select-header .v-field--variant-outlined { 
+  @include theme-select-header;
+}
+.app-select-header  .v-list .v-list-item--active { 
+  @include theme-select-header-items;
+}
+
+.app-header-words-remaining {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 22px;
+  display: flex;
+  align-items: center;
+ 
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+
+  .v-theme--light & {
+    color: #000000;
+  }
+}
+
+.text-p {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 22px;
+  color: rgb(var(--v-theme-text-color-body));
+}
+.text-p-medium {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 22px;
+  color: rgb(var(--v-theme-text-color-body));
+  
+}
+
+
+.body-background {
+  background-color: rgb(var(--v-theme-background-body));
+}
+
+.card-background {
+  background-color: rgb(var(--v-theme-background-card));
+}
+
+
+
+
+
+
+

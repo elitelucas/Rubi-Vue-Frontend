@@ -1,0 +1,29 @@
+@font-face {
+  font-family: "Idlewild";
+  src: url("fonts/idlewild/Idlewild-Bold.otf") format("opentype");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Idlewild";
+  src: url("fonts/idlewild/Idlewild-Book.otf") format("opentype");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Idlewild";
+  src: url("fonts/idlewild/Idlewild-Light.otf") format("opentype");
+  font-weight: lighter;
+}
+
+@font-face {
+  font-family: "Idlewild";
+  src: url("fonts/idlewild/Idlewild-Medium.otf") format("opentype");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Idlewild";
+  src: url("fonts/idlewild/Idlewild-Thin.otf") format("opentype");
+  font-weight: 200;
+}

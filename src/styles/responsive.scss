@@ -1,0 +1,26 @@
+$breakpoints: (
+  "sm": 640px,
+  "md": 768px,
+  "lg": 1024px,
+  "xl": 1280px
+) !default;
+
+@function get-breakpoint($name) {
+  @return map-get($breakpoints, $name);
+}
+
+@mixin media-query($name, $inclusive: false) {
+  $breakpoint: get-breakpoint($name);
+  $max-width: if($inclusive, $breakpoint, $breakpoint - 1px);
+
+  @media (max-width: $max-width) {
+    @content;
+  }
+}
+
+@mixin rwd($screen) {
+  @media (min-width: $screen + px) {
+    @content;
+  }
+}
+
