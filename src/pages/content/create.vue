@@ -357,13 +357,15 @@ const slider2 = ref(0);
               </VCol>
             </VProgressCircular>
             <VRow justify="center" class="mt-2">
-              <CustomCheckboxes
-                v-model:selected-checkbox="selectedCheckbox"
-                :checkbox-content="[
-                  { title: 'SPI AI Detection', value: 'SPI AI Detection' },
-                ]"
-                style="border: none"
-              />
+              <VCol style="max-width: 250px !important">
+                <CustomCheckboxes
+                  v-model:selected-checkbox="selectedCheckbox"
+                  :checkbox-content="[
+                    { title: 'SPI AI Detection', value: 'SPI AI Detection' },
+                  ]"
+                  style="border: none"
+                />
+              </VCol>
             </VRow>
           </VCol>
           <VCol cols="12" lg="4" md="4" sm="12" class="text-center">
@@ -381,13 +383,15 @@ const slider2 = ref(0);
               </VCol>
             </VProgressCircular>
             <VRow justify="center" class="mt-2">
-              <CustomCheckboxes
-                v-model:selected-checkbox="selectedCheckbox"
-                :checkbox-content="[
-                  { title: 'Detect Plagiarism', value: 'Detect Plagiarism' },
-                ]"
-                style="border: none"
-              />
+              <VCol style="max-width: 250px !important">
+                <CustomCheckboxes
+                  v-model:selected-checkbox="selectedCheckbox"
+                  :checkbox-content="[
+                    { title: 'Detect Plagiarism', value: 'Detect Plagiarism' },
+                  ]"
+                  style="border: none"
+                />
+              </VCol>
             </VRow>
           </VCol>
         </VRow>
