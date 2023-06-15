@@ -45,6 +45,8 @@ const bg = computed(() => {
 </template>
 
 <style scoped lang="scss">
+@import "@styles/responsive.scss";
+
 .card-option-content {
   height: 144px;
   background-color: rgb(var(--v-theme-background-card));
@@ -52,6 +54,10 @@ const bg = computed(() => {
   align-items: center;
   gap: 15px;
   padding-left: 67px;
+
+  @include media-query("sm") {
+    padding-left: 5px;
+  }
 
   & div {
     display: flex;
@@ -71,6 +77,11 @@ const bg = computed(() => {
     width: 79px;
     border-radius: 6px;
     border: 1px solid #4b4b4b;
+
+    @include media-query("sm") {
+      height: 40px;
+      width: 40px;
+    }
 
     .v-theme--dark & {
       border-color: white;

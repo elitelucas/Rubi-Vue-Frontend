@@ -1,31 +1,28 @@
 <script lang="ts" setup>
-import type { CustomInputContent, GridColumn } from '@core/types'
+import type { CustomInputContent, GridColumn } from "@core/types";
 
 interface Props {
-  selectedCheckbox: string[]
-  checkboxContent: CustomInputContent[]
-  gridColumn?: GridColumn
+  selectedCheckbox: string[];
+  checkboxContent: CustomInputContent[];
+  gridColumn?: GridColumn;
 }
 
 interface Emit {
-  (e: 'update:selectedCheckbox', value: string[]): void
+  (e: "update:selectedCheckbox", value: string[]): void;
 }
 
-const props = defineProps<Props>()
-const emit = defineEmits<Emit>()
+const props = defineProps<Props>();
+const emit = defineEmits<Emit>();
 
-const selectedOption = ref(structuredClone(toRaw(props.selectedCheckbox)))
+const selectedOption = ref(structuredClone(toRaw(props.selectedCheckbox)));
 
 watch(selectedOption, () => {
-  emit('update:selectedCheckbox', selectedOption.value)
-})
+  emit("update:selectedCheckbox", selectedOption.value);
+});
 </script>
 
 <template>
-  <VRow
-    v-if="props.checkboxContent && selectedOption"
-    v-model="selectedOption"
-  >
+  <VRow v-if="props.checkboxContent && selectedOption" v-model="selectedOption">
     <VCol
       v-for="item in props.checkboxContent"
       :key="item.title"
@@ -34,12 +31,10 @@ watch(selectedOption, () => {
       <VLabel
         class="custom-input custom-checkbox rounded cursor-pointer"
         :class="selectedOption.includes(item.value) ? 'active' : ''"
+        style="border: none"
       >
         <div>
-          <VCheckbox
-            v-model="selectedOption"
-            :value="item.value"
-          />
+          <VCheckbox v-model="selectedOption" :value="item.value" />
         </div>
         <slot :item="item">
           <div class="flex-grow-1">
@@ -48,15 +43,11 @@ watch(selectedOption, () => {
                 {{ item.title }}
               </h6>
               <VSpacer />
-              <span
-                v-if="item.subtitle"
-                class="text-disabled text-base"
-              >{{ item.subtitle }}</span>
+              <span v-if="item.subtitle" class="text-disabled text-base">{{
+                item.subtitle
+              }}</span>
             </div>
-            <p
-              v-if="item.desc"
-              class="text-sm mb-0"
-            >
+            <p v-if="item.desc" class="text-sm mb-0">
               {{ item.desc }}
             </p>
           </div>

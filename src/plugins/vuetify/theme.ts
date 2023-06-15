@@ -50,7 +50,7 @@ const theme: VuetifyOptions['theme'] = {
       variables: {
         'code-color': '#d400ff',
         'overlay-scrim-background': '#4C4E64',
-        'tooltip-background': '#4A5072',
+        'tooltip-background': '#FFFFFF',
         'overlay-scrim-opacity': 0.5,
         'hover-opacity': 0.04,
         'focus-opacity': 0.12,
@@ -117,7 +117,7 @@ const theme: VuetifyOptions['theme'] = {
       variables: {
         'code-color': '#d400ff',
         'overlay-scrim-background': '#101121',
-        'tooltip-background': '#5E6692',
+        'tooltip-background': '#313132',
         'overlay-scrim-opacity': 0.6,
         'hover-opacity': 0.04,
         'focus-opacity': 0.12,
