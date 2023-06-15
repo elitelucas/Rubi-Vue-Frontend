@@ -298,7 +298,7 @@ const slider2 = ref(0);
     </VCol>
     <VCol cols="12" lg="6" md="12" sm="12" class="pt-5">
       <h3 class="text-h3 content-m">Output Composer & SPI Scoring</h3>
-      <VRow class="mt-10 content-m">
+      <VRow class="mt-1 content-m">
         <VBtn
           class="vertical-button"
           prepend-icon="tabler-edit-circle"
