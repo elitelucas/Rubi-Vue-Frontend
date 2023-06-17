@@ -29,7 +29,11 @@ const bg = computed(() => {
 
 <template>
   <v-expansion-panels>
-    <v-expansion-panel :disabled="buttonMode" @click="emit('click')">
+    <v-expansion-panel
+      :disabled="buttonMode"
+      @click="emit('click')"
+      :style="buttonMode ? `cursor: pointer !important` : ''"
+    >
       <v-expansion-panel-title
         :expand-icon="buttonMode ? 'none' : 'tabler-chevron-up'"
       >
