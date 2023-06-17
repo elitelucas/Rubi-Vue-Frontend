@@ -89,6 +89,10 @@ const open = ref(["features"]);
 const input = ref("");
 
 const slider2 = ref(0);
+
+function testClick() {
+  alert();
+}
 </script>
 
 <template>
@@ -116,6 +120,8 @@ const slider2 = ref(0);
         :padding-icon="13"
         has-border
         sub-title="Combine modules to craft even more spectacular content."
+        :button-mode="true"
+        @click="testClick"
       />
       <CardOptionContent
         :icon-img="houseCheck"
@@ -127,174 +133,183 @@ const slider2 = ref(0);
         bg-icon-color-dark="#28C76F"
         :padding-icon="12"
         toggle
-      />
-      <VCol cols="12" class="content-p mt-5">
-        <h3 class="text-h3">Persona Selection</h3>
+      >
+        <VCol cols="12" class="content-p mt-5">
+          <h3 class="text-h3">Persona Selection</h3>
 
-        <AppSelect class="mt-5 mb-5" />
+          <AppSelect class="mt-5 mb-5" />
 
-        <VExpansionPanels v-model="open" class="expanded-element-content">
+          <VExpansionPanels v-model="open" class="expanded-element-content">
+            <VExpansionPanel
+              value="features"
+              bg-color="rgb(var(--v-theme-background-body))"
+            >
+              <VExpansionPanelTitle expand-icon="tabler-chevron-up">
+                <p class="text-p">Transaction Type *</p>
+              </VExpansionPanelTitle>
+              <VExpansionPanelText>
+                <CustomRadios
+                  v-model:selected-radio="selectedRadio"
+                  :radio-content="radioContent"
+                  :grid-column="{ sm: '6', cols: '12' }"
+                />
+              </VExpansionPanelText>
+            </VExpansionPanel>
+          </VExpansionPanels>
+
+          <VExpansionPanels v-model="open" class="expanded-element-content">
+            <VExpansionPanel
+              value="features"
+              bg-color="rgb(var(--v-theme-background-body))"
+            >
+              <VExpansionPanelTitle expand-icon="tabler-chevron-up">
+                <p class="text-p">Listing Type *</p>
+              </VExpansionPanelTitle>
+              <VExpansionPanelText>
+                <CustomRadios
+                  v-model:selected-radio="selectedRadio2"
+                  :radio-content="radioContent2"
+                  :grid-column="{ sm: '6', cols: '12' }"
+                />
+              </VExpansionPanelText>
+            </VExpansionPanel>
+          </VExpansionPanels>
+
+          <VExpansionPanels v-model="open" class="expanded-element-content">
+            <VExpansionPanel
+              value="features"
+              bg-color="rgb(var(--v-theme-background-body))"
+            >
+              <VExpansionPanelTitle expand-icon="tabler-chevron-up">
+                <p class="text-p">Features *</p>
+              </VExpansionPanelTitle>
+              <VExpansionPanelText>
+                <CustomCheckboxes
+                  v-model:selected-checkbox="selectedCheckbox"
+                  :checkbox-content="checkboxContent"
+                  :grid-column="{ sm: '6', cols: '12', lg: '4' }"
+                />
+              </VExpansionPanelText>
+            </VExpansionPanel>
+          </VExpansionPanels>
+          <AppTextField
+            label="Property Location"
+            :maxlength="100"
+            v-model="input"
+            :counter="100"
+            class="mt-2"
+          />
+          <VRow>
+            <VCol cols="12" lg="8" md="12" sm="12">
+              <AppTextField label="Lot Size" />
+            </VCol>
+            <VCol cols="12" lg="4" md="12" sm="12">
+              <AppSelect label="Units" />
+            </VCol>
+          </VRow>
+          <VRow>
+            <VCol cols="12" lg="8" md="12" sm="12">
+              <AppTextField label="Living Space" />
+            </VCol>
+            <VCol cols="12" lg="4" md="12" sm="12">
+              <AppSelect label="Units" />
+            </VCol>
+          </VRow>
+          <VDivider></VDivider>
+          <CustomSlider></CustomSlider>
+        </VCol>
+        <VDivider class="mt-5 mb-5"></VDivider>
+
+        <VExpansionPanels
+          v-model="open"
+          class="expanded-element-content content-p"
+        >
           <VExpansionPanel
             value="features"
             bg-color="rgb(var(--v-theme-background-body))"
           >
-            <VExpansionPanelTitle>
-              <p class="text-p">Transaction Type *</p>
+            <VExpansionPanelTitle
+              expand-icon="tabler-chevron-up"
+              class="content-m"
+            >
+              <p class="text-h3">Advanced Settings</p>
             </VExpansionPanelTitle>
-            <VExpansionPanelText>
-              <CustomRadios
-                v-model:selected-radio="selectedRadio"
-                :radio-content="radioContent"
-                :grid-column="{ sm: '6', cols: '12' }"
+            <VExpansionPanelText class="content-p">
+              <div class="v-label mb-1 text-body-2 text-high-emphasis">
+                Randomness
+              </div>
+              <VSlider
+                v-model="slider2"
+                :step="0.1"
+                :max="1"
+                show-ticks
+                :thumb-size="1"
+                :tick-size="3"
+                :track-size="2"
               />
-            </VExpansionPanelText>
-          </VExpansionPanel>
-        </VExpansionPanels>
-
-        <VExpansionPanels v-model="open" class="expanded-element-content">
-          <VExpansionPanel
-            value="features"
-            bg-color="rgb(var(--v-theme-background-body))"
-          >
-            <VExpansionPanelTitle>
-              <p class="text-p">Listing Type *</p>
-            </VExpansionPanelTitle>
-            <VExpansionPanelText>
+              <div class="v-label mb-1 text-body-2 text-high-emphasis">
+                Sentiment
+              </div>
               <CustomRadios
-                v-model:selected-radio="selectedRadio2"
-                :radio-content="radioContent2"
-                :grid-column="{ sm: '6', cols: '12' }"
-              />
-            </VExpansionPanelText>
-          </VExpansionPanel>
-        </VExpansionPanels>
-
-        <VExpansionPanels v-model="open" class="expanded-element-content">
-          <VExpansionPanel
-            value="features"
-            bg-color="rgb(var(--v-theme-background-body))"
-          >
-            <VExpansionPanelTitle>
-              <p class="text-p">Features *</p>
-            </VExpansionPanelTitle>
-            <VExpansionPanelText>
-              <CustomCheckboxes
-                v-model:selected-checkbox="selectedCheckbox"
-                :checkbox-content="checkboxContent"
+                v-model:selected-radio="selectedRadioSentiment"
+                :radio-content="radioContentSentiment"
                 :grid-column="{ sm: '6', cols: '12', lg: '4' }"
               />
             </VExpansionPanelText>
           </VExpansionPanel>
         </VExpansionPanels>
-        <AppTextField
-          label="Property Location"
-          :maxlength="100"
-          v-model="input"
-          :counter="100"
-          class="mt-2"
+        <VDivider class="mt-5 mb-5"></VDivider>
+        <VRow justify="center" class="mt-12">
+          <VBtn>Generate</VBtn>
+        </VRow>
+        <VRow justify="end" class="mt-10 content-m">
+          <VBtn
+            class="vertical-button"
+            prepend-icon="tabler-copy"
+            variant="text"
+            color="text-color-body"
+            size="small"
+            >Copy</VBtn
+          >
+
+          <VBtn
+            class="vertical-button"
+            prepend-icon="tabler-archive"
+            variant="text"
+            color="text-color-body"
+            size="small"
+            >Save</VBtn
+          >
+          <VBtn
+            class="vertical-button"
+            prepend-icon="tabler-forms"
+            variant="text"
+            color="text-color-forms"
+            size="small"
+          >
+            <VTooltip
+              activator="parent"
+              location="bottom"
+              color="#E5E5E5"
+              scrim
+            >
+              <VCol>
+                <span class="text-h5">Send to Editor</span>
+                <p class="text-p">
+                  Click to copy the results to the<br />
+                  current location of your cursor<br />
+                  in the text editor.
+                </p>
+              </VCol>
+            </VTooltip>
+          </VBtn>
+        </VRow>
+        <AppTextarea
+          label="Results"
+          bg-color="background-card"
+          class="content-m mb-10"
         />
-        <VRow>
-          <VCol cols="12" lg="8" md="12" sm="12">
-            <AppTextField label="Lot Size" />
-          </VCol>
-          <VCol cols="12" lg="4" md="12" sm="12">
-            <AppSelect label="Units" />
-          </VCol>
-        </VRow>
-        <VRow>
-          <VCol cols="12" lg="8" md="12" sm="12">
-            <AppTextField label="Living Space" />
-          </VCol>
-          <VCol cols="12" lg="4" md="12" sm="12">
-            <AppSelect label="Units" />
-          </VCol>
-        </VRow>
-        <VDivider></VDivider>
-        <CustomSlider></CustomSlider>
-      </VCol>
-      <VDivider class="mt-5 mb-5"></VDivider>
-
-      <VExpansionPanels
-        v-model="open"
-        class="expanded-element-content content-p"
-      >
-        <VExpansionPanel
-          value="features"
-          bg-color="rgb(var(--v-theme-background-body))"
-        >
-          <VExpansionPanelTitle class="content-m">
-            <p class="text-h3">Advanced Settings</p>
-          </VExpansionPanelTitle>
-          <VExpansionPanelText class="content-p">
-            <div class="v-label mb-1 text-body-2 text-high-emphasis">
-              Randomness
-            </div>
-            <VSlider
-              v-model="slider2"
-              :step="0.1"
-              :max="1"
-              show-ticks
-              :thumb-size="1"
-              :tick-size="3"
-              :track-size="2"
-            />
-            <div class="v-label mb-1 text-body-2 text-high-emphasis">
-              Sentiment
-            </div>
-            <CustomRadios
-              v-model:selected-radio="selectedRadioSentiment"
-              :radio-content="radioContentSentiment"
-              :grid-column="{ sm: '6', cols: '12', lg: '4' }"
-            />
-          </VExpansionPanelText>
-        </VExpansionPanel>
-      </VExpansionPanels>
-      <VDivider class="mt-5 mb-5"></VDivider>
-      <VRow justify="center" class="mt-12">
-        <VBtn>Generate</VBtn>
-      </VRow>
-      <VRow justify="end" class="mt-10 content-m">
-        <VBtn
-          class="vertical-button"
-          prepend-icon="tabler-copy"
-          variant="text"
-          color="text-color-body"
-          size="small"
-          >Copy</VBtn
-        >
-
-        <VBtn
-          class="vertical-button"
-          prepend-icon="tabler-archive"
-          variant="text"
-          color="text-color-body"
-          size="small"
-          >Save</VBtn
-        >
-        <VBtn
-          class="vertical-button"
-          prepend-icon="tabler-forms"
-          variant="text"
-          color="text-color-forms"
-          size="small"
-        >
-          <VTooltip activator="parent" location="bottom" color="#E5E5E5" scrim>
-            <VCol>
-              <span class="text-h5">Send to Editor</span>
-              <p class="text-p">
-                Click to copy the results to the<br />
-                current location of your cursor<br />
-                in the text editor.
-              </p>
-            </VCol>
-          </VTooltip>
-        </VBtn>
-      </VRow>
-      <AppTextarea
-        label="Results"
-        bg-color="background-card"
-        class="content-m mb-10"
-      />
+      </CardOptionContent>
     </VCol>
     <VCol cols="12" lg="6" md="12" sm="12" class="pt-5">
       <h3 class="text-h3 content-m">Output Composer & SPI Scoring</h3>

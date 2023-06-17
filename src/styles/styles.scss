@@ -125,6 +125,7 @@
 
 .vsp__body {
   padding: 10px 10px;
+  overflow-x: hidden;
 }
 
 
@@ -133,6 +134,11 @@
   align-items: center;
   gap: 10px;
   padding: 10px 10px;
+}
+
+
+div.v-select-list div[role=list] div[role=listitem]:hover {
+  background-color:#00857A !important;
 }
 
 

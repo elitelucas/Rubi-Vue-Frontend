@@ -1012,10 +1012,11 @@ $btn-hover-overlay-opacity: (
 
 // Style list differently when it's used in a components like select, menu etc
 .v-menu {
+   
   .v-list-item {
     // Adjust padding of list item inside menu
     padding-block: 8px !important;
-    padding-inline: 16px !important;
+    padding-inline: 16px !important;    
   }
 }
 

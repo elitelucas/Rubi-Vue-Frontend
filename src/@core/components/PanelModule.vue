@@ -97,6 +97,47 @@ const module = ref(null);
               item-value="name"
               v-model="module"
             >
+              <template #selection="{ item }">
+                <v-list-item :title="item.title">
+                  <template v-slot:prepend>
+                    <v-avatar
+                      size="28"
+                      :style="`background-color: ${item.raw.color};${
+                        item.raw.color == 'none'
+                          ? 'border: 1px solid #000000;'
+                          : ''
+                      }`"
+                    >
+                    </v-avatar>
+                  </template>
+                </v-list-item>
+              </template>
+              <template #prepend-item>
+                <v-list-item class="text-h6" title="Modules Collections">
+                  <template #title="{ title }">
+                    <h6 class="text-h6">{{ title }}</h6>
+                    <VDivider class="mt-3"></VDivider>
+                  </template>
+                </v-list-item>
+              </template>
+              <template #item="{ item, props: { onClick, title, value } }">
+                <v-list-item :title="item.title" @click="onClick">
+                  <template #title="{ title }">
+                    <h6 class="text-h6">{{ title }}</h6>
+                  </template>
+                  <template v-slot:prepend>
+                    <v-avatar
+                      size="28"
+                      :style="`background-color: ${item.raw.color};${
+                        item.raw.color == 'none'
+                          ? 'border: 1px solid #000000;'
+                          : ''
+                      }`"
+                    >
+                    </v-avatar>
+                  </template>
+                </v-list-item>
+              </template>
             </VSelect>
           </VCol>
         </VRow>
