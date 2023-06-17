@@ -90,7 +90,7 @@ const theme: VuetifyOptions['theme'] = {
         'background': '#313132',
         'background-header': '#313132',
         'on-background': '#D0D4F1',
-        'surface': '#2F3349',
+        'surface': '#313132',
         'on-surface': '#8692D0',
         'grey-50': '#26293A',
         'grey-100': '#2F3349',
