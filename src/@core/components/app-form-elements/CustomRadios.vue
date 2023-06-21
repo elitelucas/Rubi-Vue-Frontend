@@ -22,15 +22,20 @@ watch(selectedOption, () => {
 </script>
 
 <template>
-  <VRadioGroup v-if="props.radioContent" v-model="selectedOption">
+  <VRadioGroup
+    v-if="props.radioContent"
+    v-model="selectedOption"
+    class="radio-group-custom"
+  >
     <VRow>
       <VCol
         v-for="item in props.radioContent"
         :key="item.title"
         v-bind="gridColumn"
+        class="col-radio"
       >
         <VLabel
-          class="custom-input custom-radio rounded cursor-pointer"
+          class="custom-input custom-radio rounded cursor-pointer pa-0"
           :class="selectedOption === item.value ? 'active' : ''"
           style="border: none"
         >
@@ -65,13 +70,19 @@ watch(selectedOption, () => {
   align-items: flex-start;
   align-items: center;
   gap: 0.375rem;
+  padding: 0px !important;
 
   .v-radio {
     margin-block-start: -0.25rem;
   }
 
   .cr-title {
-    font-weight: 500;
+    font-weight: 400;
   }
+}
+
+.col-radio {
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 </style>

@@ -689,6 +689,10 @@ $btn-hover-overlay-opacity: (
   background: vuetify.$tooltip-background-color !important;
   color: rgb(var(--v-theme-on-primary)) !important;
   font-weight: 500;
+
+  .v-theme--light & {
+    color: black !important;
+  }
 }
 
 .v-slider.v-input--horizontal .v-slider-thumb__label::before {
