@@ -51,6 +51,7 @@ declare module '@vue/runtime-core' {
     I18n: typeof import('./src/@core/components/I18n.vue')['default']
     Logo: typeof import('./src/components/Logo.vue')['default']
     LogoLoading: typeof import('./src/components/LogoLoading.vue')['default']
+    ModuleGroup: typeof import('./src/@core/components/modules/ModuleGroup.vue')['default']
     MoreBtn: typeof import('./src/@core/components/MoreBtn.vue')['default']
     Notifications: typeof import('./src/@core/components/Notifications.vue')['default']
     PanelModule: typeof import('./src/@core/components/PanelModule.vue')['default']

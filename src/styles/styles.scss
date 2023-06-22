@@ -151,6 +151,26 @@ div.v-select-list div[role=list] div[role=listitem]:hover {
 }
 
 
+.svg-strock-1 {
+  & .icon-g {
+    stroke-width: 0.5px;
+  }
+}
+
+
+.custom-text-div {
+  .v-expansion-panel-text__wrapper {
+    padding: 0px 0px;
+  }
+}
+
+.module-expansion-panel-title {
+  .v-expansion-panel-title__icon > svg{
+    display: none !important;
+  }
+}
+
+
 
 
 

@@ -46,6 +46,7 @@ const theme: VuetifyOptions['theme'] = {
         'white': '#f8f7fa',
         'background-body': '#F8F7FA',
         'background-card': '#FFFFFF',
+        'solid-color-extra' : '#D7D8DE',
       },
 
       variables: {
@@ -115,6 +116,7 @@ const theme: VuetifyOptions['theme'] = {
         'white': '#f8f7fa',
         'background-body': '#3A3A3E',
         'background-card': '#313132',
+        'solid-color-extra' : '#4B4B4B',
       },
       variables: {
         'code-color': '#d400ff',

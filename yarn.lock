@@ -5412,6 +5412,11 @@
   dependencies:
     "flatpickr" "^4.6.13"
 
+"vue-horizontal@^1.0.2":
+  "integrity" "sha512-prxGBFpChYoh/rrZmPdPO5VtQLkF8uu6/JFdd+lJvhln4lRB55IiOSwB4IVrL+GlGLXcooGV0QTKGGW9RqfjIA=="
+  "resolved" "https://registry.npmjs.org/vue-horizontal/-/vue-horizontal-1.0.2.tgz"
+  "version" "1.0.2"
+
 "vue-i18n@*", "vue-i18n@^9.0.0", "vue-i18n@9.2.2":
   "integrity" "sha512-yswpwtj89rTBhegUAv9Mu37LNznyu3NpyLQmozF3i1hYOhwpG8RjcjIFIIfnu+2MDZJGSZPXaKWvnQA71Yv9TQ=="
   "resolved" "https://registry.npmjs.org/vue-i18n/-/vue-i18n-9.2.2.tgz"
@@ -5458,7 +5463,7 @@
     "@volar/vue-typescript" "1.6.2"
     "semver" "^7.3.8"
 
-"vue@^2.6.12 || ^3.2.4", "vue@^2.6.14 || ^3.2.0", "vue@^2.7.0 || ^3.2.25", "vue@^3.0.0", "vue@^3.0.0-0 || ^2.6.0", "vue@^3.0.0-0 || ^2.7.0", "vue@^3.0.11", "vue@^3.2.0", "vue@^3.2.25", "vue@^3.2.41", "vue@> 3.0.0", "vue@>=3", "vue@>=3.0.0", "vue@2 || 3", "vue@3.2.47":
+"vue@^2.6.12 || ^3.2.4", "vue@^2.6.14 || ^3.2.0", "vue@^2.7.0 || ^3.2.25", "vue@^3.0.0", "vue@^3.0.0-0 || ^2.6.0", "vue@^3.0.0-0 || ^2.7.0", "vue@^3.0.11", "vue@^3.0.5", "vue@^3.2.0", "vue@^3.2.25", "vue@^3.2.41", "vue@> 3.0.0", "vue@>=3", "vue@>=3.0.0", "vue@2 || 3", "vue@3.2.47":
   "integrity" "sha512-60188y/9Dc9WVrAZeUVSDxRQOZ+z+y5nO2ts9jWXSTkMvayiWxCWOWtBQoYjLeccfXkiiPZWAHcV+WTPhkqJHQ=="
   "resolved" "https://registry.npmjs.org/vue/-/vue-3.2.47.tgz"
   "version" "3.2.47"
