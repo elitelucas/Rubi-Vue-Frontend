@@ -125,11 +125,12 @@ const modules = [
           :module="module"
           :key="module.title"
           class="mb-2"
-        ></ModuleGroup>
+        />
       </VCardText>
     </VCard>
   </div>
 </template>
+
 <style lang="scss" scoped>
 .box-icon-title {
   box-sizing: border-box;
@@ -143,6 +144,7 @@ const modules = [
   align-items: center;
 }
 </style>
+
 <route lang="yaml">
 name: modules
 meta:

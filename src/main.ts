@@ -12,6 +12,7 @@ import 'vue3-side-panel/dist/vue3-side-panel.css';
 import { createPinia } from 'pinia'
 import { createApp } from 'vue'
 import { VueSidePanel } from 'vue3-side-panel'
+import i18n from './plugins/i18n'
 
 loadFonts()
 
@@ -19,6 +20,7 @@ loadFonts()
 const app = createApp(App)
 
 // Use plugins
+app.use(i18n)
 app.use(vuetify)
 app.use(createPinia())
 app.use(router)
