@@ -83,9 +83,32 @@
   line-height: 22px;
   color: rgb(var(--v-theme-text-color-body));
 }
+
+.text-p-lighter {
+  font-size: 15px;
+  line-height: 22px; 
+  color: rgb(var(--v-theme-text-color-body));
+}
+
+.text-p-small {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 20px;
+  color: rgb(var(--v-theme-text-color-body));
+}
+
 .text-p-medium {
   font-style: normal;
   font-weight: 500;
+  font-size: 15px;
+  line-height: 22px;
+  color: rgb(var(--v-theme-text-color-body));
+  
+}
+.text-p-semibold {
+  font-style: normal;
+  font-weight: 600;
   font-size: 15px;
   line-height: 22px;
   color: rgb(var(--v-theme-text-color-body));
@@ -101,7 +124,57 @@
   background-color: rgb(var(--v-theme-background-card));
 }
 
+.text-display-4 {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 46px;
+  color: rgb(var(--v-theme-text-color-heading));
+}
 
+
+
+.vsp {
+  background-color: rgb(var(--v-theme-background-card)) !important;
+}
+
+.vsp__body {
+  padding: 10px 10px;
+  overflow-x: hidden;
+}
+
+
+.vsp__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 10px;
+}
+
+
+div.v-select-list div[role=list] div[role=listitem]:hover {
+  background-color:#00857A !important;
+}
+
+
+.svg-strock-1 {
+  & .icon-g {
+    stroke-width: 0.5px;
+  }
+}
+
+
+.custom-text-div {
+  .v-expansion-panel-text__wrapper {
+    padding: 0px 0px;
+  }
+}
+
+.module-expansion-panel-title {
+  .v-expansion-panel-title__icon > svg{
+    display: none !important;
+  }
+}
 
 
 
