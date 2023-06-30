@@ -15,7 +15,7 @@ export default [
   },
   {
     title: 'Modules',
-    to: { name: 'second-page' },
+    to: { name: 'modules' },
     icon: { icon: 'tabler-layout-grid-add' },
   },
   {

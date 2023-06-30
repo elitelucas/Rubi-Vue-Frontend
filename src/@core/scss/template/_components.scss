@@ -689,6 +689,10 @@ $btn-hover-overlay-opacity: (
   background: vuetify.$tooltip-background-color !important;
   color: rgb(var(--v-theme-on-primary)) !important;
   font-weight: 500;
+
+  .v-theme--light & {
+    color: black !important;
+  }
 }
 
 .v-slider.v-input--horizontal .v-slider-thumb__label::before {
@@ -1012,10 +1016,11 @@ $btn-hover-overlay-opacity: (
 
 // Style list differently when it's used in a components like select, menu etc
 .v-menu {
+   
   .v-list-item {
     // Adjust padding of list item inside menu
     padding-block: 8px !important;
-    padding-inline: 16px !important;
+    padding-inline: 16px !important;    
   }
 }
 

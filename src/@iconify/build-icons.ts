@@ -192,7 +192,7 @@ const target = join(__dirname, 'icons-bundle.js');
       for (const key in content) {
         if (key === 'prefix' && content.prefix === 'tabler') {
           for (const k in content.icons)
-            content.icons[k].body = content.icons[k].body.replace(/stroke-width="2"/g, 'stroke-width="1.5"')
+            content.icons[k].body = content.icons[k].body.replace(/stroke-width="2"/g, 'stroke-width="1.5" class="icon-g"')
         }
       }
 
