@@ -7,9 +7,24 @@ const messages = Object.fromEntries(
     .map(([key, value]) => [key.slice(10, -5), value.default]),
 )
 
+const numberFormats = {
+  'en': {
+    currency: {
+      style: 'currency', currency: 'USD', notation: 'standard'
+    },
+    decimal: {
+      style: 'decimal', minimumFractionDigits: 2, maximumFractionDigits: 2
+    },
+    percent: {
+      style: 'percent', useGrouping: false
+    }
+  }
+}
+
 export default createI18n({
   legacy: false,
   locale: 'en',
   fallbackLocale: 'en',
+  numberFormats: numberFormats,
   messages,
 })

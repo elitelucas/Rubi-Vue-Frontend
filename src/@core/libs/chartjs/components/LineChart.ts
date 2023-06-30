@@ -1,10 +1,10 @@
 import type { PluginOptionsByType } from 'chart.js'
-import { CategoryScale, Chart as ChartJS, Legend, LineElement, LinearScale, PointElement, Title, Tooltip } from 'chart.js'
+import { CategoryScale, Chart as ChartJS, Filler, Legend, LineElement, LinearScale, PointElement, Title, Tooltip } from 'chart.js'
 import type { PropType } from 'vue'
 import { defineComponent } from 'vue'
 import { Line } from 'vue-chartjs'
 
-ChartJS.register(Title, Tooltip, Legend, LineElement, LinearScale, PointElement, CategoryScale)
+ChartJS.register(Title, Tooltip, Legend, LineElement, LinearScale, PointElement, CategoryScale, Filler)
 
 export default defineComponent({
   name: 'LineChart',

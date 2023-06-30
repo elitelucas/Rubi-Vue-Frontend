@@ -8,7 +8,7 @@ export const config: Config = {
     logo: h('img', { src: '/src/assets/logo.svg' }),
 
     // logo: () => h('img', { src: 'assets/colored-logo.png' }, null),
-    contentWidth: ref(ContentWidth.Boxed),
+    contentWidth: ref(ContentWidth.Fluid),
     contentLayoutNav: ref(AppContentLayoutNav.Vertical),
     overlayNavFromBreakpoint: breakpointsVuetify.md,
     enableI18n: true,
