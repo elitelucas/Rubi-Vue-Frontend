@@ -20,8 +20,8 @@ export default [
   },
   {
     title: 'Chat',
-    to: { name: 'second-page' },
-    icon: { icon: 'tabler-message' },
+    to: { name: 'chat' },
+    icon: { icon: 'tabler-messages' },
   },
   {
     title: 'Personas',
