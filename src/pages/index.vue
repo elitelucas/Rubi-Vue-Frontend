@@ -32,7 +32,9 @@ const modalPersonifyStore = usePersonifyModalStore();
       </div>
     </section>
     <section class="content">
-      <VBtn id="btn-new-content" size="large"> Create New Content </VBtn>
+      <VBtn id="btn-new-content" size="large" :to="{ name: 'modules' }">
+        Create New Content
+      </VBtn>
       <div class="row">
         <div class="card-action">
           <img :src="puzzle2" />
