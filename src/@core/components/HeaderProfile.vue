@@ -3,6 +3,8 @@ const route = useRoute();
 
 const routeName = route.meta.name || "account";
 
+const activeTab = ref(routeName);
+
 const buttons = [
   {
     variant: "plain",
@@ -32,7 +34,7 @@ const buttons = [
     variant: "plain",
     prependIcon: "tabler-circle-plus",
     text: "Add-ons",
-    route_name: "account",
+    route_name: "second-page",
   },
   {
     variant: "plain",
@@ -68,7 +70,7 @@ const title = computed(() =>
 );
 </script>
 <template>
-  <div class="breadcrumbs-header">
+  <div class="breadcrumbs-header mt-5">
     <VRow class="row">
       <span class="text-h4 text-muted">Account Settings</span>&nbsp;&nbsp;<span
         class="text-h4"
@@ -76,17 +78,18 @@ const title = computed(() =>
       >&nbsp;&nbsp;<span class="text-h4 text-2">{{ title?.text || "" }}</span>
     </VRow>
   </div>
-  <div class="btn-tabs">
-    <VBtn
-      v-for="btn in buttonsElements"
-      :key="btn.text"
-      :variant="(btn.variant as any)"
-      :prepend-icon="btn.prependIcon"
-      :to="{ name: btn.route_name }"
+  <VTabs v-model="activeTab" class="v-tabs-pill my-2">
+    <VTab
+      v-for="item in buttonsElements"
+      :key="item.text"
+      :value="item.route_name"
+      :to="{ name: item.route_name }"
+      :disabled="item.text == 'Add-ons'"
     >
-      {{ btn.text }}</VBtn
-    >
-  </div>
+      <VIcon size="20" start :icon="item.prependIcon" />
+      {{ item.text }}
+    </VTab>
+  </VTabs>
 </template>
 
 <style lang="scss" scoped>

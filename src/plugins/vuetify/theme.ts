@@ -48,6 +48,7 @@ const theme: VuetifyOptions['theme'] = {
         'background-body': '#F8F7FA',
         'background-card': '#FFFFFF',
         'solid-color-extra' : '#D7D8DE',
+        'solid-color-extra-table-striped': '#4B465C05',
       },
 
       variables: {
@@ -94,7 +95,7 @@ const theme: VuetifyOptions['theme'] = {
         'background-header': '#313132',
         'on-background': '#D0D4F1',
         'surface': '#313132',
-        'on-surface': '#8692D0',
+        'on-surface': '#F5F5F5',
         'grey-8': '#38393f',
         'grey-50': '#26293A',
         'grey-100': '#2F3349',
@@ -110,15 +111,16 @@ const theme: VuetifyOptions['theme'] = {
         'skin-bordered-background': '#2f3349',
         'skin-bordered-surface': '#2f3349',
         'rubi-red': '#E8004C',
-        'text-color-heading': '#8692D0',
-        'text-color-body': '#8692D0',
-        'text-color-muted': '#8692D0',
-        'muted': '#8692D0',
-        'text-color-placeholder': '#8692D0',
+        'text-color-heading': '#F5F5F5',
+        'text-color-body': '#F5F5F5',
+        'text-color-muted': '#F5F5F5',
+        'muted': '#F5F5F5',
+        'text-color-placeholder': '#F5F5F5',
         'white': '#f8f7fa',
         'background-body': '#3A3A3E',
         'background-card': '#313132',
         'solid-color-extra' : '#4B4B4B',
+        'solid-color-extra-table-striped': '#F5F5F505',
       },
       variables: {
         'code-color': '#d400ff',
@@ -140,6 +142,7 @@ const theme: VuetifyOptions['theme'] = {
         'switch-disabled-track-opacity': 0.4,
         'switch-disabled-thumb-opacity': 0.8,
         'switch-checked-disabled-opacity': 0.3,
+
 
         // Shadows
         'shadow-key-umbra-color': '#0F1422',
