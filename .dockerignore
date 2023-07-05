@@ -1,0 +1,24 @@
+
+.dockerignore
+.editorconfig
+
+Dockerfile
+docker-compose.yaml
+
+node_modules
+
+# apache
+# 000-default.conf
+
+# Git files
+.git*
+.gitignore
+.gitattributes
+
+# all env files
+.env
+.env*
+
+# all markdown files
+*.md
+

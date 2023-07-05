@@ -1,0 +1,28 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ui-customer
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: ui-customer
+  template:
+    metadata:
+      labels:
+        app: ui-customer
+    spec:
+      containers:
+        - name: ui-customer
+          image: CONTAINER_IMAGE
+          imagePullPolicy: Always
+          envFrom:
+          - configMapRef:
+              name: rubi-stg
+#          env:
+#            - name: POSTGRES_DB
+#              value: rubi
+          ports:
+            - containerPort: 80
