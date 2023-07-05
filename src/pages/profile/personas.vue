@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import { usePersonifyModalStore } from "@/store/modal/personify";
 import DialogNewAudience from "@/views/pages/profile/audiences/DialogNewAudience.vue";
 import { useI18n } from "vue-i18n";
 import { VDataTable } from "vuetify/labs/VDataTable";
+const modalPersonifyStore = usePersonifyModalStore();
 
 const i18n = useI18n();
 
@@ -36,7 +38,11 @@ const selected = ref([]);
       <VCardText>
         <VRow>
           <VCol cols="12" lg="2" md="2" sm="12">
-            <VBtn prepend-icon="tabler-plus" style="width: 100%">
+            <VBtn
+              prepend-icon="tabler-plus"
+              style="width: 100%"
+              @click="modalPersonifyStore.showModal = true"
+            >
               Create New Persona
             </VBtn>
           </VCol>

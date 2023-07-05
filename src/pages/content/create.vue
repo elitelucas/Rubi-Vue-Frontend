@@ -235,9 +235,7 @@ function testClick() {
               <p class="text-h3">Advanced Settings</p>
             </VExpansionPanelTitle>
             <VExpansionPanelText class="content-p">
-              <div class="v-label mb-1 text-body-2 text-high-emphasis">
-                Randomness
-              </div>
+              <VLabel> Randomness </VLabel>
               <VSlider
                 v-model="slider2"
                 :step="0.1"
@@ -247,9 +245,7 @@ function testClick() {
                 :tick-size="3"
                 :track-size="2"
               />
-              <div class="v-label mb-1 text-body-2 text-high-emphasis">
-                Sentiment
-              </div>
+              <VLabel class="mb-4"> Sentiment </VLabel>
               <CustomRadios
                 v-model:selected-radio="selectedRadioSentiment"
                 :radio-content="radioContentSentiment"
@@ -347,7 +343,9 @@ function testClick() {
         <VRow class="content-m" justify="space-between" align-content="center">
           <VCol cols="12" lg="6" md="6" sm="12">
             <h3 class="text-h3">SPI Scoring</h3>
-            <p class="text-p">Surveillance and Plagiarism Identifier</p>
+            <p class="text-body-2-medium">
+              Surveillance and Plagiarism Identifier
+            </p>
           </VCol>
           <VCol cols="12" lg="6" md="6" sm="12" align-self="end">
             <p class="text-caption text-end">SPI Credits: 1,947</p>
@@ -355,59 +353,83 @@ function testClick() {
         </VRow>
         <VDivider class="mt-2 mb-2"></VDivider>
         <VRow justify="center" class="mt-5">
-          <VCol cols="12" lg="4" md="4" sm="12" class="text-center">
-            <span class="text-body-1">AI DETECTION SCORE</span><br />
-            <VProgressCircular
-              model-value="50"
-              color="primary"
-              size="173"
-              width="10"
-              class="mt-5"
+          <VCol cols="12" sm="4">
+            <VCardText
+              class="d-flex flex-column justify-center align-center text-center ps-2 h-100"
             >
-              <VCol class="spi-center-score">
-                <span class="percentage">75%</span><br />
-                <span class="caption">Human Score</span><br />
-                <span class="percentage">25%</span><br />
-                <span class="caption">Human Score</span>
-              </VCol>
-            </VProgressCircular>
-            <VRow justify="center" class="mt-2">
-              <VCol style="max-width: 250px !important">
-                <CustomCheckboxes
-                  v-model:selected-checkbox="selectedCheckbox"
-                  :checkbox-content="[
-                    { title: 'SPI AI Detection', value: 'SPI AI Detection' },
-                  ]"
-                  style="border: none"
-                />
-              </VCol>
-            </VRow>
+              <VCheckbox label="SPI AI Detection" class="mt-5" />
+
+              <VProgressCircular
+                model-value="75"
+                color="error"
+                size="173"
+                width="10"
+                class="mt-5"
+              >
+                <span class="text-body-1">AI Detection Score</span>
+              </VProgressCircular>
+              <span class="text-body-2-medium mt-5"
+                ><span class="text-error">75%</span> AI</span
+              >
+            </VCardText>
           </VCol>
-          <VCol cols="12" lg="4" md="4" sm="12" class="text-center">
-            <span class="text-body-1">PLAGIARISM SCORE</span><br />
-            <VProgressCircular
-              model-value="100"
-              color="success"
-              size="173"
-              width="10"
-              class="mt-5"
+          <VCol cols="12" sm="4">
+            <VCardText
+              class="d-flex flex-column justify-center align-center text-center ps-2 h-100"
             >
-              <VCol class="spi-center-score">
-                <span class="percentage">0%</span><br />
-                <span class="caption">Plagiarism</span>
-              </VCol>
-            </VProgressCircular>
-            <VRow justify="center" class="mt-2">
-              <VCol style="max-width: 250px !important">
-                <CustomCheckboxes
-                  v-model:selected-checkbox="selectedCheckbox"
-                  :checkbox-content="[
-                    { title: 'Detect Plagiarism', value: 'Detect Plagiarism' },
-                  ]"
-                  style="border: none"
-                />
-              </VCol>
-            </VRow>
+              <VCheckbox label="Detect Plagiarism" class="mt-5" />
+
+              <VProgressCircular
+                model-value="100"
+                color="success"
+                size="173"
+                width="10"
+                class="mt-5"
+              >
+                <div class="d-flex flex-column justify-center align-center">
+                  <span class="text-body-1 mt-5">Plagiarism Score</span>
+                  <VIcon
+                    icon="tabler-check"
+                    color="success"
+                    size="54"
+                    class="svg-strock-1"
+                  />
+                </div>
+              </VProgressCircular>
+              <span class="text-body-2-medium mt-5"
+                ><span class="text-success">0%</span> Plagiarized</span
+              >
+            </VCardText>
+          </VCol>
+          <VCol cols="12" sm="4">
+            <VCardText
+              class="d-flex flex-column justify-center align-center text-center ps-2 h-100"
+            >
+              <VCheckbox label="Detect Plagiarism" class="mt-5" />
+
+              <VProgressCircular
+                model-value="82"
+                color="primary"
+                size="173"
+                width="10"
+                class="mt-5"
+              >
+                <div class="d-flex flex-column justify-center align-center">
+                  <span class="text-body-1 mt-5"
+                    >Flesch-Kincaid Reading Ease</span
+                  >
+                  <VIcon
+                    icon="tabler-check"
+                    color="success"
+                    size="54"
+                    class="svg-strock-1"
+                  />
+                </div>
+              </VProgressCircular>
+              <span class="text-body-2-medium mt-5"
+                ><span class="text-primary">82%</span>
+              </span>
+            </VCardText>
           </VCol>
         </VRow>
         <VRow justify="center" class="mt-10">

@@ -20,7 +20,14 @@ const modalStore = usePersonifyModalStore();
 
   <VCol>
     <VRow justify="end">
-      <VBtn @click="modalStore.showModal = false"> Finished </VBtn>
+      <VBtn
+        @click="
+          modalStore.showModal = false;
+          modalStore.setStep('voice');
+        "
+      >
+        Finished
+      </VBtn>
     </VRow>
   </VCol>
 </template>
