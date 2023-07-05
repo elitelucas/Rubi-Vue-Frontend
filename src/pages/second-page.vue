@@ -10,3 +10,7 @@
     </VCard>
   </div>
 </template>
+
+<route lang="yaml">
+name: second-page
+</route>

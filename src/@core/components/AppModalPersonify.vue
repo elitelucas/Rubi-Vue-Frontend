@@ -47,15 +47,14 @@ const menuItens = [
     icon: iconPeronify,
   },
 ];
+
+const currentStep = computed(() =>
+  menuItens.map((item) => item.title.toLowerCase()).indexOf(modalStore.step)
+);
 </script>
 
 <template>
   <VDialog v-model="modalStore.showModal" max-width="870">
-    <!-- Dialog Activator -->
-    <template #activator="{ props }">
-      <VBtn v-bind="props"> Open Modal Personify</VBtn>
-    </template>
-
     <!-- Dialog close btn -->
     <DialogCloseBtn @click="modalStore.showModal = !modalStore.showModal" />
 
@@ -70,11 +69,26 @@ const menuItens = [
             <VerticalMenu :items="menuItens" :step="modalStore.step" />
           </VCol>
           <VCol class="content-modal" cols="12" lg="8" md="3" sm="12">
-            <VoiceStep v-if="modalStore.step == 'voice'" />
-            <ToneStep v-if="modalStore.step == 'tone'" />
-            <AudienceStep v-if="modalStore.step == 'audience'" />
-            <PersonalizeStep v-if="modalStore.step == 'personalize'" />
-            <PersonifyStep v-if="modalStore.step == 'personify'" />
+            <VWindow
+              v-model="currentStep"
+              class="disable-tab-transition stepper-content"
+            >
+              <VWindowItem>
+                <VoiceStep />
+              </VWindowItem>
+              <VWindowItem>
+                <ToneStep />
+              </VWindowItem>
+              <VWindowItem>
+                <AudienceStep />
+              </VWindowItem>
+              <VWindowItem>
+                <PersonalizeStep />
+              </VWindowItem>
+              <VWindowItem>
+                <PersonifyStep />
+              </VWindowItem>
+            </VWindow>
           </VCol>
         </VRow>
       </VCardText>
