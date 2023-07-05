@@ -27,6 +27,7 @@ injectSkinClasses();
 </script>
 
 <template>
+  <AppModalPersonify></AppModalPersonify>
   <template v-if="appContentLayoutNav === AppContentLayoutNav.Vertical">
     <DefaultLayoutWithVerticalNav v-bind="layoutAttrs" />
   </template>

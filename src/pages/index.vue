@@ -1,15 +1,16 @@
 <script setup lang="ts">
+import { usePersonifyModalStore } from "@/store/modal/personify";
 import avatar10 from "@images/avatars/avatar-10.png";
 import discord from "@images/iconify-png/Discord.png";
 import laptop from "@images/iconify-png/Laptop.png";
 import lightbulb from "@images/iconify-png/Lightbulb.png";
 import puzzle2 from "@images/iconify-png/puzzle-2.png";
 import puzzle from "@images/iconify-png/puzzle.png";
+const modalPersonifyStore = usePersonifyModalStore();
 </script>
 
 <template>
   <main>
-    <AppModalPersonify></AppModalPersonify>
     <section class="banner">
       <div class="mask">
         <h2>
@@ -24,7 +25,9 @@ import puzzle from "@images/iconify-png/puzzle.png";
             your voice <b>every time</b>. Create unique personas to<br />
             identify with your target audiences in <b>less than 5 minutes!</b>
           </p>
-          <VBtn color="white"> Set Up Your Persona </VBtn>
+          <VBtn color="white" @click="modalPersonifyStore.showModal = true">
+            Set Up Your Persona
+          </VBtn>
         </div>
       </div>
     </section>
