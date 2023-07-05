@@ -5,6 +5,7 @@ import gridIconPng from "@images/iconify-png/layout-grid-add.png";
 import { QuillEditor } from "@vueup/vue-quill";
 
 const selectPersona = ref("Persona");
+const selectVoice = ref("Voice");
 const selectAudience = ref("Audience");
 const selectTone = ref("Tone");
 const selectLanguage = ref("Language");
@@ -100,16 +101,27 @@ function testClick() {
     <VCol cols="12" lg="6" md="12" sm="12" class="first-colum pt-5">
       <h3 class="text-h3 content-p">Global Composition Settings</h3>
       <VRow class="content-m global-composition-row">
-        <VCol cols="12" lg="3" sm="12" md="12">
-          <AppSelect v-model="selectPersona" :items="['Persona']" />
+        <VCol cols="12" lg="2" sm="12" md="12">
+          <AppSelect v-model="selectPersona" :items="['Persona']">
+            <template v-slot:prepend-item>
+              <v-list-item title="Edit" />
+            </template>
+          </AppSelect>
         </VCol>
-        <VCol cols="12" lg="3" sm="12" md="12">
+        <VCol cols="12" lg="2" sm="12" md="12">
+          <AppSelect v-model="selectVoice" :items="[selectVoice]">
+            <template v-slot:prepend-item>
+              <v-list-item title="Edit" />
+            </template>
+          </AppSelect>
+        </VCol>
+        <VCol cols="12" lg="2" sm="12" md="12">
           <AppSelect v-model="selectAudience" :items="[selectAudience]" />
         </VCol>
-        <VCol cols="12" lg="3" sm="12" md="12">
+        <VCol cols="12" lg="2" sm="12" md="12">
           <AppSelect v-model="selectTone" :items="[selectTone]" />
         </VCol>
-        <VCol cols="12" lg="3" sm="12" md="12">
+        <VCol cols="12" lg="2" sm="12" md="12">
           <AppSelect v-model="selectLanguage" :items="[selectLanguage]" />
         </VCol>
       </VRow>
@@ -377,7 +389,7 @@ function testClick() {
             <VCardText
               class="d-flex flex-column justify-center align-center text-center ps-2 h-100"
             >
-              <VCheckbox label="Detect Plagiarism" class="mt-5" />
+              <VCheckbox label="Check Readability" class="mt-5" />
 
               <VProgressCircular
                 model-value="100"
@@ -416,7 +428,7 @@ function testClick() {
               >
                 <div class="d-flex flex-column justify-center align-center">
                   <span class="text-body-1 mt-5"
-                    >Flesch-Kincaid Reading Ease</span
+                    >Flesch-Kincaid <br />Reading Ease</span
                   >
                   <VIcon
                     icon="tabler-check"
