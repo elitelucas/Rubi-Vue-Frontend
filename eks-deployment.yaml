@@ -21,8 +21,5 @@ spec:
           envFrom:
           - configMapRef:
               name: CONFIG_MAP
-#          env:
-#            - name: POSTGRES_DB
-#              value: rubi
           ports:
             - containerPort: 80
