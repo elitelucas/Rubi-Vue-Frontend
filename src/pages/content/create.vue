@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import ContentVoicePanel from "@/views/pages/content/panels/ContentVoicePanel.vue";
+import ContentTonePanel from "@/views/pages/content/panels/ContentTonePanel.vue";
+import ContentAudiencePanel from "@/views/pages/content/panels/ContentAudiencePanel.vue";
 import type { CustomInputContent } from "@/@core/types";
 import houseCheck from "@images/iconify-png/house-check.png";
 import gridIconPng from "@images/iconify-png/layout-grid-add.png";
@@ -88,6 +91,9 @@ const selectedCheckbox = ref(["Single Garage"]);
 
 const open = ref(["features"]);
 const input = ref("");
+const showContentVoicePanel = ref(false);
+const showContentTonePanel = ref(false);
+const showContentAudiencePanel = ref(false);
 
 const slider2 = ref(0);
 
@@ -98,28 +104,40 @@ function testClick() {
 
 <template>
   <VRow no-gutters class="body-background">
+    <ContentVoicePanel v-model="showContentVoicePanel" />
+    <ContentTonePanel v-model="showContentTonePanel" />
+    <ContentAudiencePanel v-model="showContentAudiencePanel" />
     <VCol cols="12" lg="6" md="12" sm="12" class="first-colum pt-5">
       <h3 class="text-h3 content-p">Global Composition Settings</h3>
       <VRow class="content-m global-composition-row">
         <VCol cols="12" lg="2" sm="12" md="12">
-          <AppSelect v-model="selectPersona" :items="['Persona']">
-            <template v-slot:prepend-item>
-              <v-list-item title="Edit" />
-            </template>
-          </AppSelect>
+          <AppSelect v-model="selectPersona" :items="['Persona']"> </AppSelect>
         </VCol>
         <VCol cols="12" lg="2" sm="12" md="12">
           <AppSelect v-model="selectVoice" :items="[selectVoice]">
             <template v-slot:prepend-item>
-              <v-list-item title="Edit" />
+              <v-list-item title="Edit" @click="showContentVoicePanel = true" />
             </template>
           </AppSelect>
         </VCol>
         <VCol cols="12" lg="2" sm="12" md="12">
-          <AppSelect v-model="selectAudience" :items="[selectAudience]" />
+          <AppSelect v-model="selectAudience" :items="[selectAudience]">
+            <template v-slot:prepend-item>
+              <v-list-item
+                title="Edit"
+                @click="showContentAudiencePanel = true"
+              />
+            </template>
+          </AppSelect>
         </VCol>
         <VCol cols="12" lg="2" sm="12" md="12">
-          <AppSelect v-model="selectTone" :items="[selectTone]" />
+          <AppSelect v-model="selectTone" :items="[selectTone]">
+            <template v-slot:prepend-item>
+              <v-list-item
+                title="Edit"
+                @click="showContentTonePanel = true"
+              /> </template
+          ></AppSelect>
         </VCol>
         <VCol cols="12" lg="2" sm="12" md="12">
           <AppSelect v-model="selectLanguage" :items="[selectLanguage]" />
@@ -349,7 +367,7 @@ function testClick() {
         >
       </VRow>
       <div class="editor mt-2">
-        <QuillEditor />
+        <QuillEditor toolbar="full" />
       </div>
       <div class="bg-background-card mt-5 pb-15">
         <VRow class="content-m" justify="space-between" align-content="center">
@@ -538,6 +556,7 @@ function testClick() {
 </style>
 
 <route lang="yaml">
+name: content-create
 meta:
   layout: default
 </route>
