@@ -61,8 +61,17 @@ const currentStep = computed(() =>
     <!-- Dialog Content -->
     <VCard height="80vh">
       <VCardText>
-        <VRow class="mt-5" justify="center">
-          <img :src="logoVariant" />
+        <VRow class="mt-2" justify="center">
+          <VCol cols="12">
+            <VRow justify="center">
+              <img :src="logoVariant" />
+            </VRow>
+            <VRow justify="center">
+              <p class="text-body-2 text-text-color-body">
+                Rubi's unique approach to creating personas.
+              </p>
+            </VRow>
+          </VCol>
         </VRow>
         <VRow>
           <VCol cols="12" lg="4" md="3" sm="12">
