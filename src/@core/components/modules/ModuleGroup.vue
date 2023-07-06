@@ -82,16 +82,14 @@ const value = computed({
                   class="icon-action svg-strock-1"
                   style="stroke-width: 1px"
                 />
-                <v-avatar
+
+                <VBtn
+                  :to="option.to"
                   size="32"
                   icon="tabler-plus"
-                  :style="`background-color: rgb(${hexToRgb(
-                    item.color
-                  )}, 0.3);color: (${
-                    item.color
-                  };border-radius: 0px; border-radius: 23px;cursor: pointer;color:${
-                    item.color
-                  };`"
+                  :color="`rgb(${hexToRgb(item.color)}, 0.3)`"
+                  elevation="0"
+                  :style="`color: (${item.color};border-radius: 0px; border-radius: 23px;cursor: pointer;color:${item.color};`"
                 />
               </div>
               <span class="text-h5 px-2">{{ option.title }}</span>

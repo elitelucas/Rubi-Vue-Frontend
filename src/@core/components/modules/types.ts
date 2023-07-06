@@ -16,5 +16,6 @@ export interface RootModuleGroup {
   export interface OptionModuleGroup {
     title: string
     icon: string
+    to: Object
     description: string
   }

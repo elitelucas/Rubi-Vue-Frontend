@@ -7,6 +7,12 @@ const analizyOption = ref(analizyOptions);
 const termsAccepted = ref("");
 const showTerms = ref(true);
 
+const props = defineProps({
+  fromPanel: Boolean,
+});
+
+defineEmits(["onSave", "onClear"]);
+
 function nextStepTerms() {
   if (termsAccepted.value == "yes") {
     modalStore.next();
@@ -19,6 +25,12 @@ function nextStepTerms() {
 function backStepTerms() {
   showTerms.value = true;
 }
+
+onMounted(() => {
+  if (props.fromPanel) {
+    showTerms.value = false;
+  }
+});
 </script>
 
 <template>
@@ -137,7 +149,15 @@ function backStepTerms() {
       URL, handle, or text and analyze it again!
     </p>
 
-    <VCol>
+    <VCol v-if="fromPanel">
+      <VRow justify="space-between">
+        <VBtn variant="tonal" color="secondary" @click="$emit('onClear')">
+          Clear
+        </VBtn>
+        <VBtn @click="$emit('onSave')"> Save </VBtn>
+      </VRow>
+    </VCol>
+    <VCol v-else>
       <VRow justify="space-between">
         <VBtn
           variant="tonal"

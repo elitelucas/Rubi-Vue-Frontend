@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { CustomInputContent } from "@/@core/types";
 import { usePersonifyModalStore } from "@/store/modal/personify";
+
+const props = defineProps({
+  fromPanel: Boolean,
+});
+
+const emit = defineEmits(["onSave", "onClear"]);
+
 const modalStore = usePersonifyModalStore();
 const representText = ref("");
 const analizyOptions = ["Informal", "Friendly", "Enthusiastic", "Persuasive"];
@@ -425,10 +432,18 @@ function backStep() {
       step.value = "demographics";
       break;
     case "demographics":
-      step.value = "init";
+      if (!props.fromPanel) {
+        step.value = "init";
+      }
       break;
   }
 }
+
+onMounted(() => {
+  if (props.fromPanel) {
+    step.value = "demographics";
+  }
+});
 </script>
 
 <template>
@@ -625,11 +640,19 @@ function backStep() {
         color="secondary"
         prepend-icon="tabler-arrow-left"
         @click="backStep"
-        :disabled="modalStore.firstStep"
       >
         Previous
       </VBtn>
-      <VBtn append-icon="tabler-arrow-right" @click="nextStep()"> Next </VBtn>
+      <VBtn
+        v-if="step == 'psychographics' && fromPanel"
+        append-icon="tabler-arrow-right"
+        @click="$emit('onSave')"
+      >
+        Save
+      </VBtn>
+      <VBtn v-else append-icon="tabler-arrow-right" @click="nextStep">
+        Next
+      </VBtn>
     </VRow>
   </VCol>
 </template>

@@ -18,8 +18,9 @@ const modules = [
               "Engaging design, clear message, and compelling call to action. Grab attention and drive action!",
           },
           {
-            title: "Announcement Email",
-            icon: "tabler-mail",
+            title: "Advanced Real Estate Listing",
+            icon: "tabler-map",
+            to: { name: "content-create" },
             description:
               "Engaging design, clear message, and compelling call to action. Grab attention and drive action!",
           },

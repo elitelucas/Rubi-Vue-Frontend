@@ -1,5 +1,12 @@
 <script setup lang="ts">
 import { usePersonifyModalStore } from "@/store/modal/personify";
+
+defineProps({
+  fromPanel: Boolean,
+});
+
+defineEmits(["onSave", "onClear"]);
+
 const modalStore = usePersonifyModalStore();
 const representText = ref("");
 const analizyOption = ref([]);
@@ -70,7 +77,16 @@ const analizyOptions = ["Informal", "Friendly", "Enthusiastic", "Persuasive"];
     URL, handle, or text and analyze it again!
   </p>
 
-  <VCol>
+  <VCol v-if="fromPanel">
+    <VRow justify="space-between">
+      <VBtn variant="tonal" color="secondary" @click="$emit('onClear')">
+        Clear
+      </VBtn>
+      <VBtn @click="$emit('onSave')"> Save </VBtn>
+    </VRow>
+  </VCol>
+
+  <VCol v-else>
     <VRow justify="space-between">
       <VBtn
         variant="tonal"
