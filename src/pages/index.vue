@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { usePersonifyModalStore } from "@/store/modal/personify";
-import avatar10 from "@images/avatars/avatar-10.png";
-import discord from "@images/iconify-png/Discord.png";
-import laptop from "@images/iconify-png/Laptop.png";
-import lightbulb from "@images/iconify-png/Lightbulb.png";
-import puzzle2 from "@images/iconify-png/puzzle-2.png";
-import puzzle from "@images/iconify-png/puzzle.png";
-const modalPersonifyStore = usePersonifyModalStore();
+import { usePersonifyModalStore } from '@/store/modal/personify'
+import avatar10 from '@images/avatars/avatar-10.png'
+import discord from '@images/iconify-png/Discord.png'
+import laptop from '@images/iconify-png/Laptop.png'
+import lightbulb from '@images/iconify-png/Lightbulb.png'
+import puzzle2 from '@images/iconify-png/puzzle-2.png'
+import puzzle from '@images/iconify-png/puzzle.png'
+
+const modalPersonifyStore = usePersonifyModalStore()
 </script>
 
 <template>
@@ -14,62 +15,95 @@ const modalPersonifyStore = usePersonifyModalStore();
     <section class="banner">
       <div class="mask">
         <h2>
-          your brand.<br />
-          your voice.<br />
-          your <span>persona.</span><br />
+          your brand.<br>
+          your voice.<br>
+          your <span>persona.</span><br>
         </h2>
         <div>
           <p>
-            Generate content that <b>converts</b>. Content creation<br />
-            with Rubi.AI is 10X faster, and it’s your brand and<br />
-            your voice <b>every time</b>. Create unique personas to<br />
+            Generate content that <b>converts</b>. Content creation<br>
+            with Rubi.AI is 10X faster, and it’s your brand and<br>
+            your voice <b>every time</b>. Create unique personas to<br>
             identify with your target audiences in <b>less than 5 minutes!</b>
           </p>
-          <VBtn color="white" @click="modalPersonifyStore.showModal = true">
+          <VBtn
+            color="white"
+            @click="modalPersonifyStore.showModal = true"
+          >
             Set Up Your Persona
           </VBtn>
         </div>
       </div>
     </section>
     <section class="content">
-      <VBtn id="btn-new-content" size="large" :to="{ name: 'modules' }">
+      <VBtn
+        id="btn-new-content"
+        size="large"
+        :to="{ name: 'modules' }"
+      >
         Create New Content
       </VBtn>
       <div class="row">
         <div class="card-action">
-          <img :src="puzzle2" />
-          <h5 class="text-h5">New Campaign</h5>
+          <img :src="puzzle2">
+          <h5 class="text-h5">
+            New Campaign
+          </h5>
           <p>
-            Whether you're new or you're a power user, this article<br />
+            Whether you're new or you're a power user, this article<br>
             will…
           </p>
-          <VBtn color="primary" elevation="0" size="small"> Create </VBtn>
+          <VBtn
+            color="primary"
+            elevation="0"
+            size="small"
+          >
+            Create
+          </VBtn>
         </div>
 
         <div class="card-action">
-          <img :src="puzzle" />
-          <h5 class="text-h5">Historical Content</h5>
+          <img :src="puzzle">
+          <h5 class="text-h5">
+            Historical Content
+          </h5>
           <p>
-            Are you a new customer wondering how to get<br />
+            Are you a new customer wondering how to get<br>
             started?
           </p>
-          <VBtn color="primary" elevation="0" size="small"> Read More </VBtn>
+          <VBtn
+            color="primary"
+            elevation="0"
+            size="small"
+          >
+            Read More
+          </VBtn>
         </div>
 
         <div class="card-action">
-          <img :src="avatar10" />
-          <h5 class="text-h5">Create Persona</h5>
+          <img :src="avatar10">
+          <h5 class="text-h5">
+            Create Persona
+          </h5>
           <p>
-            This article will show you how to expand the <br />functionality
+            This article will show you how to expand the <br>functionality
             of...
           </p>
-          <VBtn color="primary" elevation="0" size="small"> Read More </VBtn>
+          <VBtn
+            color="primary"
+            elevation="0"
+            size="small"
+          >
+            Read More
+          </VBtn>
         </div>
       </div>
     </section>
     <section class="section-help">
-      <img src="/images/gif/logo_loading.gif" />
-      <h3 class="text-h3">Hi, James! How can I help?</h3>
+      <img src="/images/gif/logo_loading.gif">
+      <h3 class="text-h3">
+        Hi, James! How can I help?
+      </h3>
       <div class="ask-input">
         <AppTextField
           placeholder="ask a question.."
@@ -84,36 +118,65 @@ const modalPersonifyStore = usePersonifyModalStore();
       </p>
     </section>
     <section class="content">
-      <h3 class="text-h3" style="margin-top: 105px">What’s New</h3>
+      <h3
+        class="text-h3"
+        style="margin-top: 105px"
+      >
+        What’s New
+      </h3>
       <div class="row">
         <div class="card-action">
-          <img :src="laptop" />
-          <h5 class="text-h5">NEW Dentist Collection</h5>
+          <img :src="laptop">
+          <h5 class="text-h5">
+            NEW Dentist Collection
+          </h5>
           <p>
-            Expert tips & tools to improve your website or online<br />
+            Expert tips & tools to improve your website or online<br>
             store using blog.
           </p>
-          <VBtn color="primary" elevation="0" size="small"> Read More </VBtn>
+          <VBtn
+            color="primary"
+            elevation="0"
+            size="small"
+          >
+            Read More
+          </VBtn>
         </div>
 
         <div class="card-action">
-          <img :src="lightbulb" />
-          <h5 class="text-h5">Inspiration Center</h5>
+          <img :src="lightbulb">
+          <h5 class="text-h5">
+            Inspiration Center
+          </h5>
           <p>
-            inspiration from experts to help you start and grow<br />
+            inspiration from experts to help you start and grow<br>
             your big ideas.
           </p>
-          <VBtn color="primary" elevation="0" size="small"> Read More </VBtn>
+          <VBtn
+            color="primary"
+            elevation="0"
+            size="small"
+          >
+            Read More
+          </VBtn>
         </div>
 
         <div class="card-action">
-          <img :src="discord" />
-          <h5 class="text-h5">Launch Event July 7th</h5>
+          <img :src="discord">
+          <h5 class="text-h5">
+            Launch Event July 7th
+          </h5>
           <p>
-            A group of people living in the same place or having<br />
+            A group of people living in the same place or having<br>
             a particular.
           </p>
-          <VBtn color="primary" elevation="0" size="small"> Read More </VBtn>
+          <VBtn
+            color="primary"
+            elevation="0"
+            size="small"
+          >
+            Read More
+          </VBtn>
         </div>
       </div>
     </section>

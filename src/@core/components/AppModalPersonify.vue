@@ -1,70 +1,74 @@
 <script setup lang="ts">
-import { useGenerateImageVariant } from "../composable/useGenerateImageVariant";
-import VerticalMenu from "./modal-personify/VerticalMenu.vue";
-import logoPersonifyLight from "@images/components/modal-personify/personify-light.png";
-import logoPersonifyDark from "@images/components/modal-personify/personify-dark.png";
-import iconPeronify from "@images/components/modal-personify/personify-icon.png";
-import { usePersonifyModalStore } from "@/store/modal/personify";
-import VoiceStep from "./modal-personify/steps/Voice.vue";
-import ToneStep from "./modal-personify/steps/Tone.vue";
-import AudienceStep from "./modal-personify/steps/Audience.vue";
-import PersonalizeStep from "./modal-personify/steps/Personalize.vue";
-import PersonifyStep from "./modal-personify/steps/Personify.vue";
+import { useGenerateImageVariant } from '../composable/useGenerateImageVariant'
+import VerticalMenu from './modal-personify/VerticalMenu.vue'
+import VoiceStep from './modal-personify/steps/Voice.vue'
+import ToneStep from './modal-personify/steps/Tone.vue'
+import AudienceStep from './modal-personify/steps/Audience.vue'
+import PersonalizeStep from './modal-personify/steps/Personalize.vue'
+import PersonifyStep from './modal-personify/steps/Personify.vue'
+import { usePersonifyModalStore } from '@/store/modal/personify'
+import logoPersonifyDark from '@images/components/modal-personify/personify-dark.png'
+import iconPeronify from '@images/components/modal-personify/personify-icon.png'
+import logoPersonifyLight from '@images/components/modal-personify/personify-light.png'
 
-const modalStore = usePersonifyModalStore();
-
-const isDialogVisible = ref(false);
+const modalStore = usePersonifyModalStore()
 
 const logoVariant = useGenerateImageVariant(
   logoPersonifyLight,
-  logoPersonifyDark
-);
+  logoPersonifyDark,
+)
 
 const menuItens = [
   {
-    title: "VOICE",
-    subtitle: "Discover Your Style",
-    icon: "tabler-message-2",
+    title: 'VOICE',
+    subtitle: 'Discover Your Style',
+    icon: 'tabler-message-2',
   },
   {
-    title: "TONE",
-    subtitle: "Discover Your Emotions",
-    icon: "tabler-access-point",
+    title: 'TONE',
+    subtitle: 'Discover Your Emotions',
+    icon: 'tabler-access-point',
   },
   {
-    title: "AUDIENCE",
-    subtitle: "Demographics",
-    icon: "tabler-speakerphone",
+    title: 'AUDIENCE',
+    subtitle: 'Demographics',
+    icon: 'tabler-speakerphone',
   },
   {
-    title: "PERSONALIZE",
-    subtitle: "Craft. Refine. Express.",
-    icon: "tabler-checkup-list",
+    title: 'PERSONALIZE',
+    subtitle: 'Craft. Refine. Express.',
+    icon: 'tabler-checkup-list',
   },
   {
-    title: "PERSONIFY",
-    subtitle: "Complete Your Look",
+    title: 'PERSONIFY',
+    subtitle: 'Complete Your Look',
     icon: iconPeronify,
   },
-];
+]
 
 const currentStep = computed(() =>
-  menuItens.map((item) => item.title.toLowerCase()).indexOf(modalStore.step)
-);
+  menuItens.map(item => item.title.toLowerCase()).indexOf(modalStore.step),
+)
 </script>
 
 <template>
-  <VDialog v-model="modalStore.showModal" max-width="870">
+  <VDialog
+    v-model="modalStore.showModal"
+    max-width="870"
+  >
     <!-- Dialog close btn -->
     <DialogCloseBtn @click="modalStore.showModal = !modalStore.showModal" />
 
     <!-- Dialog Content -->
     <VCard height="80vh">
       <VCardText>
-        <VRow class="mt-2" justify="center">
+        <VRow
+          class="mt-2"
+          justify="center"
+        >
           <VCol cols="12">
             <VRow justify="center">
-              <img :src="logoVariant" />
+              <img :src="logoVariant">
             </VRow>
             <VRow justify="center">
               <p class="text-body-2 text-text-color-body">
@@ -74,10 +78,24 @@ const currentStep = computed(() =>
           </VCol>
         </VRow>
         <VRow>
-          <VCol cols="12" lg="4" md="3" sm="12">
-            <VerticalMenu :items="menuItens" :step="modalStore.step" />
+          <VCol
+            cols="12"
+            lg="4"
+            md="3"
+            sm="12"
+          >
+            <VerticalMenu
+              :items="menuItens"
+              :step="modalStore.step"
+            />
           </VCol>
-          <VCol class="content-modal" cols="12" lg="8" md="3" sm="12">
+          <VCol
+            class="content-modal"
+            cols="12"
+            lg="8"
+            md="3"
+            sm="12"
+          >
             <VWindow
               v-model="currentStep"
               class="disable-tab-transition stepper-content"

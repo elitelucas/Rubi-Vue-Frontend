@@ -23,7 +23,7 @@ const rememberMe = ref(false)
 const inputValidations = [(v: string) => v.length || 'This field is required']
 
 async function handleSubmit() {
-  const { valid } = await refVForm.value?.validate() as any
+  const { valid } = await refVForm.value?.validate() as never
 
   if (valid)
     router.push('/')

@@ -1,24 +1,24 @@
 <script lang="ts" setup>
-import type { CustomInputContent, GridColumn } from "@core/types";
+import type { CustomInputContent, GridColumn } from '@core/types'
 
 interface Props {
-  selectedRadio: string;
-  radioContent: CustomInputContent[];
-  gridColumn?: GridColumn;
+  selectedRadio: string
+  radioContent: CustomInputContent[]
+  gridColumn?: GridColumn
 }
 
 interface Emit {
-  (e: "update:selectedRadio", value: string): void;
+  (e: 'update:selectedRadio', value: string): void
 }
 
-const props = defineProps<Props>();
-const emit = defineEmits<Emit>();
+const props = defineProps<Props>()
+const emit = defineEmits<Emit>()
 
-const selectedOption = ref(structuredClone(toRaw(props.selectedRadio)));
+const selectedOption = ref(structuredClone(toRaw(props.selectedRadio)))
 
 watch(selectedOption, () => {
-  emit("update:selectedRadio", selectedOption.value);
-});
+  emit('update:selectedRadio', selectedOption.value)
+})
 </script>
 
 <template>
@@ -49,11 +49,17 @@ watch(selectedOption, () => {
                   {{ item.title }}
                 </h6>
                 <VSpacer />
-                <span v-if="item.subtitle" class="text-disabled text-base">{{
+                <span
+                  v-if="item.subtitle"
+                  class="text-disabled text-base"
+                >{{
                   item.subtitle
                 }}</span>
               </div>
-              <p v-if="item.desc" class="text-sm mb-0">
+              <p
+                v-if="item.desc"
+                class="text-sm mb-0"
+              >
                 {{ item.desc }}
               </p>
             </div>

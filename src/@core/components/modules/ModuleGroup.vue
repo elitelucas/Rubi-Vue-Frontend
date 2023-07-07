@@ -1,31 +1,23 @@
 <script setup lang="ts">
-import VueHorizontal from "vue-horizontal";
-import { hexToRgb } from "@/@layouts/utils";
-import type { RootModuleGroup } from "./types";
+import VueHorizontal from 'vue-horizontal'
+import type { RootModuleGroup } from './types'
+import { hexToRgb } from '@/@layouts/utils'
 
 interface Props {
-  module: RootModuleGroup;
-  modelValue: Boolean;
+  module: RootModuleGroup
 }
 
-const props = defineProps<Props>();
-
-const emit = defineEmits(["update:modelValue"]);
-
-const value = computed({
-  get() {
-    return props.modelValue;
-  },
-  set(value) {
-    emit("update:modelValue", value);
-  },
-});
+defineProps<Props>()
 </script>
 
 <template>
-  <v-expansion-panels>
-    <v-expansion-panel elevation="0" expand-icon="" :value="true">
-      <v-expansion-panel-title
+  <VExpansionPanels>
+    <VExpansionPanel
+      elevation="0"
+      expand-icon=""
+      value
+    >
+      <VExpansionPanelTitle
         expand-icon=""
         class="module-expansion-panel-title"
         :style="`background-color: ${
@@ -34,18 +26,18 @@ const value = computed({
             : 'rgb(var(--v-theme-solid-color-extra))'
         }`"
       >
-        <v-avatar
+        <VAvatar
+          v-if="!module.color"
           :icon="module.icon"
           size="24"
           class="mr-2"
-          v-if="!module.color"
           style="color: #ececee"
         />
-        <v-avatar
+        <VAvatar
+          v-else
           :icon="module.icon"
           size="24"
           class="mr-2"
-          v-else
           :style="`background-color: ${module.color}; border-radius: 23px;`"
         />
         <span
@@ -55,20 +47,25 @@ const value = computed({
               ? '#ececee'
               : 'rgb(var(--v-theme-text-color-body))'
           };`"
-          >{{ module.title }}</span
-        ></v-expansion-panel-title
-      >
-      <v-expansion-panel-text class="custom-text-div">
-        <VCol v-for="item in module.modules">
-          <VRow align="center" class="header">
-            <v-avatar
+        >{{ module.title }}</span>
+      </VExpansionPanelTitle>
+      <VExpansionPanelText class="custom-text-div">
+        <VCol
+          v-for="item in module.modules"
+          :key="item.title"
+        >
+          <VRow
+            align="center"
+            class="header"
+          >
+            <VAvatar
               size="24"
               class="mr-2"
               :style="`background-color: ${item.color}; border-radius: 23px;`"
             />
             <span class="text-h5">{{ item.title }}</span>
           </VRow>
-          <div class="py-5"></div>
+          <div class="py-5" />
           <VueHorizontal class="horizontal">
             <div
               v-for="option in item.options"
@@ -95,27 +92,27 @@ const value = computed({
               <span class="text-h5 px-2">{{ option.title }}</span>
               <span class="text-p px-2">{{ option.description }}</span>
             </div>
-            <template v-slot:btn-prev>
-              <v-btn
+            <template #btn-prev>
+              <VBtn
                 icon="tabler-caret-left"
                 color="none"
                 variant="plain"
                 class="ml-5"
-              ></v-btn>
+              />
             </template>
-            <template v-slot:btn-next>
-              <v-btn
+            <template #btn-next>
+              <VBtn
                 icon="tabler-caret-right"
                 color="none"
                 variant="plain"
                 class="ml-5"
-              ></v-btn>
+              />
             </template>
           </VueHorizontal>
         </VCol>
-      </v-expansion-panel-text>
-    </v-expansion-panel>
-  </v-expansion-panels>
+      </VExpansionPanelText>
+    </VExpansionPanel>
+  </VExpansionPanels>
 </template>
 
 <style lang="scss" scoped>

@@ -1,53 +1,55 @@
 <script setup lang="ts">
-import { PerfectScrollbar } from "vue3-perfect-scrollbar";
-import { useModuleStore } from "@/store/module";
-const moduleStore = useModuleStore();
+import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
+import { useModuleStore } from '@/store/module'
+
+const moduleStore = useModuleStore()
+
 const options = ref([
   {
-    name: "View All Modules",
-    value: "View All Modules",
-    color: "none",
+    name: 'View All Modules',
+    value: 'View All Modules',
+    color: 'none',
   },
   {
-    name: "Marketing/Advertising",
-    value: "Marketing/Advertising",
-    color: "#FCCC0F",
+    name: 'Marketing/Advertising',
+    value: 'Marketing/Advertising',
+    color: '#FCCC0F',
   },
   {
-    name: "Businessg",
-    value: "Businessg",
-    color: "#FF7012",
+    name: 'Businessg',
+    value: 'Businessg',
+    color: '#FF7012',
   },
-]);
+])
 
 const listOptions = [
   {
-    name: "AIDA Framework",
-    icon: "tabler-calendar-event",
-    color: "#F272E14D",
-    colorIcon: "#F272E1",
+    name: 'AIDA Framework',
+    icon: 'tabler-calendar-event',
+    color: '#F272E14D',
+    colorIcon: '#F272E1',
   },
   {
-    name: "Facebook Post",
-    icon: "tabler-brand-facebook",
-    color: "#3498DB33",
-    colorIcon: "#049DDF",
+    name: 'Facebook Post',
+    icon: 'tabler-brand-facebook',
+    color: '#3498DB33',
+    colorIcon: '#049DDF',
   },
   {
-    name: "TicTok Script",
-    icon: "tabler-brand-tiktok",
-    color: "#3498DB33",
-    colorIcon: "#3498DB",
+    name: 'TicTok Script',
+    icon: 'tabler-brand-tiktok',
+    color: '#3498DB33',
+    colorIcon: '#3498DB',
   },
   {
-    name: "Blog Outline",
-    icon: "tabler-brand-tiktok",
-    color: "#E8004C33",
-    colorIcon: "#E8004C",
+    name: 'Blog Outline',
+    icon: 'tabler-brand-tiktok',
+    color: '#E8004C33',
+    colorIcon: '#E8004C',
   },
-];
+]
 
-const module = ref(null);
+const module = ref(null)
 </script>
 
 <template>
@@ -73,7 +75,10 @@ const module = ref(null);
       />
       <span class="text-display-4">Modules</span>
       <VSpacer />
-      <IconBtn class="me-2" @click="() => moduleStore.setModal(false)">
+      <IconBtn
+        class="me-2"
+        @click="() => moduleStore.setModal(false)"
+      >
         <VIcon
           size="20"
           class="cursor-pointer"
@@ -83,14 +88,22 @@ const module = ref(null);
       </IconBtn>
     </div>
     <!-- 👉 body -->
-    <PerfectScrollbar tag="ul" :options="{ wheelPropagation: false }">
+    <PerfectScrollbar
+      tag="ul"
+      :options="{ wheelPropagation: false }"
+    >
       <VRow
         align-content="center"
         align="center"
         class="px-10 my-2"
         style="min-height: 70px"
       >
-        <VCol cols="12" sm="12" md="6" lg="6">
+        <VCol
+          cols="12"
+          sm="12"
+          md="6"
+          lg="6"
+        >
           <VRow>
             <VTextField
               color="text-color-heading"
@@ -99,11 +112,17 @@ const module = ref(null);
               prepend-icon="tabler-search"
               variant="solo"
               flat
-            ></VTextField>
+            />
           </VRow>
         </VCol>
-        <VCol cols="12" sm="12" md="6" lg="6">
+        <VCol
+          cols="12"
+          sm="12"
+          md="6"
+          lg="6"
+        >
           <VSelect
+            v-model="module"
             color="text-color-heading"
             variant="solo"
             bg-color="background-card"
@@ -112,48 +131,55 @@ const module = ref(null);
             :items="options"
             item-title="name"
             item-value="name"
-            v-model="module"
           >
             <template #selection="{ item }">
-              <v-list-item :title="item.title">
-                <template v-slot:prepend>
-                  <v-avatar
+              <VListItem :title="item.title">
+                <template #prepend>
+                  <VAvatar
                     size="28"
                     :style="`background-color: ${item.raw.color};${
-                      item.raw.color == 'none'
+                      item.raw.color === 'none'
                         ? 'border: 1px solid #000000;'
                         : ''
                     }`"
-                  >
-                  </v-avatar>
+                  />
                 </template>
-              </v-list-item>
+              </VListItem>
             </template>
             <template #prepend-item>
-              <v-list-item class="text-h6" title="Modules Collections">
+              <VListItem
+                class="text-h6"
+                title="Modules Collections"
+              >
                 <template #title="{ title }">
-                  <h6 class="text-h6">{{ title }}</h6>
-                  <VDivider class="mt-3"></VDivider>
+                  <h6 class="text-h6">
+                    {{ title }}
+                  </h6>
+                  <VDivider class="mt-3" />
                 </template>
-              </v-list-item>
+              </VListItem>
             </template>
-            <template #item="{ item, props: { onClick, title, value } }">
-              <v-list-item :title="item.title" @click="onClick as any">
+            <template #item="{ item, props: { onClick } }">
+              <VListItem
+                :title="item.title"
+                @click="(onClick as any)"
+              >
                 <template #title="{ title }">
-                  <h6 class="text-h6">{{ title }}</h6>
+                  <h6 class="text-h6">
+                    {{ title }}
+                  </h6>
                 </template>
-                <template v-slot:prepend>
-                  <v-avatar
+                <template #prepend>
+                  <VAvatar
                     size="28"
                     :style="`background-color: ${item.raw.color};${
-                      item.raw.color == 'none'
+                      item.raw.color === 'none'
                         ? 'border: 1px solid #000000;'
                         : ''
                     }`"
-                  >
-                  </v-avatar>
+                  />
                 </template>
-              </v-list-item>
+              </VListItem>
             </template>
           </VSelect>
         </VCol>
@@ -171,7 +197,10 @@ const module = ref(null);
             size="48"
             :style="`background: ${option.color}`"
           >
-            <VIcon :icon="option.icon" :style="`color: ${option.colorIcon}`" />
+            <VIcon
+              :icon="option.icon"
+              :style="`color: ${option.colorIcon}`"
+            />
           </VAvatar>
 
           <h6 class="text-base font-weight-medium mt-2 mb-0">

@@ -1,29 +1,32 @@
 <script setup lang="ts">
-import { VNodeRenderer } from "@/@layouts/components/VNodeRenderer";
-import { config } from "@layouts/config";
+import { VNodeRenderer } from '@/@layouts/components/VNodeRenderer'
+import { config } from '@layouts/config'
+
 interface Emit {
-  (e: "update:isDialogVisible", value: boolean): void;
+  (e: 'update:isDialogVisible', value: boolean): void
 }
 
 interface Props {
-  isDialogVisible: boolean;
+  isDialogVisible: boolean
 }
 
+const props = withDefaults(defineProps<Props>(), {})
+const emit = defineEmits<Emit>()
+
 const form = reactive({
-  first_name: "",
-  last_name: "",
-  email: "",
-  contact: "",
-});
-const props = withDefaults(defineProps<Props>(), {});
+  first_name: '',
+  last_name: '',
+  email: '',
+  contact: '',
+})
 
-const emit = defineEmits<Emit>();
-
-const formSubmit = () => {};
+const formSubmit = () => {
+  console.log('submit')
+}
 
 const dialogModelValueUpdate = (val: boolean) => {
-  emit("update:isDialogVisible", val);
-};
+  emit('update:isDialogVisible', val)
+}
 </script>
 
 <template>
@@ -39,17 +42,22 @@ const dialogModelValueUpdate = (val: boolean) => {
       <!-- 👉 Title -->
       <VCardItem class="text-center">
         <VNodeRenderer :nodes="config.app.logo" />
-        <div class="my-3"></div>
+        <div class="my-3" />
         <VCardTitle class="text-h5 font-weight-medium mb-3">
           Invite New Contributor
         </VCardTitle>
-        <p class="mb-0">You send the invite, we’ll take care of the rest.</p>
+        <p class="mb-0">
+          You send the invite, we’ll take care of the rest.
+        </p>
       </VCardItem>
 
       <VCardText class="pt-6">
         <VForm @submit.prevent="() => {}">
           <VRow>
-            <VCol cols="12" md="6">
+            <VCol
+              cols="12"
+              md="6"
+            >
               <AppTextField
                 v-model="form.first_name"
                 label="First Name"
@@ -57,7 +65,10 @@ const dialogModelValueUpdate = (val: boolean) => {
               />
             </VCol>
 
-            <VCol cols="12" md="6">
+            <VCol
+              cols="12"
+              md="6"
+            >
               <AppTextField
                 v-model="form.last_name"
                 label="Last Name"
@@ -83,8 +94,15 @@ const dialogModelValueUpdate = (val: boolean) => {
             </VCol>
 
             <!-- 👉 Card actions -->
-            <VCol cols="12" class="text-center">
-              <VBtn class="me-3" type="submit" @click="formSubmit">
+            <VCol
+              cols="12"
+              class="text-center"
+            >
+              <VBtn
+                class="me-3"
+                type="submit"
+                @click="formSubmit"
+              >
                 Submit
               </VBtn>
               <VBtn

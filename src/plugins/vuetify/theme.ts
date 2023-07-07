@@ -47,7 +47,7 @@ const theme: VuetifyOptions['theme'] = {
         'white': '#f8f7fa',
         'background-body': '#F8F7FA',
         'background-card': '#FFFFFF',
-        'solid-color-extra' : '#D7D8DE',
+        'solid-color-extra': '#D7D8DE',
         'solid-color-extra-table-striped': '#4B465C05',
       },
 
@@ -119,7 +119,7 @@ const theme: VuetifyOptions['theme'] = {
         'white': '#f8f7fa',
         'background-body': '#3A3A3E',
         'background-card': '#313132',
-        'solid-color-extra' : '#4B4B4B',
+        'solid-color-extra': '#4B4B4B',
         'solid-color-extra-table-striped': '#F5F5F505',
       },
       variables: {
@@ -142,7 +142,6 @@ const theme: VuetifyOptions['theme'] = {
         'switch-disabled-track-opacity': 0.4,
         'switch-disabled-thumb-opacity': 0.8,
         'switch-checked-disabled-opacity': 0.3,
-
 
         // Shadows
         'shadow-key-umbra-color': '#0F1422',

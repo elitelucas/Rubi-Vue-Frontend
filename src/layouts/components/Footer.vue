@@ -10,8 +10,7 @@
         target="_blank"
         rel="noopener noreferrer"
         class="text-primary ms-1"
-        >BitJar Labs LLC.</a
-      >
+      >BitJar Labs LLC.</a>
       All rights reserved.
     </span>
     <!-- 👉 Footer: right content -->
@@ -20,26 +19,22 @@
         href="https://themeforest.net/licenses/standard"
         target="noopener noreferrer"
         class="text-p"
-        >Privacy Policy</a
-      >
+      >Privacy Policy</a>
       <a
         href="https://themeforest.net/licenses/standard"
         target="noopener noreferrer"
         class="text-p"
-        >Terms of Use</a
-      >
+      >Terms of Use</a>
       <a
         href="https://1.envato.market/pixinvent_portfolio"
         target="noopener noreferrer"
         class="text-p"
-        >Documentation</a
-      >
+      >Documentation</a>
       <a
         href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/documentation/"
         target="noopener noreferrer"
         class="text-p"
-        >Support</a
-      >
+      >Support</a>
     </span>
   </div>
 </template>

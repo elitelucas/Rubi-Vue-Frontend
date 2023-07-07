@@ -1,27 +1,28 @@
 <script setup lang="ts">
-import { PerfectScrollbar } from "vue3-perfect-scrollbar";
-import avatar from "@images/avatars/avatar-1.png";
-import bot from "@images/iconify-png/rubi_icon.png";
-import { useResponsiveLeftSidebar } from "@/@core/composable/useResponsiveSidebar";
-import { useDisplay } from "vuetify/lib/framework.mjs";
-const vuetifyDisplays = useDisplay();
+import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
+import { useDisplay } from 'vuetify/lib/framework.mjs'
+import avatar from '@images/avatars/avatar-1.png'
+import bot from '@images/iconify-png/rubi_icon.png'
+import { useResponsiveLeftSidebar } from '@/@core/composable/useResponsiveSidebar'
+
+const vuetifyDisplays = useDisplay()
 
 const { isLeftSidebarOpen } = useResponsiveLeftSidebar(
-  vuetifyDisplays.smAndDown
-);
+  vuetifyDisplays.smAndDown,
+)
 
 const chatList = [
   {
-    type: "bot",
-    message: "Hey,  I’m Rubi! Let's make some magic happen!",
+    type: 'bot',
+    message: 'Hey,  I’m Rubi! Let\'s make some magic happen!',
   },
   {
-    type: "user",
+    type: 'user',
     message:
-      "Generate 5 taglines for a blog post about septic pumping that are exciting, engaging, and effective.",
+      'Generate 5 taglines for a blog post about septic pumping that are exciting, engaging, and effective.',
   },
   {
-    type: "bot",
+    type: 'bot',
     message: `  1. "Unleash the Power of Clean: Discover the Secrets of Effective Septic Pumping!"<br>
                 2. "Flush Away Your Worries: The Ultimate Guide to Seamless Septic Pumping Solutions."<br>
                 3. "Revitalize Your System: Unveiling the Art of Septic Pumping for a Smooth-Running Home."<br>
@@ -30,7 +31,7 @@ const chatList = [
 `,
   },
   {
-    type: "bot",
+    type: 'bot',
     message: `  1. "Unleash the Power of Clean: Discover the Secrets of Effective Septic Pumping!"<br>
                 2. "Flush Away Your Worries: The Ultimate Guide to Seamless Septic Pumping Solutions."<br>
                 3. "Revitalize Your System: Unveiling the Art of Septic Pumping for a Smooth-Running Home."<br>
@@ -39,7 +40,7 @@ const chatList = [
 `,
   },
   {
-    type: "bot",
+    type: 'bot',
     message: `  1. "Unleash the Power of Clean: Discover the Secrets of Effective Septic Pumping!"<br>
                 2. "Flush Away Your Worries: The Ultimate Guide to Seamless Septic Pumping Solutions."<br>
                 3. "Revitalize Your System: Unveiling the Art of Septic Pumping for a Smooth-Running Home."<br>
@@ -48,7 +49,7 @@ const chatList = [
 `,
   },
   {
-    type: "bot",
+    type: 'bot',
     message: `  1. "Unleash the Power of Clean: Discover the Secrets of Effective Septic Pumping!"<br>
                 2. "Flush Away Your Worries: The Ultimate Guide to Seamless Septic Pumping Solutions."<br>
                 3. "Revitalize Your System: Unveiling the Art of Septic Pumping for a Smooth-Running Home."<br>
@@ -56,175 +57,231 @@ const chatList = [
                 5. "Safeguarding Your Home's Health: Dive into the World of Proactive Septic Pumping."<br>
 `,
   },
-];
+]
 
 const chatHistories = [
   {
-    title: "Today",
+    title: 'Today',
     itens: [
       {
-        name: "Humorous Septic Experts: 10 names for2aaaaaaaaaaaaaaaaaaaaaaaaa",
+        name: 'Humorous Septic Experts: 10 names for2aaaaaaaaaaaaaaaaaaaaaaaaa',
       },
       {
-        name: "Humorous Septic Experts: 10 names for22",
+        name: 'Humorous Septic Experts: 10 names for22',
       },
       {
-        name: "Humorous Septic Experts: 10 names for222",
+        name: 'Humorous Septic Experts: 10 names for222',
       },
     ],
   },
   {
-    title: "Yeterday",
+    title: 'Yeterday',
     itens: [
       {
-        name: "SEO Report Analysis",
+        name: 'SEO Report Analysis',
       },
       {
-        name: "SEO Report Analysis1",
+        name: 'SEO Report Analysis1',
       },
       {
-        name: "SEO Report Analysis3",
+        name: 'SEO Report Analysis3',
       },
     ],
   },
-];
+]
 </script>
 
 <template>
-  <VRow v-if="$vuetify.display.smAndDown && !isLeftSidebarOpen" class="my-2">
-    <IconBtn @click="isLeftSidebarOpen = !isLeftSidebarOpen">
-      <VIcon icon="tabler-menu-2" />
-    </IconBtn>
-    <VBtn prepend-icon="tabler-plus">New Chat</VBtn>
-  </VRow>
-  <VLayout id="chat-window">
-    <!-- 👉 Left sidebar   -->
-    <VNavigationDrawer
-      v-model="isLeftSidebarOpen"
-      absolute
-      touchless
-      location="start"
-      width="370"
-      :temporary="$vuetify.display.smAndDown"
-      class="chat-list-sidebar"
-      :permanent="$vuetify.display.mdAndUp"
-      style="border: none"
+  <div>
+    <VRow
+      v-if="$vuetify.display.smAndDown && !isLeftSidebarOpen"
+      class="my-2"
     >
-      <VCard class="pt-2" height="100%">
-        <VCardText>
-          <VRow align="center" no-gutters>
-            <VBtn prepend-icon="tabler-plus">New Chat</VBtn>
-            <VSpacer />
+      <IconBtn @click="isLeftSidebarOpen = !isLeftSidebarOpen">
+        <VIcon icon="tabler-menu-2" />
+      </IconBtn>
+      <VBtn prepend-icon="tabler-plus">
+        New Chat
+      </VBtn>
+    </VRow>
+    <VLayout id="chat-window">
+      <!-- 👉 Left sidebar   -->
+      <VNavigationDrawer
+        v-model="isLeftSidebarOpen"
+        absolute
+        touchless
+        location="start"
+        width="370"
+        :temporary="$vuetify.display.smAndDown"
+        class="chat-list-sidebar"
+        :permanent="$vuetify.display.mdAndUp"
+        style="border: none"
+      >
+        <VCard
+          class="pt-2"
+          height="100%"
+        >
+          <VCardText>
+            <VRow
+              align="center"
+              no-gutters
+            >
+              <VBtn prepend-icon="tabler-plus">
+                New Chat
+              </VBtn>
+              <VSpacer />
 
-            <VIcon
-              v-if="$vuetify.display.smAndDown"
-              icon="tabler-x"
-              size="24"
-              color="text-color-heading"
-              class="cursor-pointer"
-              @click="isLeftSidebarOpen = !isLeftSidebarOpen"
-              style="transform: rotate(90deg)"
-            />
-            <VIcon
-              v-else
-              icon="tabler-layout-navbar"
-              size="24"
-              color="text-color-heading"
-              class="cursor-pointer"
-              style="transform: rotate(90deg)"
-            />
-          </VRow>
-          <VDivider class="my-4" />
-
-          <VCol v-for="history in chatHistories" :key="history.title">
-            <VRow class="mb-2">
-              <span class="text-caption">{{ history.title }}</span>
+              <VIcon
+                v-if="$vuetify.display.smAndDown"
+                icon="tabler-x"
+                size="24"
+                color="text-color-heading"
+                class="cursor-pointer"
+                style="transform: rotate(90deg)"
+                @click="isLeftSidebarOpen = !isLeftSidebarOpen"
+              />
+              <VIcon
+                v-else
+                icon="tabler-layout-navbar"
+                size="24"
+                color="text-color-heading"
+                class="cursor-pointer"
+                style="transform: rotate(90deg)"
+              />
             </VRow>
-            <v-hover v-for="item in history.itens" :key="item.name">
-              <template v-slot:default="{ isHovering, props }">
-                <VRow
-                  v-bind="props"
-                  align="center"
-                  class="my-2 chat-history-item"
-                >
-                  <VIcon
-                    size="16"
-                    icon="tabler-message"
-                    color="text-color-heading"
-                  />
-                  <span class="text-p-small ml-1"> {{ item.name }}</span>
-                  <div class="actions" v-show="isHovering">
-                    <VIcon size="15" icon="tabler-pencil" />
-                    <VIcon size="15" icon="tabler-upload" />
-                    <VIcon size="15" icon="tabler-trash" />
-                  </div>
-                </VRow>
-              </template>
-            </v-hover>
-          </VCol>
-        </VCardText>
-      </VCard>
-    </VNavigationDrawer>
-    <VMain class="chat-content-container">
-      <VCard class="chat" height="100%">
-        <div class="body">
-          <PerfectScrollbar>
-            <VCard
-              v-for="chat in chatList"
-              :key="chat.message"
-              :class="`mb-5 chat-body-card ${chat.type} mx-1 mt-2`"
-              variant="flat"
-            >
-              <VCardText class="chat-body-row">
-                <div class="chat-body-item">
-                  <VAvatar size="36">
-                    <v-img :src="chat.type == 'bot' ? bot : avatar"></v-img>
-                  </VAvatar>
-                  <span v-html="chat.message"> </span>
-                  <VSpacer />
-                  <div class="actions">
-                    <VIcon icon="tabler-copy" size="20" />
-                    <VIcon icon="tabler-thumb-up" size="20" />
-                    <VIcon icon="tabler-thumb-down" size="20" />
-                  </div>
-                </div>
-              </VCardText>
-            </VCard>
-          </PerfectScrollbar>
-        </div>
+            <VDivider class="my-4" />
 
-        <div class="bottom">
-          <div class="regenerate">
-            <VBtn
-              variant="outlined"
-              color="rubi-red"
-              append-icon="tabler-refresh-dot"
-              >Regenerate Response</VBtn
+            <VCol
+              v-for="history in chatHistories"
+              :key="history.title"
             >
-          </div>
-          <VDivider />
-          <div class="mt-5 bottom-row">
-            <div class="input">
-              <AppTextField
-                placeholder="Ask Rubi..."
-                variant="solo"
-                density="default"
-                autofocus
-                class="chat-message-input"
+              <VRow class="mb-2">
+                <span class="text-caption">{{ history.title }}</span>
+              </VRow>
+              <VHover
+                v-for="item in history.itens"
+                :key="item.name"
               >
-                <template v-slot:append-inner>
-                  <img height="25" width="25" :src="bot" />
+                <template #default="{ isHovering, props }">
+                  <VRow
+                    v-bind="props"
+                    align="center"
+                    class="my-2 chat-history-item"
+                  >
+                    <VIcon
+                      size="16"
+                      icon="tabler-message"
+                      color="text-color-heading"
+                    />
+                    <span class="text-p-small ml-1"> {{ item.name }}</span>
+                    <div
+                      v-show="isHovering"
+                      class="actions"
+                    >
+                      <VIcon
+                        size="15"
+                        icon="tabler-pencil"
+                      />
+                      <VIcon
+                        size="15"
+                        icon="tabler-upload"
+                      />
+                      <VIcon
+                        size="15"
+                        icon="tabler-trash"
+                      />
+                    </div>
+                  </VRow>
                 </template>
-              </AppTextField>
-              <VSwitch class="mt-2" label="Build on Conversation" />
-            </div>
-
-            <AppSelect :items="['Persona 1']" class="select" />
+              </VHover>
+            </VCol>
+          </VCardText>
+        </VCard>
+      </VNavigationDrawer>
+      <VMain class="chat-content-container">
+        <VCard
+          class="chat"
+          height="100%"
+        >
+          <div class="body">
+            <PerfectScrollbar>
+              <VCard
+                v-for="chat in chatList"
+                :key="chat.message"
+                :class="`mb-5 chat-body-card ${chat.type} mx-1 mt-2`"
+                variant="flat"
+              >
+                <VCardText class="chat-body-row">
+                  <div class="chat-body-item">
+                    <VAvatar size="36">
+                      <VImg :src="chat.type === 'bot' ? bot : avatar" />
+                    </VAvatar>
+                    <span v-html="chat.message" />
+                    <VSpacer />
+                    <div class="actions">
+                      <VIcon
+                        icon="tabler-copy"
+                        size="20"
+                      />
+                      <VIcon
+                        icon="tabler-thumb-up"
+                        size="20"
+                      />
+                      <VIcon
+                        icon="tabler-thumb-down"
+                        size="20"
+                      />
+                    </div>
+                  </div>
+                </VCardText>
+              </VCard>
+            </PerfectScrollbar>
           </div>
-        </div>
-      </VCard>
-    </VMain>
-  </VLayout>
+
+          <div class="bottom">
+            <div class="regenerate">
+              <VBtn
+                variant="outlined"
+                color="rubi-red"
+                append-icon="tabler-refresh-dot"
+              >
+                Regenerate Response
+              </VBtn>
+            </div>
+            <VDivider />
+            <div class="mt-5 bottom-row">
+              <div class="input">
+                <AppTextField
+                  placeholder="Ask Rubi..."
+                  variant="solo"
+                  density="default"
+                  autofocus
+                  class="chat-message-input"
+                >
+                  <template #append-inner>
+                    <img
+                      height="25"
+                      width="25"
+                      :src="bot"
+                    >
+                  </template>
+                </AppTextField>
+                <VSwitch
+                  class="mt-2"
+                  label="Build on Conversation"
+                />
+              </div>
+
+              <AppSelect
+                :items="['Persona 1']"
+                class="select"
+              />
+            </div>
+          </div>
+        </VCard>
+      </VMain>
+    </VLayout>
+  </div>
 </template>
 
 <style lang="scss" scoped>
