@@ -1,109 +1,111 @@
 <script setup lang="ts">
-const modules = [
+import type { RootModuleGroup } from '@/@core/components/modules/types'
+
+const modules: RootModuleGroup[] = [
   {
-    title: "Featured Modules",
-    icon: "tabler-star",
+    title: 'Featured Modules',
+    icon: 'tabler-star',
     color: null,
-    bgColor: "#1DA1F2",
-    show: 0,
-    modules: [
-      {
-        title: "Business Modules",
-        color: "#FF7012",
-        options: [
-          {
-            title: "Announcement Email",
-            icon: "tabler-mail",
-            description:
-              "Engaging design, clear message, and compelling call to action. Grab attention and drive action!",
-          },
-          {
-            title: "Advanced Real Estate Listing",
-            icon: "tabler-map",
-            to: { name: "content-create" },
-            description:
-              "Engaging design, clear message, and compelling call to action. Grab attention and drive action!",
-          },
-          {
-            title: "Announcement Email",
-            icon: "tabler-mail",
-            description:
-              "Engaging design, clear message, and compelling call to action. Grab attention and drive action!",
-          },
-          {
-            title: "Announcement Email",
-            icon: "tabler-mail",
-            description:
-              "Engaging design, clear message, and compelling call to action. Grab attention and drive action!",
-          },
-          {
-            title: "Announcement Email",
-            icon: "tabler-mail",
-            description:
-              "Engaging design, clear message, and compelling call to action. Grab attention and drive action!",
-          },
-          {
-            title: "Announcement Email",
-            icon: "tabler-mail",
-            description:
-              "Engaging design, clear message, and compelling call to action. Grab attention and drive action!",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    title: "Communications Modules",
-    icon: "tabler-none",
-    color: "#6D54DC",
-    bgColor: "#D7D8DE",
+    bgColor: '#1DA1F2',
     show: true,
     modules: [
       {
-        title: "Business Modules",
-        color: "#FF7012",
+        title: 'Business Modules',
+        color: '#FF7012',
         options: [
           {
-            title: "Announcement Email",
-            icon: "tabler-mail",
+            title: 'Announcement Email',
+            icon: 'tabler-mail',
             description:
-              "Engaging design, clear message, and compelling call to action. Grab attention and drive action!",
+              'Engaging design, clear message, and compelling call to action. Grab attention and drive action!',
           },
           {
-            title: "Announcement Email",
-            icon: "tabler-mail",
+            title: 'Advanced Real Estate Listing',
+            icon: 'tabler-map',
+            to: { name: 'content-create' },
             description:
-              "Engaging design, clear message, and compelling call to action. Grab attention and drive action!",
+              'Engaging design, clear message, and compelling call to action. Grab attention and drive action!',
           },
           {
-            title: "Announcement Email",
-            icon: "tabler-mail",
+            title: 'Announcement Email',
+            icon: 'tabler-mail',
             description:
-              "Engaging design, clear message, and compelling call to action. Grab attention and drive action!",
+              'Engaging design, clear message, and compelling call to action. Grab attention and drive action!',
           },
           {
-            title: "Announcement Email",
-            icon: "tabler-mail",
+            title: 'Announcement Email',
+            icon: 'tabler-mail',
             description:
-              "Engaging design, clear message, and compelling call to action. Grab attention and drive action!",
+              'Engaging design, clear message, and compelling call to action. Grab attention and drive action!',
           },
           {
-            title: "Announcement Email",
-            icon: "tabler-mail",
+            title: 'Announcement Email',
+            icon: 'tabler-mail',
             description:
-              "Engaging design, clear message, and compelling call to action. Grab attention and drive action!",
+              'Engaging design, clear message, and compelling call to action. Grab attention and drive action!',
           },
           {
-            title: "Announcement Email",
-            icon: "tabler-mail",
+            title: 'Announcement Email',
+            icon: 'tabler-mail',
             description:
-              "Engaging design, clear message, and compelling call to action. Grab attention and drive action!",
+              'Engaging design, clear message, and compelling call to action. Grab attention and drive action!',
           },
         ],
       },
     ],
   },
-];
+  {
+    title: 'Communications Modules',
+    icon: 'tabler-none',
+    color: '#6D54DC',
+    bgColor: '#D7D8DE',
+    show: true,
+    modules: [
+      {
+        title: 'Business Modules',
+        color: '#FF7012',
+        options: [
+          {
+            title: 'Announcement Email',
+            icon: 'tabler-mail',
+            description:
+              'Engaging design, clear message, and compelling call to action. Grab attention and drive action!',
+          },
+          {
+            title: 'Announcement Email',
+            icon: 'tabler-mail',
+            description:
+              'Engaging design, clear message, and compelling call to action. Grab attention and drive action!',
+          },
+          {
+            title: 'Announcement Email',
+            icon: 'tabler-mail',
+            description:
+              'Engaging design, clear message, and compelling call to action. Grab attention and drive action!',
+          },
+          {
+            title: 'Announcement Email',
+            icon: 'tabler-mail',
+            description:
+              'Engaging design, clear message, and compelling call to action. Grab attention and drive action!',
+          },
+          {
+            title: 'Announcement Email',
+            icon: 'tabler-mail',
+            description:
+              'Engaging design, clear message, and compelling call to action. Grab attention and drive action!',
+          },
+          {
+            title: 'Announcement Email',
+            icon: 'tabler-mail',
+            description:
+              'Engaging design, clear message, and compelling call to action. Grab attention and drive action!',
+          },
+        ],
+      },
+    ],
+  },
+]
 </script>
 
 <template>
@@ -111,9 +113,16 @@ const modules = [
     <VCard>
       <VCardText>
         <VCol class="px-8">
-          <VRow align="center" class="px-2">
+          <VRow
+            align="center"
+            class="px-2"
+          >
             <div class="box-icon-title">
-              <VIcon size="31" icon="tabler-apps" color="text-color-body p-5" />
+              <VIcon
+                size="31"
+                icon="tabler-apps"
+                color="text-color-body p-5"
+              />
             </div>
             <span class="text-h4 ml-2">Modules</span>
           </VRow>
@@ -121,10 +130,9 @@ const modules = [
         </VCol>
 
         <ModuleGroup
-          v-for="module in modules"
-          v-model="module.show"
-          :module="module"
-          :key="module.title"
+          v-for="moduleItem in modules"
+          :key="moduleItem.title"
+          :module="moduleItem"
           class="mb-2"
         />
       </VCardText>

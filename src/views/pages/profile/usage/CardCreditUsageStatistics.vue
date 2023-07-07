@@ -1,30 +1,30 @@
 <script setup lang="ts">
 const statistics = [
   {
-    title: "Documents",
-    stats: "400",
-    icon: "tabler-file-text",
-    color: "primary",
+    title: 'Documents',
+    stats: '400',
+    icon: 'tabler-file-text',
+    color: 'primary',
   },
   {
-    title: "Requests",
-    stats: "10,384",
-    icon: "tabler-database-import",
-    color: "info",
+    title: 'Requests',
+    stats: '10,384',
+    icon: 'tabler-database-import',
+    color: 'info',
   },
   {
-    title: "Words Used",
-    stats: "84,293",
-    icon: "tabler-message-2",
-    color: "error",
+    title: 'Words Used',
+    stats: '84,293',
+    icon: 'tabler-message-2',
+    color: 'error',
   },
   {
-    title: "Payments",
-    stats: "$89.98",
-    icon: "tabler-currency-dollar",
-    color: "success",
+    title: 'Payments',
+    stats: '$89.98',
+    icon: 'tabler-currency-dollar',
+    color: 'success',
   },
-];
+]
 </script>
 
 <template>
@@ -35,9 +35,19 @@ const statistics = [
 
     <VCardText class="pt-6">
       <VRow>
-        <VCol v-for="item in statistics" :key="item.title" cols="6" md="3">
+        <VCol
+          v-for="item in statistics"
+          :key="item.title"
+          cols="6"
+          md="3"
+        >
           <div class="d-flex">
-            <VAvatar :color="item.color" variant="tonal" size="42" class="me-3">
+            <VAvatar
+              :color="item.color"
+              variant="tonal"
+              size="42"
+              class="me-3"
+            >
               <VIcon :icon="item.icon" />
             </VAvatar>
 

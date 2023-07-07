@@ -1,32 +1,32 @@
 <script setup lang="ts">
-import { VNodeRenderer } from "@/@layouts/components/VNodeRenderer";
-import { config } from "@layouts/config";
 interface Emit {
-  (e: "update:isDialogVisible", value: boolean): void;
+  (e: 'update:isDialogVisible', value: boolean): void
 }
 
 interface Props {
-  isDialogVisible: boolean;
+  isDialogVisible: boolean
 }
 
+const props = withDefaults(defineProps<Props>(), {})
+const emit = defineEmits<Emit>()
+
 const form = reactive({
-  name: "",
-  gender: "",
+  name: '',
+  gender: '',
   age: [18, 24],
-  income: "",
-  language: "",
-  marital: "",
+  income: '',
+  language: '',
+  marital: '',
   primary: false,
-});
-const props = withDefaults(defineProps<Props>(), {});
+})
 
-const emit = defineEmits<Emit>();
-
-const formSubmit = () => {};
+const formSubmit = () => {
+  console.log('submit')
+}
 
 const dialogModelValueUpdate = (val: boolean) => {
-  emit("update:isDialogVisible", val);
-};
+  emit('update:isDialogVisible', val)
+}
 </script>
 
 <template>
@@ -47,11 +47,13 @@ const dialogModelValueUpdate = (val: boolean) => {
           class="svg-strock-1"
           color="rubi-red"
         />
-        <div class="my-3"></div>
+        <div class="my-3" />
         <VCardTitle class="text-h3 font-weight-medium mb-3">
           Create a New Audience
         </VCardTitle>
-        <p class="mb-0">Set parameters for your Ideal Customer</p>
+        <p class="mb-0">
+          Set parameters for your Ideal Customer
+        </p>
       </VCardItem>
 
       <VCardText class="pt-6">
@@ -114,8 +116,17 @@ const dialogModelValueUpdate = (val: boolean) => {
               />
             </VCol>
 
-            <VCol cols="12" class="text-center">
-              <VBtn class="me-3" type="submit" @click="formSubmit"> Save </VBtn>
+            <VCol
+              cols="12"
+              class="text-center"
+            >
+              <VBtn
+                class="me-3"
+                type="submit"
+                @click="formSubmit"
+              >
+                Save
+              </VBtn>
               <VBtn
                 color="secondary"
                 variant="tonal"

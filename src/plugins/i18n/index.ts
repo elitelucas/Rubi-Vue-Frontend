@@ -8,23 +8,23 @@ const messages = Object.fromEntries(
 )
 
 const numberFormats = {
-  'en': {
+  en: {
     currency: {
-      style: 'currency', currency: 'USD', notation: 'standard'
+      style: 'currency', currency: 'USD', notation: 'standard',
     },
     decimal: {
-      style: 'decimal', minimumFractionDigits: 2, maximumFractionDigits: 2
+      style: 'decimal', minimumFractionDigits: 2, maximumFractionDigits: 2,
     },
     percent: {
-      style: 'percent', useGrouping: false
-    }
-  }
+      style: 'percent', useGrouping: false,
+    },
+  },
 }
 
 export default createI18n({
   legacy: false,
   locale: 'en',
   fallbackLocale: 'en',
-  numberFormats: numberFormats,
+  numberFormats,
   messages,
 })

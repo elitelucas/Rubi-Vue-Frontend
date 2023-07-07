@@ -1,20 +1,22 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import ToneStep from "@/@core/components/modal-personify/steps/Tone.vue";
-import ContentBasePanel from "./ContentBasePanel.vue";
+import { computed } from 'vue'
+import ContentBasePanel from './ContentBasePanel.vue'
+import ToneStep from '@/@core/components/modal-personify/steps/Tone.vue'
+
 const props = defineProps({
   modelValue: Boolean,
-});
-const emits = defineEmits(["update:modelValue"]);
+})
+
+const emits = defineEmits(['update:modelValue'])
 
 const modalValue = computed({
   get() {
-    return props.modelValue;
+    return props.modelValue
   },
   set(value) {
-    emits("update:modelValue", value);
+    emits('update:modelValue', value)
   },
-});
+})
 </script>
 
 <template>
@@ -23,8 +25,9 @@ const modalValue = computed({
     title="Edit Tone"
     icon="tabler-access-point"
   >
-    <ToneStep from-panel @on-save="modalValue = false" />
+    <ToneStep
+      from-panel
+      @on-save="modalValue = false"
+    />
   </ContentBasePanel>
 </template>
-
-<style lang="scss" scoped></style>

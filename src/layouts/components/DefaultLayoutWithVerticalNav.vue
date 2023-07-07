@@ -1,24 +1,24 @@
 <script lang="ts" setup>
-import navItems from "@/navigation/vertical";
-import { useThemeConfig } from "@core/composable/useThemeConfig";
+import navItems from '@/navigation/vertical'
+import { useThemeConfig } from '@core/composable/useThemeConfig'
 
 // Components
-import Footer from "@/layouts/components/Footer.vue";
-import NavbarThemeSwitcher from "@/layouts/components/NavbarThemeSwitcher.vue";
-import UserProfile from "@/layouts/components/UserProfile.vue";
+import Footer from '@/layouts/components/Footer.vue'
+import NavbarThemeSwitcher from '@/layouts/components/NavbarThemeSwitcher.vue'
+import UserProfile from '@/layouts/components/UserProfile.vue'
 
 // @layouts plugin
-import { VerticalNavLayout } from "@layouts";
-import { useModuleStore } from "@/store/module";
+import { VerticalNavLayout } from '@layouts'
+import { useModuleStore } from '@/store/module'
 
-const { appRouteTransition, isLessThanOverlayNavBreakpoint } = useThemeConfig();
-const { width: windowWidth } = useWindowSize();
-const workspace = ref("BitJar Labs Workspace");
-const moduleStore = useModuleStore();
+const { appRouteTransition, isLessThanOverlayNavBreakpoint } = useThemeConfig()
+const { width: windowWidth } = useWindowSize()
+const workspace = ref('BitJar Labs Workspace')
+const moduleStore = useModuleStore()
 </script>
 
 <template>
-  <PanelModule></PanelModule>
+  <PanelModule />
   <VerticalNavLayout :nav-items="navItems">
     <!-- 👉 navbar -->
     <template #navbar="{ toggleVerticalOverlayNavActive }">
@@ -29,15 +29,16 @@ const moduleStore = useModuleStore();
           class="ms-n3"
           @click="toggleVerticalOverlayNavActive(true)"
         >
-          <VIcon size="26" icon="tabler-menu-2" />
+          <VIcon
+            size="26"
+            icon="tabler-menu-2"
+          />
         </IconBtn>
 
         <NavbarThemeSwitcher />
 
         <VSpacer />
-        <span class="app-header-words-remaining mr-2 text-black"
-          >Words Remaining: 5,602</span
-        >
+        <span class="app-header-words-remaining mr-2 text-black">Words Remaining: 5,602</span>
         <VSpacer />
 
         <UserProfile />
@@ -53,13 +54,20 @@ const moduleStore = useModuleStore();
         item-color="rgba(var(--v-theme-on-background), var(--v-high-emphasis-opacity))"
       />
       <IconBtn @click="() => moduleStore.setModal(true)">
-        <VIcon size="26" class="cursor-pointer" icon="tabler-layout-grid-add" />
+        <VIcon
+          size="26"
+          class="cursor-pointer"
+          icon="tabler-layout-grid-add"
+        />
       </IconBtn>
     </div>
 
     <!-- 👉 Pages -->
     <RouterView v-slot="{ Component }">
-      <Transition :name="appRouteTransition" mode="out-in">
+      <Transition
+        :name="appRouteTransition"
+        mode="out-in"
+      >
         <Component :is="Component" />
       </Transition>
     </RouterView>

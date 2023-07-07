@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import avatar1 from "@images/avatars/avatar-1.png";
+import avatar1 from '@images/avatars/avatar-1.png'
 </script>
 
 <template>
@@ -11,11 +11,20 @@ import avatar1 from "@images/avatars/avatar-1.png";
     bordered
     color="success"
   >
-    <VAvatar class="cursor-pointer" color="primary" variant="tonal">
+    <VAvatar
+      class="cursor-pointer"
+      color="primary"
+      variant="tonal"
+    >
       <VImg :src="avatar1" />
 
       <!-- SECTION Menu -->
-      <VMenu activator="parent" width="230" location="bottom end" offset="14px">
+      <VMenu
+        activator="parent"
+        width="230"
+        location="bottom end"
+        offset="14px"
+      >
         <VList>
           <!-- 👉 User Avatar & Name -->
           <VListItem>
@@ -28,7 +37,10 @@ import avatar1 from "@images/avatars/avatar-1.png";
                   offset-y="3"
                   color="success"
                 >
-                  <VAvatar color="primary" variant="tonal">
+                  <VAvatar
+                    color="primary"
+                    variant="tonal"
+                  >
                     <VImg :src="avatar1" />
                   </VAvatar>
                 </VBadge>
@@ -46,7 +58,11 @@ import avatar1 from "@images/avatars/avatar-1.png";
           <!-- 👉 My Account -->
           <VListItem :to="{ name: 'account' }">
             <template #prepend>
-              <VIcon class="me-2" icon="tabler-user-check" size="22" />
+              <VIcon
+                class="me-2"
+                icon="tabler-user-check"
+                size="22"
+              />
             </template>
 
             <VListItemTitle>My Account</VListItemTitle>
@@ -55,7 +71,11 @@ import avatar1 from "@images/avatars/avatar-1.png";
           <!-- 👉 Orders -->
           <VListItem link>
             <template #prepend>
-              <VIcon class="me-2" icon="tabler-tag" size="22" />
+              <VIcon
+                class="me-2"
+                icon="tabler-tag"
+                size="22"
+              />
             </template>
 
             <VListItemTitle>Orders</VListItemTitle>
@@ -67,7 +87,11 @@ import avatar1 from "@images/avatars/avatar-1.png";
           <!-- 👉 Personas -->
           <VListItem link>
             <template #prepend>
-              <VIcon class="me-2" icon="tabler-id" size="22" />
+              <VIcon
+                class="me-2"
+                icon="tabler-id"
+                size="22"
+              />
             </template>
 
             <VListItemTitle>Personas</VListItemTitle>
@@ -76,7 +100,11 @@ import avatar1 from "@images/avatars/avatar-1.png";
           <!-- 👉 Keywords -->
           <VListItem link>
             <template #prepend>
-              <VIcon class="me-2" icon="tabler-key" size="22" />
+              <VIcon
+                class="me-2"
+                icon="tabler-key"
+                size="22"
+              />
             </template>
 
             <VListItemTitle>Keywords</VListItemTitle>
@@ -85,7 +113,11 @@ import avatar1 from "@images/avatars/avatar-1.png";
           <!-- 👉 Audiences -->
           <VListItem link>
             <template #prepend>
-              <VIcon class="me-2" icon="tabler-speakerphone" size="22" />
+              <VIcon
+                class="me-2"
+                icon="tabler-speakerphone"
+                size="22"
+              />
             </template>
 
             <VListItemTitle>Audiences</VListItemTitle>
@@ -97,7 +129,11 @@ import avatar1 from "@images/avatars/avatar-1.png";
           <!-- 👉 Logout -->
           <VListItem to="/login">
             <template #prepend>
-              <VIcon class="me-2" icon="tabler-logout" size="22" />
+              <VIcon
+                class="me-2"
+                icon="tabler-logout"
+                size="22"
+              />
             </template>
 
             <VListItemTitle>Sign Out</VListItemTitle>
