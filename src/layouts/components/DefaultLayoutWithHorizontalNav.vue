@@ -1,38 +1,40 @@
 <script lang="ts" setup>
-import { useTheme } from "vuetify/lib/framework.mjs";
-import navItems from "@/navigation/horizontal";
-import { useThemeConfig } from "@core/composable/useThemeConfig";
-import { themeConfig } from "@themeConfig";
+import { useTheme } from 'vuetify/lib/framework.mjs'
+import navItems from '@/navigation/horizontal'
+import { useThemeConfig } from '@core/composable/useThemeConfig'
+import { themeConfig } from '@themeConfig'
 
 // Components
-import Footer from "@/layouts/components/Footer.vue";
-import NavbarThemeSwitcher from "@/layouts/components/NavbarThemeSwitcher.vue";
-import UserProfile from "@/layouts/components/UserProfile.vue";
-import logoDark from "@images/logo-dark.svg?raw";
-import { HorizontalNavLayout } from "@layouts";
-import { VNodeRenderer } from "@layouts/components/VNodeRenderer";
-import { useModuleStore } from "@/store/module";
-const moduleStore = useModuleStore();
+import Footer from '@/layouts/components/Footer.vue'
+import NavbarThemeSwitcher from '@/layouts/components/NavbarThemeSwitcher.vue'
+import UserProfile from '@/layouts/components/UserProfile.vue'
+import logoDark from '@images/logo-dark.svg?raw'
+import { HorizontalNavLayout } from '@layouts'
+import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
+import { useModuleStore } from '@/store/module'
 
-const { appRouteTransition } = useThemeConfig();
+const moduleStore = useModuleStore()
 
-const workspace = ref("BitJar Labs Workspace");
+const { appRouteTransition } = useThemeConfig()
 
-const theme = useTheme();
+const workspace = ref('BitJar Labs Workspace')
 
-const darkNode = h("div", {
+const theme = useTheme()
+
+const darkNode = h('div', {
   innerHTML: logoDark,
-  style: "line-height:0; color: rgb(var(--v-global-theme-primary))",
-});
-
-const showPanelMdules = ref(false);
+  style: 'line-height:0; color: rgb(var(--v-global-theme-primary))',
+})
 </script>
 
 <template>
   <HorizontalNavLayout :nav-items="navItems">
     <!-- 👉 navbar -->
     <template #navbar>
-      <RouterLink to="/" class="app-logo d-flex align-center gap-x-3">
+      <RouterLink
+        to="/"
+        class="app-logo d-flex align-center gap-x-3"
+      >
         <VNodeRenderer
           :nodes="
             theme.global.current.value.dark ? darkNode : themeConfig.app.logo
@@ -52,21 +54,29 @@ const showPanelMdules = ref(false);
 
       <VSpacer />
 
-      <span class="app-header-words-remaining mr-2 text-black"
-        >Words Remaining: 5,602</span
-      >
+      <span class="app-header-words-remaining mr-2 text-black">Words Remaining: 5,602</span>
 
       <NavbarThemeSwitcher class="me-2" />
 
-      <IconBtn class="me-2" @click="() => moduleStore.setModal(true)">
-        <VIcon size="26" class="cursor-pointer" icon="tabler-layout-grid-add" />
+      <IconBtn
+        class="me-2"
+        @click="() => moduleStore.setModal(true)"
+      >
+        <VIcon
+          size="26"
+          class="cursor-pointer"
+          icon="tabler-layout-grid-add"
+        />
       </IconBtn>
       <UserProfile />
     </template>
 
     <!-- 👉 Pages -->
     <RouterView v-slot="{ Component }">
-      <Transition :name="appRouteTransition" mode="out-in">
+      <Transition
+        :name="appRouteTransition"
+        mode="out-in"
+      >
         <Component :is="Component" />
       </Transition>
     </RouterView>

@@ -1,40 +1,43 @@
 <script setup lang="ts">
-import { usePersonifyModalStore } from "@/store/modal/personify";
-const modalStore = usePersonifyModalStore();
-const representText = ref("");
-const analizyOptions = ["Informal", "Friendly", "Enthusiastic", "Persuasive"];
-const analizyOption = ref(analizyOptions);
-const termsAccepted = ref("");
-const showTerms = ref(true);
+import { usePersonifyModalStore } from '@/store/modal/personify'
 
 const props = defineProps({
   fromPanel: Boolean,
-});
+})
 
-defineEmits(["onSave", "onClear"]);
+defineEmits(['onSave', 'onClear'])
+
+const modalStore = usePersonifyModalStore()
+const representText = ref('')
+const analizyOptions = ['Informal', 'Friendly', 'Enthusiastic', 'Persuasive']
+const analizyOption = ref(analizyOptions)
+const termsAccepted = ref('')
+const showTerms = ref(true)
 
 function nextStepTerms() {
-  if (termsAccepted.value == "yes") {
-    modalStore.next();
-    return;
+  if (termsAccepted.value === 'yes') {
+    modalStore.next()
+
+    return
   }
 
-  showTerms.value = false;
+  showTerms.value = false
 }
 
 function backStepTerms() {
-  showTerms.value = true;
+  showTerms.value = true
 }
 
 onMounted(() => {
-  if (props.fromPanel) {
-    showTerms.value = false;
-  }
-});
+  if (props.fromPanel)
+    showTerms.value = false
+})
 </script>
 
 <template>
-  <h5 class="text-h5">Tone</h5>
+  <h5 class="text-h5">
+    Tone
+  </h5>
   <div v-if="showTerms">
     <p class="text-p mt-5">
       Hey there! We've got some cool news for you. Rubi has been hard at work
@@ -57,11 +60,15 @@ onMounted(() => {
 
     <VRadioGroup v-model="termsAccepted">
       <VRadio value="yes">
-        <template #label> These tones are great </template>
+        <template #label>
+          These tones are great
+        </template>
       </VRadio>
 
       <VRadio value="no">
-        <template #label> Let me create my own tone </template>
+        <template #label>
+          Let me create my own tone
+        </template>
       </VRadio>
     </VRadioGroup>
     <VCol class="mt-5">
@@ -70,15 +77,15 @@ onMounted(() => {
           variant="tonal"
           color="secondary"
           prepend-icon="tabler-arrow-left"
-          @click="modalStore.setStep('voice')"
           :disabled="modalStore.firstStep"
+          @click="modalStore.setStep('voice')"
         >
           Previous
         </VBtn>
         <VBtn
           append-icon="tabler-arrow-right"
-          @click="nextStepTerms"
           :disabled="!termsAccepted.length"
+          @click="nextStepTerms"
         >
           Next
         </VBtn>
@@ -93,7 +100,9 @@ onMounted(() => {
       and reserved, while a conversational blog post might have a casual,
       friendly tone.
     </p>
-    <h6 class="text-h6">Simulate your persona tone from a website</h6>
+    <h6 class="text-h6">
+      Simulate your persona tone from a website
+    </h6>
     <span class="text-p-small text-grey-500">
       Enter a URL you would like Rubi to scan and create a voice.
     </span>
@@ -102,10 +111,14 @@ onMounted(() => {
         <AppTextField placeholder="Enter URL" />
       </VCol>
       <VCol cols="2">
-        <button class="div-btn-append">Xtract</button>
+        <button class="div-btn-append">
+          Xtract
+        </button>
       </VCol>
     </VRow>
-    <h6 class="text-h6 mt-5">Simulate your persona tone from an influencer</h6>
+    <h6 class="text-h6 mt-5">
+      Simulate your persona tone from an influencer
+    </h6>
     <span class="text-p-small text-grey-500">
       Enter the Instagram handle of your favorite influencer.
     </span>
@@ -114,26 +127,42 @@ onMounted(() => {
         <AppTextField placeholder="Enter URL" />
       </VCol>
       <VCol cols="2">
-        <button class="div-btn-append">Xtract</button>
+        <button class="div-btn-append">
+          Xtract
+        </button>
       </VCol>
     </VRow>
-    <VRow no-gutters class="mt-5" align="center">
+    <VRow
+      no-gutters
+      class="mt-5"
+      align="center"
+    >
       <VCol cols="10">
-        <span class="text-h6"
-          >Type or paste text that represents you or the persona.</span
-        >
+        <span class="text-h6">Type or paste text that represents you or the persona.</span>
       </VCol>
       <VCol cols="2">
         <span class="text-counter">{{ representText.length }}/2,000</span>
       </VCol>
     </VRow>
-    <VRow no-gutters class="mt-2">
+    <VRow
+      no-gutters
+      class="mt-2"
+    >
       <VCol cols="12">
-        <AppTextarea v-model="representText" maxlength="2000"></AppTextarea>
+        <AppTextarea
+          v-model="representText"
+          maxlength="2000"
+        />
       </VCol>
     </VRow>
-    <VRow no-gutters class="mt-2" justify="end">
-      <VBtn size="small">Analyze</VBtn>
+    <VRow
+      no-gutters
+      class="mt-2"
+      justify="end"
+    >
+      <VBtn size="small">
+        Analyze
+      </VBtn>
     </VRow>
     <AppSelect
       v-model="analizyOption"
@@ -151,10 +180,16 @@ onMounted(() => {
 
     <VCol v-if="fromPanel">
       <VRow justify="space-between">
-        <VBtn variant="tonal" color="secondary" @click="$emit('onClear')">
+        <VBtn
+          variant="tonal"
+          color="secondary"
+          @click="$emit('onClear')"
+        >
           Clear
         </VBtn>
-        <VBtn @click="$emit('onSave')"> Save </VBtn>
+        <VBtn @click="$emit('onSave')">
+          Save
+        </VBtn>
       </VRow>
     </VCol>
     <VCol v-else>
@@ -163,18 +198,22 @@ onMounted(() => {
           variant="tonal"
           color="secondary"
           prepend-icon="tabler-arrow-left"
-          @click="backStepTerms"
           :disabled="modalStore.firstStep"
+          @click="backStepTerms"
         >
           Previous
         </VBtn>
-        <VBtn append-icon="tabler-arrow-right" @click="modalStore.next()">
+        <VBtn
+          append-icon="tabler-arrow-right"
+          @click="modalStore.next()"
+        >
           Next
         </VBtn>
       </VRow>
     </VCol>
   </div>
 </template>
+
 <style lang="scss" scoped>
 .div-btn-append {
   background-color: #4b4b4b;

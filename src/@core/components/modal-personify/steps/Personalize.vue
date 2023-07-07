@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import { usePersonifyModalStore } from "@/store/modal/personify";
-const modalStore = usePersonifyModalStore();
-const analizyOption = ref([]);
-const langs = ["English", "French", "Portuguese", "Spanish", "Mandarin"];
+import { usePersonifyModalStore } from '@/store/modal/personify'
+
+const modalStore = usePersonifyModalStore()
+const analizyOption = ref([])
+const langs = ['English', 'French', 'Portuguese', 'Spanish', 'Mandarin']
 </script>
 
 <template>
-  <h5 class="text-h5">PERSONALIZE</h5>
+  <h5 class="text-h5">
+    PERSONALIZE
+  </h5>
   <p class="text-p mt-5">
     Just like an expert tailor, Rubi's Personify tool has diligently stitched
     together the intricate details of your persona. It's picked up on the voice,
@@ -18,14 +21,18 @@ const langs = ["English", "French", "Portuguese", "Spanish", "Mandarin"];
     representation of your brand. Unveil their identity and let your persona
     take flight with Rubi's Personify!
   </p>
-  <h6 class="text-h6">Let's play the name game!</h6>
+  <h6 class="text-h6">
+    Let's play the name game!
+  </h6>
   <span class="text-p-small text-grey-500">
     Pick a name that truly embodies the essence of your freshly minted persona,
     giving it the perfect identity!
   </span>
-  <AppTextField></AppTextField>
-  <div class="mt-5"></div>
-  <h6 class="text-h6">Select your languages.</h6>
+  <AppTextField />
+  <div class="mt-5" />
+  <h6 class="text-h6">
+    Select your languages.
+  </h6>
   <span class="text-p-small text-grey-500">
     Feel free to pick all the languages you want to have at your disposal for
     this persona.
@@ -37,14 +44,14 @@ const langs = ["English", "French", "Portuguese", "Spanish", "Mandarin"];
     multiple
     persistent-hint
   />
-  <div class="mt-5"></div>
+  <div class="mt-5" />
 
   <VFileInput
     label="Put a face to it!"
     prepend-icon="tabler-camera"
     accept="image/*"
   />
-  <div class="mt-5"></div>
+  <div class="mt-5" />
 
   <VCol>
     <VRow justify="space-between">
@@ -52,17 +59,21 @@ const langs = ["English", "French", "Portuguese", "Spanish", "Mandarin"];
         variant="tonal"
         color="secondary"
         prepend-icon="tabler-arrow-left"
-        @click="modalStore.previous()"
         :disabled="modalStore.firstStep"
+        @click="modalStore.previous()"
       >
         Previous
       </VBtn>
-      <VBtn append-icon="tabler-arrow-right" @click="modalStore.next()">
+      <VBtn
+        append-icon="tabler-arrow-right"
+        @click="modalStore.next()"
+      >
         Next
       </VBtn>
     </VRow>
   </VCol>
 </template>
+
 <style lang="scss" scoped>
 .div-btn-append {
   background-color: #4b4b4b;

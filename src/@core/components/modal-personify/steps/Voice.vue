@@ -1,20 +1,22 @@
 <script setup lang="ts">
-import { usePersonifyModalStore } from "@/store/modal/personify";
+import { usePersonifyModalStore } from '@/store/modal/personify'
 
 defineProps({
   fromPanel: Boolean,
-});
+})
 
-defineEmits(["onSave", "onClear"]);
+defineEmits(['onSave', 'onClear'])
 
-const modalStore = usePersonifyModalStore();
-const representText = ref("");
-const analizyOption = ref([]);
-const analizyOptions = ["Informal", "Friendly", "Enthusiastic", "Persuasive"];
+const modalStore = usePersonifyModalStore()
+const representText = ref('')
+const analizyOption = ref([])
+const analizyOptions = ['Informal', 'Friendly', 'Enthusiastic', 'Persuasive']
 </script>
 
 <template>
-  <h5 class="text-h5">Voice</h5>
+  <h5 class="text-h5">
+    Voice
+  </h5>
   <p class="text-p mt-5">
     Your persona voice refers to the unique style or personality of a piece of
     writing. It's the distinct character or personality your writing exhibits,
@@ -22,7 +24,9 @@ const analizyOptions = ["Informal", "Friendly", "Enthusiastic", "Persuasive"];
     your writing sound like you, or in a business context, makes the writing
     representative of the brand or organization.
   </p>
-  <h6 class="text-h6">Simulate your persona voice from a website</h6>
+  <h6 class="text-h6">
+    Simulate your persona voice from a website
+  </h6>
   <span class="text-p-small text-grey-500">
     Enter a URL you would like Rubi to scan and create a voice.
   </span>
@@ -31,10 +35,14 @@ const analizyOptions = ["Informal", "Friendly", "Enthusiastic", "Persuasive"];
       <AppTextField placeholder="Enter URL" />
     </VCol>
     <VCol cols="2">
-      <button class="div-btn-append">Xtract</button>
+      <button class="div-btn-append">
+        Xtract
+      </button>
     </VCol>
   </VRow>
-  <h6 class="text-h6 mt-5">Simulate your persona voice from an influencer</h6>
+  <h6 class="text-h6 mt-5">
+    Simulate your persona voice from an influencer
+  </h6>
   <span class="text-p-small text-grey-500">
     Enter the Instagram handle of your favorite influencer.
   </span>
@@ -43,26 +51,42 @@ const analizyOptions = ["Informal", "Friendly", "Enthusiastic", "Persuasive"];
       <AppTextField placeholder="Enter URL" />
     </VCol>
     <VCol cols="2">
-      <button class="div-btn-append">Xtract</button>
+      <button class="div-btn-append">
+        Xtract
+      </button>
     </VCol>
   </VRow>
-  <VRow no-gutters class="mt-5" align="center">
+  <VRow
+    no-gutters
+    class="mt-5"
+    align="center"
+  >
     <VCol cols="10">
-      <span class="text-h6"
-        >Type or paste text that represents you or the persona.</span
-      >
+      <span class="text-h6">Type or paste text that represents you or the persona.</span>
     </VCol>
     <VCol cols="2">
       <span class="text-counter">{{ representText.length }}/2,000</span>
     </VCol>
   </VRow>
-  <VRow no-gutters class="mt-2">
+  <VRow
+    no-gutters
+    class="mt-2"
+  >
     <VCol cols="12">
-      <AppTextarea v-model="representText" maxlength="2000"></AppTextarea>
+      <AppTextarea
+        v-model="representText"
+        maxlength="2000"
+      />
     </VCol>
   </VRow>
-  <VRow no-gutters class="mt-2" justify="end">
-    <VBtn size="small">Analyze</VBtn>
+  <VRow
+    no-gutters
+    class="mt-2"
+    justify="end"
+  >
+    <VBtn size="small">
+      Analyze
+    </VBtn>
   </VRow>
   <AppSelect
     v-model="analizyOption"
@@ -79,10 +103,16 @@ const analizyOptions = ["Informal", "Friendly", "Enthusiastic", "Persuasive"];
 
   <VCol v-if="fromPanel">
     <VRow justify="space-between">
-      <VBtn variant="tonal" color="secondary" @click="$emit('onClear')">
+      <VBtn
+        variant="tonal"
+        color="secondary"
+        @click="$emit('onClear')"
+      >
         Clear
       </VBtn>
-      <VBtn @click="$emit('onSave')"> Save </VBtn>
+      <VBtn @click="$emit('onSave')">
+        Save
+      </VBtn>
     </VRow>
   </VCol>
 
@@ -92,8 +122,8 @@ const analizyOptions = ["Informal", "Friendly", "Enthusiastic", "Persuasive"];
         variant="tonal"
         color="secondary"
         prepend-icon="tabler-arrow-left"
-        @click="modalStore.setStep('voice')"
         :disabled="modalStore.firstStep"
+        @click="modalStore.setStep('voice')"
       >
         Previous
       </VBtn>
@@ -106,6 +136,7 @@ const analizyOptions = ["Informal", "Friendly", "Enthusiastic", "Persuasive"];
     </VRow>
   </VCol>
 </template>
+
 <style lang="scss" scoped>
 .div-btn-append {
   background-color: #4b4b4b;

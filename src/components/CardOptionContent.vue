@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { useTheme } from "vuetify/lib/framework.mjs";
-
-const emit = defineEmits(["click"]);
+import { useTheme } from 'vuetify/lib/framework.mjs'
 
 const props = defineProps({
   iconImg: String,
@@ -13,50 +11,48 @@ const props = defineProps({
   bgIconColorLight: String,
   bgIconColorDark: String,
   buttonMode: Boolean,
-});
+})
 
-const theme = useTheme();
+const emit = defineEmits(['click'])
+
+const theme = useTheme()
 
 const bg = computed(() => {
   if (theme.global.current.value.dark && props.bgIconColorDark)
-    return props.bgIconColorDark;
+    return props.bgIconColorDark
   if (!theme.global.current.value.dark && props.bgIconColorLight)
-    return props.bgIconColorLight;
+    return props.bgIconColorLight
 
-  return null;
-});
+  return null
+})
 </script>
 
 <template>
-  <v-expansion-panels>
-    <v-expansion-panel
+  <VExpansionPanels>
+    <VExpansionPanel
       :disabled="buttonMode"
-      @click="emit('click')"
       :style="buttonMode ? `cursor: pointer !important` : ''"
+      @click="emit('click')"
     >
-      <v-expansion-panel-title
-        :expand-icon="buttonMode ? 'none' : 'tabler-chevron-up'"
-      >
+      <VExpansionPanelTitle :expand-icon="buttonMode ? 'none' : 'tabler-chevron-up'">
         <div class="card-option-content">
           <img
             :src="props.iconImg"
             :style="`padding: ${props.paddingIcon || 0}px; ${
               hasBorder ? '' : 'border: none !important;'
             } ${bg ? `background-color:${bg};` : ''}`"
-          />
+          >
           <div>
             <span class="text-h3">{{ props.title }}</span>
             <span class="text-p-medium">{{ props.subTitle }}</span>
           </div>
         </div>
-      </v-expansion-panel-title>
-      <v-expansion-panel-text
-        style="background-color: rgb(var(--v-theme-background-body))"
-      >
+      </VExpansionPanelTitle>
+      <VExpansionPanelText style="background-color: rgb(var(--v-theme-background-body))">
         <slot />
-      </v-expansion-panel-text>
-    </v-expansion-panel>
-  </v-expansion-panels>
+      </VExpansionPanelText>
+    </VExpansionPanel>
+  </VExpansionPanels>
 </template>
 
 <style scoped lang="scss">

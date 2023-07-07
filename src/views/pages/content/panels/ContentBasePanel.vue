@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import { PerfectScrollbar } from "vue3-perfect-scrollbar";
+import { computed } from 'vue'
 
 const props = defineProps({
   title: String,
   icon: String,
   modelValue: Boolean,
-});
-const emits = defineEmits(["update:modelValue"]);
+})
+
+const emits = defineEmits(['update:modelValue'])
 
 const modalValue = computed({
   get() {
-    return props.modelValue;
+    return props.modelValue
   },
   set(value) {
-    emits("update:modelValue", value);
+    emits('update:modelValue', value)
   },
-});
+})
 </script>
 
 <template>
@@ -59,5 +59,3 @@ const modalValue = computed({
     </div>
   </VNavigationDrawer>
 </template>
-
-<style lang="scss" scoped></style>

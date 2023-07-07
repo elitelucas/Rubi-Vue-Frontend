@@ -1,34 +1,34 @@
 <script setup lang="ts">
-import { usePersonifyModalStore } from "@/store/modal/personify";
-import DialogNewAudience from "@/views/pages/profile/audiences/DialogNewAudience.vue";
-import { useI18n } from "vue-i18n";
-import { VDataTable } from "vuetify/labs/VDataTable";
-const modalPersonifyStore = usePersonifyModalStore();
+import { useI18n } from 'vue-i18n'
+import { VDataTable } from 'vuetify/labs/VDataTable'
+import { usePersonifyModalStore } from '@/store/modal/personify'
 
-const i18n = useI18n();
+const modalPersonifyStore = usePersonifyModalStore()
+
+const i18n = useI18n()
 
 const data = [
   {
     id: 1,
-    name: "AI Enthusiast",
-    sub_title: "18-34 Male - $75K+",
-    language: "English",
-    age: "18 - 34",
+    name: 'AI Enthusiast',
+    sub_title: '18-34 Male - $75K+',
+    language: 'English',
+    age: '18 - 34',
     level: 75000,
-    tone: "Entusiastic",
+    tone: 'Entusiastic',
   },
-];
+]
 
 const headers = [
-  { title: "Name".toUpperCase(), key: "name" },
-  { title: "Preferred Language".toUpperCase(), key: "language" },
-  { title: "Age DEMO".toUpperCase(), key: "age" },
-  { title: "Income Levels".toUpperCase(), key: "level" },
-  { title: "Primary Tone".toUpperCase(), key: "tone" },
-  { title: "ACTIONS", key: "actions", sortable: false },
-];
+  { title: 'Name'.toUpperCase(), key: 'name' },
+  { title: 'Preferred Language'.toUpperCase(), key: 'language' },
+  { title: 'Age DEMO'.toUpperCase(), key: 'age' },
+  { title: 'Income Levels'.toUpperCase(), key: 'level' },
+  { title: 'Primary Tone'.toUpperCase(), key: 'tone' },
+  { title: 'ACTIONS', key: 'actions', sortable: false },
+]
 
-const selected = ref([]);
+const selected = ref([])
 </script>
 
 <template>
@@ -37,7 +37,12 @@ const selected = ref([]);
     <VCard>
       <VCardText>
         <VRow>
-          <VCol cols="12" lg="2" md="2" sm="12">
+          <VCol
+            cols="12"
+            lg="2"
+            md="2"
+            sm="12"
+          >
             <VBtn
               prepend-icon="tabler-plus"
               style="width: 100%"
@@ -46,11 +51,21 @@ const selected = ref([]);
               Create New Persona
             </VBtn>
           </VCol>
-          <v-spacer></v-spacer>
-          <VCol cols="12" lg="2" md="4" sm="12">
+          <VSpacer />
+          <VCol
+            cols="12"
+            lg="2"
+            md="4"
+            sm="12"
+          >
             <AppTextField placeholder="Search Audiences" />
           </VCol>
-          <VCol cols="12" lg="2" md="4" sm="12">
+          <VCol
+            cols="12"
+            lg="2"
+            md="4"
+            sm="12"
+          >
             <AppSelect placeholder="Select Status" />
           </VCol>
         </VRow>
@@ -63,34 +78,39 @@ const selected = ref([]);
           show-select
           item-value="id"
         >
-          <template v-slot:item.name="{ item }">
-            <span class="text-h6">{{ item.raw.name }}</span
-            ><br />
+          <template #item.name="{ item }">
+            <span class="text-h6">{{ item.raw.name }}</span><br>
             <span class="text-p-small text-muted">{{
               item.raw.sub_title
             }}</span>
           </template>
-          <template v-slot:item.level="{ item }">
+          <template #item.level="{ item }">
             {{ i18n.n(item.raw.level, "currency") }}+
           </template>
 
-          <template v-slot:item.actions="{ item }">
-            <v-menu>
-              <template v-slot:activator="{ props }">
-                <v-btn icon="mdi-dots-vertical" variant="plain"></v-btn>
+          <template #item.actions>
+            <VMenu>
+              <template #activator>
+                <VBtn
+                  icon="mdi-dots-vertical"
+                  variant="plain"
+                />
               </template>
 
-              <v-list>
-                <v-list-item>
-                  <v-list-item-title>Hi</v-list-item-title>
-                  <v-list-item-title>Hi</v-list-item-title>
-                  <v-list-item-title>Hi</v-list-item-title>
-                </v-list-item>
-              </v-list>
-            </v-menu>
-            <VBtn icon="tabler-pencil" variant="plain"></VBtn>
+              <VList>
+                <VListItem>
+                  <VListItemTitle>Hi</VListItemTitle>
+                  <VListItemTitle>Hi</VListItemTitle>
+                  <VListItemTitle>Hi</VListItemTitle>
+                </VListItem>
+              </VList>
+            </VMenu>
+            <VBtn
+              icon="tabler-pencil"
+              variant="plain"
+            />
           </template>
-          <template v-slot:bottom> </template>
+          <template #bottom />
         </VDataTable>
       </VCardText>
     </VCard>

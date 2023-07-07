@@ -1,92 +1,95 @@
 <script lang="ts" setup>
-import type { Component } from "vue";
-import { PerfectScrollbar } from "vue3-perfect-scrollbar";
-import { VNodeRenderer } from "./VNodeRenderer";
-import { injectionKeyIsVerticalNavHovered, useLayouts } from "@layouts";
-import { themeConfig } from "@themeConfig";
+import type { Component } from 'vue'
+import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
+import { useTheme } from 'vuetify/lib/framework.mjs'
+import { VNodeRenderer } from './VNodeRenderer'
+import { injectionKeyIsVerticalNavHovered, useLayouts } from '@layouts'
+import { themeConfig } from '@themeConfig'
 import {
   VerticalNavGroup,
   VerticalNavLink,
   VerticalNavSectionTitle,
-} from "@layouts/components";
-import { config } from "@layouts/config";
+} from '@layouts/components'
+import { config } from '@layouts/config'
 import type {
   NavGroup,
   NavLink,
   NavSectionTitle,
   VerticalNavItems,
-} from "@layouts/types";
-import { useTheme } from "vuetify/lib/framework.mjs";
-import logoDark from "@images/logo-dark.svg?raw";
+} from '@layouts/types'
+import logoDark from '@images/logo-dark.svg?raw'
 
 interface Props {
-  tag?: string | Component;
-  navItems: VerticalNavItems;
-  isOverlayNavActive: boolean;
-  toggleIsOverlayNavActive: (value: boolean) => void;
+  tag?: string | Component
+  navItems: VerticalNavItems
+  isOverlayNavActive: boolean
+  toggleIsOverlayNavActive: (value: boolean) => void
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  tag: "aside",
-});
+  tag: 'aside',
+})
 
-const refNav = ref();
+const refNav = ref()
 
-const { width: windowWidth } = useWindowSize();
+const { width: windowWidth } = useWindowSize()
 
-const isHovered = useElementHover(refNav);
+const isHovered = useElementHover(refNav)
 
-const theme = useTheme();
+const theme = useTheme()
 
-const darkNode = h("div", {
+const darkNode = h('div', {
   innerHTML: logoDark,
-  style: "line-height:0; color: rgb(var(--v-global-theme-primary))",
-});
+  style: 'line-height:0; color: rgb(var(--v-global-theme-primary))',
+})
 
-provide(injectionKeyIsVerticalNavHovered, isHovered);
+provide(injectionKeyIsVerticalNavHovered, isHovered)
 
 const {
   isVerticalNavCollapsed: isCollapsed,
   isLessThanOverlayNavBreakpoint,
   isVerticalNavMini,
   isAppRtl,
-} = useLayouts();
+} = useLayouts()
 
-const hideTitleAndIcon = isVerticalNavMini(windowWidth, isHovered);
+const hideTitleAndIcon = isVerticalNavMini(windowWidth, isHovered)
 
 const resolveNavItemComponent = (
-  item: NavLink | NavSectionTitle | NavGroup
+  item: NavLink | NavSectionTitle | NavGroup,
 ) => {
-  if ("heading" in item) return VerticalNavSectionTitle;
-  if ("children" in item) return VerticalNavGroup;
+  if ('heading' in item)
+    return VerticalNavSectionTitle
+  if ('children' in item)
+    return VerticalNavGroup
 
-  return VerticalNavLink;
-};
+  return VerticalNavLink
+}
 
 /*
   ℹ️ Close overlay side when route is changed
   Close overlay vertical nav when link is clicked
 */
-const route = useRoute();
+const route = useRoute()
 
 watch(
   () => route.name,
   () => {
-    props.toggleIsOverlayNavActive(false);
-  }
-);
+    props.toggleIsOverlayNavActive(false)
+  },
+)
 
-const isVerticalNavScrolled = ref(false);
+const isVerticalNavScrolled = ref(false)
+
 const updateIsVerticalNavScrolled = (val: boolean) =>
-  (isVerticalNavScrolled.value = val);
+  (isVerticalNavScrolled.value = val)
 
 const handleNavScroll = (evt: Event) => {
-  isVerticalNavScrolled.value = (evt.target as HTMLElement).scrollTop > 0;
-};
+  isVerticalNavScrolled.value = (evt.target as HTMLElement).scrollTop > 0
+}
 
 const logoNode = computed(() =>
-  theme.global.current.value.dark ? darkNode : themeConfig.app.logo
-);
+  theme.global.current.value.dark ? darkNode : themeConfig.app.logo,
+)
 </script>
 
 <template>
@@ -97,9 +100,9 @@ const logoNode = computed(() =>
     :class="[
       {
         'overlay-nav': isLessThanOverlayNavBreakpoint(windowWidth),
-        hovered: isHovered,
-        visible: isOverlayNavActive,
-        scrolled: isVerticalNavScrolled,
+        'hovered': isHovered,
+        'visible': isOverlayNavActive,
+        'scrolled': isVerticalNavScrolled,
       },
     ]"
   >

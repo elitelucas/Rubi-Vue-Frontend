@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import { usePersonifyModalStore } from "@/store/modal/personify";
-const modalStore = usePersonifyModalStore();
+import { usePersonifyModalStore } from '@/store/modal/personify'
+
+const modalStore = usePersonifyModalStore()
 </script>
 
 <template>
-  <h5 class="text-h5">Congratulations!</h5>
+  <h5 class="text-h5">
+    Congratulations!
+  </h5>
   <p class="text-p mt-5">
     Whoo-hoo! You and Rubi have really hit it off, haven't you? It's like you've
     been on this awesome journey together, crafting the most exquisite persona
@@ -15,8 +18,8 @@ const modalStore = usePersonifyModalStore();
     ready to take the world by storm!
   </p>
 
-  <div class="mt-10"></div>
-  <div class="mt-10"></div>
+  <div class="mt-10" />
+  <div class="mt-10" />
 
   <VCol>
     <VRow justify="end">
@@ -31,6 +34,7 @@ const modalStore = usePersonifyModalStore();
     </VRow>
   </VCol>
 </template>
+
 <style lang="scss" scoped>
 .div-btn-append {
   background-color: #4b4b4b;

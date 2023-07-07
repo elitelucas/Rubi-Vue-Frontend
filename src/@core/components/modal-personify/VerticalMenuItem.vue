@@ -4,20 +4,36 @@ defineProps({
   subTitle: String,
   icon: String,
   selected: Boolean,
-});
+})
 </script>
 
 <template>
-  <VCol cols="12" lg="12" md="12" sm="12">
+  <VCol
+    cols="12"
+    lg="12"
+    md="12"
+    sm="12"
+  >
     <VRow align="center">
-      <div class="icon-div" :class="selected ? 'selected' : ''">
-        <img :src="icon" v-if="!icon?.includes('tabler')" />
-        <VIcon :icon="icon" v-else />
+      <div
+        class="icon-div"
+        :class="selected ? 'selected' : ''"
+      >
+        <img
+          v-if="!icon?.includes('tabler')"
+          :src="icon"
+        >
+        <VIcon
+          v-else
+          :icon="icon"
+        />
       </div>
 
-      <VCol cols="9" class="text-div">
-        <span class="text-h6">{{ title }}</span
-        ><br />
+      <VCol
+        cols="9"
+        class="text-div"
+      >
+        <span class="text-h6">{{ title }}</span><br>
         <span class="text-p-semibold">{{ subTitle }}</span>
       </VCol>
     </VRow>
