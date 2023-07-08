@@ -33,11 +33,13 @@
       // Specify the path to your Lottie animation JSON file
       const animationPath = 'images/lotties/logo.json'
 
+      window.animationPath = animationPath
+
       // Load the animation
       // eslint-disable-next-line no-undef
       lottie.loadAnimation({
         container,
-        path: animationPath,
+        path: window.animationPath,
         renderer: 'svg', // Specify the renderer type (e.g., svg, canvas, html)
         loop: true, // Set whether the animation should loop
         autoplay: true, // Set whether the animation should play automatically

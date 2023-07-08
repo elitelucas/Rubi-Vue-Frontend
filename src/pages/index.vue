@@ -100,7 +100,7 @@ const modalPersonifyStore = usePersonifyModalStore()
       </div>
     </section>
     <section class="section-help">
-      <img src="/images/gif/logo_loading.gif">
+      <LogoAnimated :size="200" />
       <h3 class="text-h3">
         Hi, James! How can I help?
       </h3>
