@@ -20,11 +20,30 @@
       <div id="loading-bg">
         <div class="loading-logo">
           <!-- SVG Logo -->
-          <img src="/images/gif/logo_loading.gif" width="400" />
+          <div id="lottie-container"></div>
           <span> we are optimizing your experience, hang tight... </span>
         </div>
       </div>
     </div>
+    <script src="js/lottie.min.js"></script>
+    <script>
+      // Get the container element
+      const container = document.getElementById('lottie-container')
+
+      // Specify the path to your Lottie animation JSON file
+      const animationPath = 'images/lotties/logo.json'
+
+      // Load the animation
+      // eslint-disable-next-line no-undef
+      lottie.loadAnimation({
+        container,
+        path: animationPath,
+        renderer: 'svg', // Specify the renderer type (e.g., svg, canvas, html)
+        loop: true, // Set whether the animation should loop
+        autoplay: true, // Set whether the animation should play automatically
+      })
+    </script>
+
     <script type="module" src="/src/main.ts"></script>
     <script>
       const loaderColor

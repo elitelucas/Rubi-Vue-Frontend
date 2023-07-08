@@ -34,7 +34,7 @@ html {
   font-family: "Idlewild";
   font-style: normal;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 15px;
   line-height: 58px;
 
   /* identical to box height, or 359% */
@@ -106,4 +106,9 @@ html {
     opacity: 1;
     transform: rotate(1turn);
   }
+}
+
+
+#lottie-container > svg {
+  width: 35em !important;
 }
