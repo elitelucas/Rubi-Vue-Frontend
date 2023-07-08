@@ -1,29 +1,44 @@
 @font-face {
-  font-family: "Idlewild";
-  src: url("fonts/idlewild/Idlewild-Bold.otf") format("opentype");
+  font-family: 'Idlewild';
+  src: url('fonts/idlewild/Idlewild-Thin.woff2') format('woff2'),
+      url('fonts/idlewild/Idlewild-Thin.woff') format('woff');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Idlewild';
+  src: url('fonts/idlewild/Idlewild-Bold.woff2') format('woff2'),
+      url('fonts/idlewild/Idlewild-Bold.woff') format('woff');
   font-weight: bold;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-  font-family: "Idlewild";
-  src: url("fonts/idlewild/Idlewild-Book.otf") format("opentype");
+  font-family: 'Idlewild';
+  src: url('fonts/idlewild/Idlewild-Light.woff2') format('woff2'),
+      url('fonts/idlewild/Idlewild-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Idlewild';
+  src: url('fonts/idlewild/Idlewild-Medium.woff2') format('woff2'),
+      url('fonts/idlewild/Idlewild-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Idlewild Book';
+  src: url('fonts/idlewild/Idlewild-Book.woff2') format('woff2'),
+      url('fonts/idlewild/Idlewild-Book.woff') format('woff');
   font-weight: normal;
-}
-
-@font-face {
-  font-family: "Idlewild";
-  src: url("fonts/idlewild/Idlewild-Light.otf") format("opentype");
-  font-weight: lighter;
-}
-
-@font-face {
-  font-family: "Idlewild";
-  src: url("fonts/idlewild/Idlewild-Medium.otf") format("opentype");
-  font-weight: 600;
-}
-
-@font-face {
-  font-family: "Idlewild";
-  src: url("fonts/idlewild/Idlewild-Thin.otf") format("opentype");
-  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
 }

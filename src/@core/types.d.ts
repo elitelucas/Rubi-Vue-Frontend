@@ -139,3 +139,11 @@ export interface ChartJsCustomColors {
   scatterChartWarning: string,
 } 
 
+
+declare global {
+  interface Window {
+    lottie: any;
+    animationPath: string;
+  }
+}
+
