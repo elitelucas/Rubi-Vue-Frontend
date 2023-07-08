@@ -14,6 +14,7 @@ html {
   block-size: 100%;
   inline-size: 100%;
   background-image: url("/src/assets/images/pages/auth-background-illustration.png");
+  width: 100vw;
 }
 
 .loading-logo {
@@ -31,10 +32,10 @@ html {
 
 .loading-logo > span {
   padding: 0px 20px;
-  font-family: "Idlewild";
+  font-family: Idlewild;
   font-style: normal;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 15px;
   line-height: 58px;
 
   /* identical to box height, or 359% */
@@ -106,4 +107,13 @@ html {
     opacity: 1;
     transform: rotate(1turn);
   }
+}
+
+
+#lottie-container > svg {
+  width: 35em !important;
+}
+
+.app-logo-animated > .lottie > svg {
+  width: var(--logo-animation-size) !important;
 }

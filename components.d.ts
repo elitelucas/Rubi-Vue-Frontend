@@ -53,6 +53,7 @@ declare module '@vue/runtime-core' {
     HeaderProfile: typeof import('./src/@core/components/HeaderProfile.vue')['default']
     I18n: typeof import('./src/@core/components/I18n.vue')['default']
     Logo: typeof import('./src/components/Logo.vue')['default']
+    LogoAnimated: typeof import('./src/components/LogoAnimated.vue')['default']
     LogoLoading: typeof import('./src/components/LogoLoading.vue')['default']
     ModuleGroup: typeof import('./src/@core/components/modules/ModuleGroup.vue')['default']
     MoreBtn: typeof import('./src/@core/components/MoreBtn.vue')['default']

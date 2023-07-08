@@ -68,7 +68,10 @@ const currentStep = computed(() =>
         >
           <VCol cols="12">
             <VRow justify="center">
-              <img :src="logoVariant">
+              <img
+                :src="logoVariant"
+                width="260"
+              >
             </VRow>
             <VRow justify="center">
               <p class="text-body-2 text-text-color-body">
