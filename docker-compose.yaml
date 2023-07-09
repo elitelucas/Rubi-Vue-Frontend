@@ -8,17 +8,11 @@ services:
       build:
         context: .
         dockerfile: ./Dockerfile
-      image: rubi/ui/customer/stg  
+      image: rubi/ui/customer
       
-#       volumes:
-#           - ./:/var/www/app
-#       environment:
-#           - APP_ENV=local
-#       env_file:
-#         - ./.env
       
       ports:
-          - 8800:80
+          - 8800:8080
 
 networks:
   default:
