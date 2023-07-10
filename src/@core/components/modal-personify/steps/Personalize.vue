@@ -181,7 +181,7 @@ const onFileSelected = (event: any) => {
   }
 
   & img {
-    height: 100%;
+    max-height: 100%;
     padding: 10px 10px;
   }
 }
