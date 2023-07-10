@@ -41,14 +41,14 @@ const darkNode = h('div', {
           "
         />
       </RouterLink>
-      <VCol :lg="3">
+      <VCol lg="2">
         <AppSelect
           v-model="workspace"
           :items="['BitJar Labs Workspace', 'BitJar Labs Workspace2']"
           class="app-select-header"
-          base-color="rgba(var(--v-theme-on-background), var(--v-high-emphasis-opacity))"
-          color="rgba(var(--v-theme-on-background), var(--v-high-emphasis-opacity))"
-          item-color="rgba(var(--v-theme-on-background), var(--v-high-emphasis-opacity))"
+          base-color="primary"
+          color="primary"
+          item-color="primary"
         />
       </VCol>
 

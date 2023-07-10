@@ -12,7 +12,7 @@
 
 @mixin theme-select-header {
   .v-theme--light & {
-    color: rgb(var(--v-theme-rubi-red)) !important;
+    color: rgb(var(--v-theme-primary)) !important;
   }
   .v-theme--dark & {
     color: rgba(var(--v-theme-on-background), var(--v-high-emphasis-opacity)) !important;
