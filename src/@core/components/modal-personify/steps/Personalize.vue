@@ -5,6 +5,25 @@ const modalStore = usePersonifyModalStore()
 const analizyOption = ref([])
 const langs = ['English', 'French', 'Portuguese', 'Spanish', 'Mandarin']
 const uploader = ref()
+
+const selectedFile = ref(null)
+const imagePreview = ref<any>(null)
+
+const showImagePreview = () => {
+  if (selectedFile.value) {
+    const reader = new FileReader()
+
+    reader.readAsDataURL(selectedFile.value)
+    reader.onload = () => {
+      imagePreview.value = reader.result
+    }
+  }
+}
+
+const onFileSelected = (event: any) => {
+  selectedFile.value = event.target.files[0]
+  showImagePreview()
+}
 </script>
 
 <template>
@@ -53,19 +72,29 @@ const uploader = ref()
     class="d-none"
     prepend-icon="tabler-camera"
     accept="image/*"
+    @change="onFileSelected"
   />
 
   <div
     class="file-upload-area"
     @click="uploader.click()"
   >
+    <img
+      v-if="imagePreview"
+      :src="imagePreview"
+    >
+
     <VBtn
+      v-if="!imagePreview"
       icon="tabler-upload"
       rounded="sm"
       variant="tonal"
       color="secondary"
     />
-    <div class="file-upload-labels">
+    <div
+      v-if="!imagePreview"
+      class="file-upload-labels"
+    >
       <span class="text-p-bold text-p-small-bold">Upload Photo</span>
       <span class="text-p-small-light">Put a face to it!</span>
     </div>
@@ -149,6 +178,11 @@ const uploader = ref()
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+
+  & img {
+    height: 100%;
+    padding: 10px 10px;
   }
 }
 </style>
