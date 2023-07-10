@@ -72,13 +72,25 @@ const databaseSvg = useGenerateImageVariant(`<svg
 <template>
   <div class="balance-row">
     <div class="balance-row-label">
-      <div v-html="keyboardSvg" />
+      <RouterLink to="/">
+        <div v-html="keyboardSvg" />
+      </RouterLink>
       <span class="app-header-words-remaining mr-2 text-black">Balance: 5,602</span>
     </div>
 
     <div class="balance-row-label">
-      <div v-html="databaseSvg" />
+      <RouterLink to="/">
+        <div v-html="databaseSvg" />
+      </RouterLink>
       <span class="app-header-words-remaining mr-2 text-black">Balance: 10</span>
+      <VTooltip
+        activator="parent"
+        location="bottom"
+        class="balance-tooltip"
+        text="sadsadsad"
+      >
+        <span>Buy Words</span>
+      </VTooltip>
     </div>
   </div>
 </template>
@@ -105,5 +117,9 @@ const databaseSvg = useGenerateImageVariant(`<svg
       align-items: center;
       gap: 10px;
     }
+  }
+
+  .balance-tooltip {
+    color: red;
   }
 </style>

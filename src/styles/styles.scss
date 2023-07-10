@@ -198,6 +198,9 @@ div.v-select-list div[role=list] div[role=listitem]:hover {
 }
 
 
+.v-tooltip > .v-overlay__content {
+  color: rgba(var(--v-theme-on-surface),var(--v-medium-emphasis-opacity)) !important;
+}
 
 
 
