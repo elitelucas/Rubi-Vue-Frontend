@@ -54,7 +54,7 @@ const darkNode = h('div', {
 
       <VSpacer />
 
-      <span class="app-header-words-remaining mr-2 text-black">Words Remaining: 5,602</span>
+      <AppUserBalanceAccount />
 
       <NavbarThemeSwitcher class="me-2" />
 

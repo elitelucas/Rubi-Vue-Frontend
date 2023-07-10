@@ -2,8 +2,8 @@ import type { VerticalNavItems } from '@/@layouts/types'
 
 export default [
   {
-    title: 'Dashboard',
-    to: { path: '/' },
+    title: 'My Accounts',
+    to: { name: 'account' },
     icon: { icon: 'tabler-smart-home' },
     children: [
       {
@@ -29,8 +29,18 @@ export default [
     icon: { icon: 'tabler-users' },
   },
   {
-    title: 'Campaigns',
+    title: 'Audiences',
     to: { name: 'second-page' },
-    icon: { icon: 'tabler-smart-home' },
+    icon: { icon: 'tabler-speakerphone' },
+  },
+  {
+    title: 'Xtract Boosts',
+    to: { name: 'second-page' },
+    icon: { icon: 'tabler-rocket' },
+  },
+  {
+    title: 'Saved Content',
+    to: { name: 'second-page' },
+    icon: { icon: 'tabler-device-floppy' },
   },
 ] as VerticalNavItems

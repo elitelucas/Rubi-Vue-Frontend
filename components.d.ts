@@ -28,6 +28,8 @@ declare module '@vue/runtime-core' {
     AppStepper: typeof import('./src/@core/components/AppStepper.vue')['default']
     AppTextarea: typeof import('./src/@core/components/app-form-elements/AppTextarea.vue')['default']
     AppTextField: typeof import('./src/@core/components/app-form-elements/AppTextField.vue')['default']
+    AppUserBalance: typeof import('./src/@core/components/AppUserBalance.vue')['default']
+    AppUserBalanceAccount: typeof import('./src/@core/components/AppUserBalanceAccount.vue')['default']
     Audience: typeof import('./src/@core/components/modal-personify/steps/Audience.vue')['default']
     BuyNow: typeof import('./src/@core/components/BuyNow.vue')['default']
     CardAddEditDialog: typeof import('./src/components/dialogs/CardAddEditDialog.vue')['default']
