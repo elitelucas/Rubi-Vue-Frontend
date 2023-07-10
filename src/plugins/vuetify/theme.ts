@@ -49,6 +49,7 @@ const theme: VuetifyOptions['theme'] = {
         'background-card': '#FFFFFF',
         'solid-color-extra': '#D7D8DE',
         'solid-color-extra-table-striped': '#4B465C05',
+        'solid-color-extra-divider': '#DBDADE',
       },
 
       variables: {
@@ -121,6 +122,7 @@ const theme: VuetifyOptions['theme'] = {
         'background-card': '#313132',
         'solid-color-extra': '#4B4B4B',
         'solid-color-extra-table-striped': '#F5F5F505',
+        'solid-color-extra-divider': '#434968',
       },
       variables: {
         'code-color': '#d400ff',

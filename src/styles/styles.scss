@@ -87,12 +87,29 @@
 .text-p-lighter {
   font-size: 15px;
   line-height: 22px; 
+  font-weight: 300;
   color: rgb(var(--v-theme-text-color-body));
 }
 
 .text-p-small {
   font-style: normal;
   font-weight: 400;
+  font-size: 13px;
+  line-height: 20px;
+  color: rgb(var(--v-theme-text-color-body));
+}
+
+.text-p-small-bold {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 13px;
+  line-height: 20px;
+  color: rgb(var(--v-theme-text-color-body));
+}
+
+.text-p-small-light {
+  font-style: normal;
+  font-weight: 300;
   font-size: 13px;
   line-height: 20px;
   color: rgb(var(--v-theme-text-color-body));

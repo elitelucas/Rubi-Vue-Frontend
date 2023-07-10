@@ -4,6 +4,7 @@ import { usePersonifyModalStore } from '@/store/modal/personify'
 const modalStore = usePersonifyModalStore()
 const analizyOption = ref([])
 const langs = ['English', 'French', 'Portuguese', 'Spanish', 'Mandarin']
+const uploader = ref()
 </script>
 
 <template>
@@ -47,10 +48,29 @@ const langs = ['English', 'French', 'Portuguese', 'Spanish', 'Mandarin']
   <div class="mt-5" />
 
   <VFileInput
+    ref="uploader"
     label="Put a face to it!"
+    class="d-none"
     prepend-icon="tabler-camera"
     accept="image/*"
   />
+
+  <div
+    class="file-upload-area"
+    @click="uploader.click()"
+  >
+    <VBtn
+      icon="tabler-upload"
+      rounded="sm"
+      variant="tonal"
+      color="secondary"
+    />
+    <div class="file-upload-labels">
+      <span class="text-p-bold text-p-small-bold">Upload Photo</span>
+      <span class="text-p-small-light">Put a face to it!</span>
+    </div>
+  </div>
+
   <div class="mt-5" />
 
   <VCol>
@@ -108,6 +128,27 @@ const langs = ['English', 'French', 'Portuguese', 'Spanish', 'Mandarin']
 
   .v-theme--dark & {
     color: #4b4b4b;
+  }
+}
+
+.file-upload-area {
+  width: 150px;
+  height: 150px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  border: 1px dashed rgb(var(--v-theme-solid-color-extra-divider));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+
+  & .file-upload-labels {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }
 </style>
