@@ -239,15 +239,6 @@ const chatHistories = [
           </div>
 
           <div class="bottom">
-            <div class="regenerate">
-              <VBtn
-                variant="outlined"
-                color="rubi-red"
-                append-icon="tabler-refresh-dot"
-              >
-                Regenerate Response
-              </VBtn>
-            </div>
             <VDivider />
             <div class="mt-5 bottom-row">
               <div class="input">
@@ -277,6 +268,15 @@ const chatHistories = [
                 class="select"
               />
             </div>
+            <VRow justify="center">
+              <VBtn
+                variant="outlined"
+                color="rubi-red"
+                append-icon="tabler-refresh-dot"
+              >
+                Regenerate Response
+              </VBtn>
+            </VRow>
           </div>
         </VCard>
       </VMain>
