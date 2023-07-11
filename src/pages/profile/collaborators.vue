@@ -58,7 +58,7 @@ const headers = [
               style="width: 100%"
               @click="showDialogNewContribuitor = true"
             >
-              Invite New Contributor
+              Invite New Collaborator
             </VBtn>
           </VCol>
           <VSpacer />
@@ -124,8 +124,8 @@ const headers = [
 </template>
 
 <route lang="yaml">
-name: contributors
+name: collaborators
 meta:
   layout: default
-  name: contributors
+  name: collaborators
 </route>

@@ -27,8 +27,8 @@ const buttons = [
   {
     variant: 'plain',
     prependIcon: 'tabler-users',
-    text: 'Contributors',
-    route_name: 'contributors',
+    text: 'Collaborators',
+    route_name: 'collaborators',
   },
   {
     variant: 'plain',
