@@ -268,7 +268,10 @@ const chatHistories = [
                 class="select"
               />
             </div>
-            <VRow justify="center">
+            <VRow
+              justify="center"
+              class="button-generate-row"
+            >
               <VBtn
                 variant="outlined"
                 color="rubi-red"
@@ -415,6 +418,12 @@ const chatHistories = [
       left: 50%;
       transform: translate(-50%, -50%);
       top: -40px;
+    }
+
+    .button-generate-row {
+      @include media-query("md") {
+        margin-top: 20px;
+      }
     }
 
     .bottom-row {
