@@ -1,39 +1,48 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { VDataTable } from 'vuetify/labs/VDataTable'
-import { usePersonifyModalStore } from '@/store/modal/personify'
+import DialogNewContributor from '@/views/pages/account-settings/contributors/DialogNewContributor.vue'
 
-const modalPersonifyStore = usePersonifyModalStore()
+const { d, n } = useI18n()
 
-const i18n = useI18n()
+const showDialogNewContribuitor = ref(false)
 
 const data = [
   {
-    id: 1,
-    name: 'AI Enthusiast',
-    sub_title: '18-34 Male - $75K+',
-    language: 'English',
-    age: '18 - 34',
-    level: 75000,
-    tone: 'Entusiastic',
+    workspace: 'BitJar Labs',
+    sub_title: 'Software Development',
+    contributors: 5,
+    joined_date: Date.now(),
+    usage: 1210,
+  },
+  {
+    workspace: 'BitJar Labs',
+    sub_title: 'Software Development',
+    contributors: 5,
+    joined_date: Date.now(),
+    usage: 1210,
+  },
+  {
+    workspace: 'BitJar Labs',
+    sub_title: 'Software Development',
+    contributors: 5,
+    joined_date: Date.now(),
+    usage: 1210,
   },
 ]
 
 const headers = [
-  { title: 'Name'.toUpperCase(), key: 'name' },
-  { title: 'Preferred Language'.toUpperCase(), key: 'language' },
-  { title: 'Age DEMO'.toUpperCase(), key: 'age' },
-  { title: 'Income Levels'.toUpperCase(), key: 'level' },
-  { title: 'Primary Tone'.toUpperCase(), key: 'tone' },
+  { title: 'WORKSPACE', sortable: true, key: 'workspace' },
+  { title: 'CONTRIBUTORS', key: 'contributors' },
+  { title: 'JOINED DATE', key: 'joined_date' },
+  { title: 'USAGE', key: 'usage' },
   { title: 'ACTIONS', key: 'actions', sortable: false },
 ]
-
-const selected = ref([])
 </script>
 
 <template>
   <div>
-    <HeaderProfile />
+    <DialogNewContributor v-model:is-dialog-visible="showDialogNewContribuitor" />
     <VCard>
       <VCardText>
         <VRow>
@@ -46,9 +55,9 @@ const selected = ref([])
             <VBtn
               prepend-icon="tabler-plus"
               style="width: 100%"
-              @click="modalPersonifyStore.showModal = true"
+              @click="showDialogNewContribuitor = true"
             >
-              Create New Persona
+              Invite New Collaborator
             </VBtn>
           </VCol>
           <VSpacer />
@@ -58,7 +67,7 @@ const selected = ref([])
             md="4"
             sm="12"
           >
-            <AppTextField placeholder="Search Audiences" />
+            <AppTextField placeholder="Search Guests" />
           </VCol>
           <VCol
             cols="12"
@@ -72,28 +81,28 @@ const selected = ref([])
       </VCardText>
       <VCardText>
         <VDataTable
-          v-model="selected"
           :headers="headers"
           :items="data"
-          show-select
-          item-value="id"
         >
-          <template #item.name="{ item }">
-            <span class="text-h6">{{ item.raw.name }}</span><br>
+          <template #item.workspace="{ item }">
+            <span class="text-h6">{{ item.raw.workspace }}</span><br>
             <span class="text-p-small text-muted">{{
               item.raw.sub_title
             }}</span>
           </template>
-          <template #item.level="{ item }">
-            {{ i18n.n(item.raw.level, "currency") }}+
+          <template #item.usage="{ item }">
+            {{ n(item.raw.usage) }} words
           </template>
-
+          <template #item.joined_date="{ item }">
+            {{ d(item.raw.joined_date) }}
+          </template>
           <template #item.actions>
             <VMenu>
               <template #activator>
                 <VBtn
                   icon="mdi-dots-vertical"
                   variant="plain"
+                  color="black"
                 />
               </template>
 
@@ -105,10 +114,6 @@ const selected = ref([])
                 </VListItem>
               </VList>
             </VMenu>
-            <VBtn
-              icon="tabler-pencil"
-              variant="plain"
-            />
           </template>
           <template #bottom />
         </VDataTable>
@@ -118,8 +123,8 @@ const selected = ref([])
 </template>
 
 <route lang="yaml">
-name: personas
+name: collaborators
 meta:
   layout: default
-  name: personas
+  name: collaborators
 </route>

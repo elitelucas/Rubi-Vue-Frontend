@@ -1,31 +1,116 @@
+<script setup lang="ts">
+import avatar1 from '@images/avatars/avatar-14.png'
+
+const refInputEl = ref<HTMLElement>()
+
+const accountData = {
+  avatarImg: avatar1,
+}
+
+const accountDataLocal = ref(structuredClone(accountData))
+
+// changeAvatar function
+const changeAvatar = (file: Event) => {
+  const fileReader = new FileReader()
+  const { files } = file.target as HTMLInputElement
+
+  if (files && files.length) {
+    fileReader.readAsDataURL(files[0])
+    fileReader.onload = () => {
+      if (typeof fileReader.result === 'string')
+        accountDataLocal.value.avatarImg = fileReader.result
+    }
+  }
+}
+
+// reset avatar image
+const resetAvatar = () => {
+  accountDataLocal.value.avatarImg = accountData.avatarImg
+}
+</script>
+
 <template>
   <div>
-    <HeaderProfile />
-    <VCard title="Profile Details">
+    <VCard
+      title="Subscription Account Details"
+      subtitle="Define and manage your subscription."
+    >
       <VCardText>
-        <div class="header">
-          <img
-            class="img-profile"
-            src="/src/assets/images/avatars/avatar-1.png"
-            height="100"
-            width="100"
+        <VRow>
+          <VCol
+            cols="12"
+            lg="6"
+            md="6"
+            sm="12"
           >
-          <div class="options">
-            <div class="btns">
-              <VBtn>Upload new photo</VBtn>
-              <VBtn
-                variant="tonal"
-                color="secundary"
-                disabled
-              >
-                Reset
-              </VBtn>
+            <div class="d-flex">
+              <!-- 👉 Avatar -->
+              <VAvatar
+                rounded
+                size="100"
+                class="me-6"
+                :image="accountDataLocal.avatarImg"
+              />
+
+              <!-- 👉 Upload Photo -->
+              <form class="d-flex flex-column justify-center gap-4">
+                <div class="d-flex flex-wrap gap-2">
+                  <VBtn
+                    color="primary"
+                    @click="refInputEl?.click()"
+                  >
+                    <VIcon
+                      icon="tabler-cloud-upload"
+                      class="d-sm-none"
+                    />
+                    <span class="d-none d-sm-block">Upload new photo</span>
+                  </VBtn>
+
+                  <input
+                    ref="refInputEl"
+                    type="file"
+                    name="file"
+                    accept=".jpeg,.png,.jpg,GIF"
+                    hidden
+                    @input="changeAvatar"
+                  >
+
+                  <VBtn
+                    type="reset"
+                    color="secondary"
+                    variant="tonal"
+                    @click="resetAvatar"
+                  >
+                    <span class="d-none d-sm-block">Reset</span>
+                    <VIcon
+                      icon="tabler-refresh"
+                      class="d-sm-none"
+                    />
+                  </VBtn>
+                </div>
+
+                <p class="text-body-1 mb-0">
+                  Allowed JPG, GIF or PNG. Max size of 800K
+                </p>
+              </form>
             </div>
-            <span class="text-grey-400 description">
-              Allowed JPG, GIF or PNG. Max size of 800K
-            </span>
-          </div>
-        </div>
+          </VCol>
+          <VCol
+            cols="12"
+            lg="6"
+            md="6"
+            sm="12"
+          >
+            <VRadio
+              label="Make primary account"
+              color="primary"
+            />
+            <AppTextField
+              label="Account Nickname"
+              placeholder="Marketing Account"
+            />
+          </VCol>
+        </VRow>
       </VCardText>
       <VDivider />
       <VCardText>
@@ -94,8 +179,8 @@
               md="6"
             >
               <AppTextField
-                label="State"
-                placeholder="State"
+                label="City"
+                placeholder="City"
               />
             </VCol>
             <VCol
@@ -103,8 +188,8 @@
               md="6"
             >
               <AppTextField
-                label="Zip Code"
-                placeholder="Zip Code"
+                label="State"
+                placeholder="State"
               />
             </VCol>
             <VCol
@@ -121,29 +206,9 @@
               cols="12"
               md="6"
             >
-              <AppTextField
+              <AppSelect
                 label="Language"
                 placeholder="Language"
-              />
-            </VCol>
-            <VCol
-              cols="12"
-              md="6"
-            >
-              <AppSelect
-                label="Timezone"
-                placeholder="Select Timezone"
-                :items="['Timezone']"
-              />
-            </VCol>
-            <VCol
-              cols="12"
-              md="6"
-            >
-              <AppSelect
-                label="Currency"
-                placeholder="Select Currency"
-                :items="['Currency']"
               />
             </VCol>
             <VCol
@@ -169,7 +234,7 @@
     </VCard>
     <VCard
       title="Current Plan"
-      class="mt-10"
+      class="mt-10 d-none"
     >
       <VCardText>
         <VRow>

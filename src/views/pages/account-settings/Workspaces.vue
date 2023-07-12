@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { VDataTable } from 'vuetify/labs/VDataTable'
-import DialogNewContributor from '@/views/pages/profile/contributors/DialogNewContributor.vue'
+import DialogNewWorkSpace from '@/views/pages/account-settings/workspaces/DialogNewWorkSpace.vue'
 
 const { d, n } = useI18n()
-
-const showDialogNewContribuitor = ref(false)
 
 const data = [
   {
@@ -38,12 +36,13 @@ const headers = [
   { title: 'USAGE', key: 'usage' },
   { title: 'ACTIONS', key: 'actions', sortable: false },
 ]
+
+const showDialogNewWorkSpace = ref(false)
 </script>
 
 <template>
   <div>
-    <HeaderProfile />
-    <DialogNewContributor v-model:is-dialog-visible="showDialogNewContribuitor" />
+    <DialogNewWorkSpace v-model:is-dialog-visible="showDialogNewWorkSpace" />
     <VCard>
       <VCardText>
         <VRow>
@@ -56,9 +55,9 @@ const headers = [
             <VBtn
               prepend-icon="tabler-plus"
               style="width: 100%"
-              @click="showDialogNewContribuitor = true"
+              @click="showDialogNewWorkSpace = true"
             >
-              Invite New Collaborator
+              Create New Workspace
             </VBtn>
           </VCol>
           <VSpacer />
@@ -124,8 +123,8 @@ const headers = [
 </template>
 
 <route lang="yaml">
-name: collaborators
+name: workspaces
 meta:
   layout: default
-  name: collaborators
+  name: workspaces
 </route>

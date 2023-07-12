@@ -78,7 +78,6 @@ const socialAccounts = ref([
 
 <template>
   <div>
-    <HeaderProfile />
     <VCard title="Instant Post Connections">
       <VCardText>
         <VRow>

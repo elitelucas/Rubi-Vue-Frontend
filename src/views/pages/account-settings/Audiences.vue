@@ -1,45 +1,56 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { VDataTable } from 'vuetify/labs/VDataTable'
+import DialogNewAudience from '@/views/pages/account-settings/audiences/DialogNewAudience.vue'
 
-const { d, n } = useI18n()
+const i18n = useI18n()
 
 const data = [
   {
-    workspace: 'BitJar Labs',
-    sub_title: 'Software Development',
-    contributors: 5,
-    joined_date: Date.now(),
-    usage: 1210,
+    id: 1,
+    description: 'AI Enthusiast',
+    sub_title: '18-34 Male - $75K+',
+    language: 'English',
+    age: '18 - 34',
+    level: 75000,
+    identifier: 75000,
   },
   {
-    workspace: 'BitJar Labs',
-    sub_title: 'Software Development',
-    contributors: 5,
-    joined_date: Date.now(),
-    usage: 1210,
+    id: 2,
+    description: 'AI Enthusiast',
+    sub_title: '18-34 Male - $75K+',
+    language: 'English',
+    age: '18 - 34',
+    level: 75000,
+    identifier: 75000,
   },
   {
-    workspace: 'BitJar Labs',
-    sub_title: 'Software Development',
-    contributors: 5,
-    joined_date: Date.now(),
-    usage: 1210,
+    id: 3,
+    description: 'AI Enthusiast',
+    sub_title: '18-34 Male - $75K+',
+    language: 'English',
+    age: '18 - 34',
+    level: 75000,
+    identifier: 75000,
   },
 ]
 
 const headers = [
-  { title: 'WORKSPACE', sortable: true, key: 'workspace' },
-  { title: 'CONTRIBUTORS', key: 'contributors' },
-  { title: 'JOINED DATE', key: 'joined_date' },
-  { title: 'USAGE', key: 'usage' },
+  { title: 'Description'.toUpperCase(), key: 'description' },
+  { title: 'Preferred Language'.toUpperCase(), key: 'language' },
+  { title: 'Age DEMO'.toUpperCase(), key: 'age' },
+  { title: 'Income Levels'.toUpperCase(), key: 'level' },
+  { title: 'Main dentifier'.toUpperCase(), key: 'identifier' },
   { title: 'ACTIONS', key: 'actions', sortable: false },
 ]
+
+const selected = ref([])
+const showDialogNewAudience = ref(false)
 </script>
 
 <template>
   <div>
-    <HeaderProfile />
+    <DialogNewAudience v-model:is-dialog-visible="showDialogNewAudience" />
     <VCard>
       <VCardText>
         <VRow>
@@ -52,8 +63,9 @@ const headers = [
             <VBtn
               prepend-icon="tabler-plus"
               style="width: 100%"
+              @click="showDialogNewAudience = true"
             >
-              Create New Workspace
+              Create New Audience
             </VBtn>
           </VCol>
           <VSpacer />
@@ -63,7 +75,7 @@ const headers = [
             md="4"
             sm="12"
           >
-            <AppTextField placeholder="Search Guests" />
+            <AppTextField placeholder="Search Audiences" />
           </VCol>
           <VCol
             cols="12"
@@ -77,28 +89,31 @@ const headers = [
       </VCardText>
       <VCardText>
         <VDataTable
+          v-model="selected"
           :headers="headers"
           :items="data"
+          show-select
+          item-value="id"
         >
-          <template #item.workspace="{ item }">
-            <span class="text-h6">{{ item.raw.workspace }}</span><br>
+          <template #item.description="{ item }">
+            <span class="text-h6">{{ item.raw.description }}</span><br>
             <span class="text-p-small text-muted">{{
               item.raw.sub_title
             }}</span>
           </template>
-          <template #item.usage="{ item }">
-            {{ n(item.raw.usage) }} words
+          <template #item.level="{ item }">
+            {{ i18n.n(item.raw.level, "currency") }}+
           </template>
-          <template #item.joined_date="{ item }">
-            {{ d(item.raw.joined_date) }}
+          <template #item.identifier="{ item }">
+            {{ i18n.n(item.raw.identifier, "currency") }}+
           </template>
+
           <template #item.actions>
             <VMenu>
               <template #activator>
                 <VBtn
                   icon="mdi-dots-vertical"
                   variant="plain"
-                  color="black"
                 />
               </template>
 
@@ -110,6 +125,10 @@ const headers = [
                 </VListItem>
               </VList>
             </VMenu>
+            <VBtn
+              icon="tabler-pencil"
+              variant="plain"
+            />
           </template>
           <template #bottom />
         </VDataTable>
@@ -119,8 +138,8 @@ const headers = [
 </template>
 
 <route lang="yaml">
-name: workspaces
+name: audiences
 meta:
   layout: default
-  name: workspaces
+  name: audiences
 </route>

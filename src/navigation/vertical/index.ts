@@ -3,13 +3,44 @@ import type { VerticalNavItems } from '@/@layouts/types'
 export default [
   {
     title: 'My Accounts',
-    to: { name: 'account' },
+    to: {
+      name: 'account-settings',
+      params: {
+        id: 1,
+      },
+
+    },
     icon: { icon: 'tabler-smart-home' },
     children: [
       {
-        title: 'Modules',
-        to: { name: 'second-page' },
-        icon: { icon: 'tabler-layout-grid-add' },
+        title: 'Nickname 1',
+        to: {
+          name: 'account-settings',
+          params: {
+            id: 1,
+          },
+        },
+        icon: { icon: 'tabler-user' },
+      },
+      {
+        title: 'Nickname 2',
+        to: {
+          name: 'account-settings',
+          params: {
+            id: 2,
+          },
+        },
+        icon: { icon: 'tabler-user' },
+      },
+      {
+        title: 'Nickname 3',
+        to: {
+          name: 'account-settings',
+          params: {
+            id: 3,
+          },
+        },
+        icon: { icon: 'tabler-user' },
       },
     ],
   },
