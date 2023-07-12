@@ -329,20 +329,19 @@ const resetAvatar = () => {
       </VCardText>
     </VCard>
     <VCard
-      title="Delete Account"
+      title="Delete Subscription Account"
       class="mt-10"
     >
       <VCardText>
         <VRow>
           <VCol cols="12">
             <div class="alert-automatic-pay">
-              <span class="text-h6 text-warning">Are you sure you want to delete your account?</span><br>
-              <span class="text-p-lighter text-warning">Once you delete your account, there is no going back. Please be
-                certain.</span><br>
+              <span class="text-h6 text-warning">Are you sure you want to delete this subscription?</span><br>
+              <span class="text-p-small text-warning">Once you delete your subscription, there is no going back. Please be certain.</span><br>
             </div>
           </VCol>
           <VCol cols="12">
-            <VCheckbox label="I confirm my account deactivation" />
+            <VCheckbox label="I confirm my subscription deletion." />
           </VCol>
           <VCol cols="12">
             <!-- 👉 submit and reset button -->
@@ -350,7 +349,7 @@ const resetAvatar = () => {
               type="submit"
               color="error"
             >
-              Deactivate Account
+              Deactivate Subscription
             </VBtn>
           </VCol>
         </VRow>
