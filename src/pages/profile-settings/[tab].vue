@@ -2,6 +2,7 @@
 import { useRoute } from 'vue-router'
 import Profile from '@/views/pages/profile-settings/Profile.vue'
 import Subscriptions from '@/views/pages/profile-settings/Subscriptions.vue'
+import Connections from '@/views/pages/profile-settings/Connections.vue'
 
 const route = useRoute()
 
@@ -11,6 +12,8 @@ const activeTab = ref(route.params.tab)
 const tabs = [
   { title: 'General Info', icon: 'tabler-user-circle', tab: 'profile' },
   { title: 'Subscriptions', icon: 'tabler-chart-arcs', tab: 'subscriptions' },
+  { title: 'Connections', icon: 'tabler-exchange', tab: 'connections' },
+  { title: 'Add-ons', icon: 'tabler-circle-plus', tab: 'Add-ons' },
 ]
 
 const selectedTab = computed(() => tabs.find(tab => tab.tab === activeTab.value))
@@ -32,6 +35,7 @@ const selectedTab = computed(() => tabs.find(tab => tab.tab === activeTab.value)
         :key="item.icon"
         :value="item.tab"
         :to="{ name: 'profile-settings', params: { tab: item.tab } }"
+        :disabled="item.title === 'Add-ons'"
       >
         <VIcon
           size="20"
@@ -55,6 +59,11 @@ const selectedTab = computed(() => tabs.find(tab => tab.tab === activeTab.value)
       <!-- Subscriptions -->
       <VWindowItem value="subscriptions">
         <Subscriptions />
+      </VWindowItem>
+
+      <!-- Connections -->
+      <VWindowItem value="connections">
+        <Connections />
       </VWindowItem>
     </VWindow>
   </div>

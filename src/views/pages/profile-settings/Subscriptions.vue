@@ -56,7 +56,7 @@ const showDialogSubscriptionsChangePlan = ref(false)
 
 <template>
   <div>
-    <DialogSubscriptionsChangePlan :is-dialog-visible="showDialogSubscriptionsChangePlan" />
+    <DialogSubscriptionsChangePlan v-model:is-dialog-visible="showDialogSubscriptionsChangePlan" />
     <img
       v-if="!$vuetify.display.mdAndDown"
       :src="FrameRubiLogo"
