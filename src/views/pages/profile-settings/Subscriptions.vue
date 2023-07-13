@@ -265,6 +265,7 @@ const showDialogSubscriptionsChangePlan = ref(false)
 .frame-logo {
   position: absolute;
   left: -40px;
-  top: -150px;
+  top: -10px;
+  height: 700px;
 }
 </style>
