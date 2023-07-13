@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { ChartJsCustomColors } from '@/@core/types'
-import CardChartUsageValues from '@/views/pages/profile/usage/CardChartUsageValues.vue'
-import CardCreditUsage from '@/views/pages/profile/usage/CardCreditUsage.vue'
-import CardCreditUsageStatistics from '@/views/pages/profile/usage/CardCreditUsageStatistics.vue'
+import CardChartUsageValues from '@/views/pages/account-settings/usage/CardChartUsageValues.vue'
+import CardCreditUsage from '@/views/pages/account-settings/usage/CardCreditUsage.vue'
+import CardCreditUsageStatistics from '@/views/pages/account-settings/usage/CardCreditUsageStatistics.vue'
 
 const colors: ChartJsCustomColors = {
   white: '#fff',
@@ -28,7 +28,6 @@ const colors: ChartJsCustomColors = {
 
 <template>
   <div>
-    <HeaderProfile />
     <VCard>
       <VCardText>
         <VRow class="match-height">

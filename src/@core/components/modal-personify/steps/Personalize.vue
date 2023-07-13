@@ -4,6 +4,26 @@ import { usePersonifyModalStore } from '@/store/modal/personify'
 const modalStore = usePersonifyModalStore()
 const analizyOption = ref([])
 const langs = ['English', 'French', 'Portuguese', 'Spanish', 'Mandarin']
+const uploader = ref()
+
+const selectedFile = ref(null)
+const imagePreview = ref<any>(null)
+
+const showImagePreview = () => {
+  if (selectedFile.value) {
+    const reader = new FileReader()
+
+    reader.readAsDataURL(selectedFile.value)
+    reader.onload = () => {
+      imagePreview.value = reader.result
+    }
+  }
+}
+
+const onFileSelected = (event: any) => {
+  selectedFile.value = event.target.files[0]
+  showImagePreview()
+}
 </script>
 
 <template>
@@ -47,10 +67,39 @@ const langs = ['English', 'French', 'Portuguese', 'Spanish', 'Mandarin']
   <div class="mt-5" />
 
   <VFileInput
+    ref="uploader"
     label="Put a face to it!"
+    class="d-none"
     prepend-icon="tabler-camera"
     accept="image/*"
+    @change="onFileSelected"
   />
+
+  <div
+    class="file-upload-area"
+    @click="uploader.click()"
+  >
+    <img
+      v-if="imagePreview"
+      :src="imagePreview"
+    >
+
+    <VBtn
+      v-if="!imagePreview"
+      icon="tabler-upload"
+      rounded="sm"
+      variant="tonal"
+      color="secondary"
+    />
+    <div
+      v-if="!imagePreview"
+      class="file-upload-labels"
+    >
+      <span class="text-p-bold text-p-small-bold">Upload Photo</span>
+      <span class="text-p-small-light">Put a face to it!</span>
+    </div>
+  </div>
+
   <div class="mt-5" />
 
   <VCol>
@@ -108,6 +157,32 @@ const langs = ['English', 'French', 'Portuguese', 'Spanish', 'Mandarin']
 
   .v-theme--dark & {
     color: #4b4b4b;
+  }
+}
+
+.file-upload-area {
+  width: 150px;
+  height: 150px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  border: 1px dashed rgb(var(--v-theme-solid-color-extra-divider));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+
+  & .file-upload-labels {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  & img {
+    max-height: 100%;
+    padding: 10px 10px;
   }
 }
 </style>

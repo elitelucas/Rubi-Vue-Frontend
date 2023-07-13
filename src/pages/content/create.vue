@@ -441,6 +441,7 @@ function testClick() {
           label="Results"
           bg-color="background-card"
           class="content-m mb-10"
+          disabled
         />
       </CardOptionContent>
     </VCol>

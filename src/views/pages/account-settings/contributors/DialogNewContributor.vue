@@ -44,7 +44,7 @@ const dialogModelValueUpdate = (val: boolean) => {
         <VNodeRenderer :nodes="config.app.logo" />
         <div class="my-3" />
         <VCardTitle class="text-h5 font-weight-medium mb-3">
-          Invite New Contributor
+          Invite New Collaborator
         </VCardTitle>
         <p class="mb-0">
           You send the invite, we’ll take care of the rest.
