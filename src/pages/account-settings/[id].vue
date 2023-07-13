@@ -3,7 +3,6 @@ import { useRoute } from 'vue-router'
 import Account from '@/views/pages/account-settings/Account.vue'
 import Audiences from '@/views/pages/account-settings/Audiences.vue'
 import Collaborators from '@/views/pages/account-settings/Collaborators.vue'
-import Connections from '@/views/pages/account-settings/Connections.vue'
 import Personas from '@/views/pages/account-settings/Personas.vue'
 import Usage from '@/views/pages/account-settings/Usage.vue'
 import Workspaces from '@/views/pages/account-settings/Workspaces.vue'
@@ -18,9 +17,9 @@ const tabs = [
   { title: 'Usage', icon: 'tabler-chart-arcs', tab: 'usage' },
   { title: 'Workspaces', icon: 'tabler-layout-board-split', tab: 'workspaces' },
   { title: 'Collaborators', icon: 'tabler-users', tab: 'collaborators' },
-  { title: 'Audiences', icon: 'tabler-speakerphone', tab: 'audiences' },
   { title: 'Personas', icon: 'tabler-id', tab: 'personas' },
-  { title: 'Keywords', icon: 'tabler-key', tab: 'connections' },
+  { title: 'Audiences', icon: 'tabler-speakerphone', tab: 'audiences' },
+  { title: 'Keywords', icon: 'tabler-key', tab: '111' },
 ]
 
 const selectedTab = computed(() => tabs.find(tab => tab.tab === activeTab.value))
@@ -81,11 +80,6 @@ onMounted(() => {
       <!-- Collaborators -->
       <VWindowItem value="collaborators">
         <Collaborators />
-      </VWindowItem>
-
-      <!-- Connections -->
-      <VWindowItem value="connections">
-        <Connections />
       </VWindowItem>
 
       <!-- Personas -->

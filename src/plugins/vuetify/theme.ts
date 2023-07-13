@@ -50,6 +50,7 @@ const theme: VuetifyOptions['theme'] = {
         'solid-color-extra': '#D7D8DE',
         'solid-color-extra-table-striped': '#4B465C05',
         'solid-color-extra-divider': '#DBDADE',
+        'extra-dark': '#4B4B4B',
       },
 
       variables: {
@@ -123,6 +124,7 @@ const theme: VuetifyOptions['theme'] = {
         'solid-color-extra': '#4B4B4B',
         'solid-color-extra-table-striped': '#F5F5F505',
         'solid-color-extra-divider': '#434968',
+        'extra-dark': '#D7D8DE',
       },
       variables: {
         'code-color': '#d400ff',

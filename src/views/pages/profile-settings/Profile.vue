@@ -31,10 +31,7 @@ const resetAvatar = () => {
 
 <template>
   <div>
-    <VCard
-      title="Subscription Account Details"
-      subtitle="Define and manage your subscription."
-    >
+    <VCard title="Profile Details">
       <VCardText>
         <VRow>
           <VCol
@@ -94,21 +91,6 @@ const resetAvatar = () => {
                 </p>
               </form>
             </div>
-          </VCol>
-          <VCol
-            cols="12"
-            lg="6"
-            md="6"
-            sm="12"
-          >
-            <VRadio
-              label="Make primary account"
-              color="primary"
-            />
-            <AppTextField
-              label="Account Nickname"
-              placeholder="Marketing Account"
-            />
           </VCol>
         </VRow>
       </VCardText>
@@ -234,19 +216,19 @@ const resetAvatar = () => {
     </VCard>
 
     <VCard
-      title="Delete Subscription Account"
+      title="Delete Account"
       class="mt-10"
     >
       <VCardText>
         <VRow>
           <VCol cols="12">
             <div class="alert-automatic-pay">
-              <span class="text-h6 text-warning">Are you sure you want to delete this subscription?</span><br>
-              <span class="text-p-small text-warning">Once you delete your subscription, there is no going back. Please be certain.</span><br>
+              <span class="text-h6 text-warning">Are you sure you want to delete your account?</span><br>
+              <span class="text-p-small text-warning">Once you delete your account, there is no going back. Please be certain.</span><br>
             </div>
           </VCol>
           <VCol cols="12">
-            <VCheckbox label="I confirm my subscription deletion." />
+            <VCheckbox label="I confirm my account deactivation" />
           </VCol>
           <VCol cols="12">
             <!-- 👉 submit and reset button -->
@@ -254,7 +236,7 @@ const resetAvatar = () => {
               type="submit"
               color="error"
             >
-              Deactivate Subscription
+              Deactivate Account
             </VBtn>
           </VCol>
         </VRow>

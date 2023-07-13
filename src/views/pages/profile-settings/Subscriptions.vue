@@ -1,0 +1,270 @@
+<script setup lang="ts">
+import DialogSubscriptionsChangePlan from './subscriptions/DialogSubscriptionsChangePlan.vue'
+import PlanCard from './subscriptions/PlanCard.vue'
+import FrameRubiLogo from '@images/pages/profile-settings/subscriptions/frame-rubi-logo.png'
+
+const pricingPlans = [
+  {
+    name: 'Basic',
+    price: 15,
+    type: 'month',
+    features: [
+      '10,000 Words',
+      '10 Credits',
+      '1 Workspace',
+      '1 Collaborator',
+      '3 Personas',
+    ],
+    comming: false,
+    highlight: false,
+  },
+  {
+    name: 'Pro',
+    price: 25,
+    type: 'month',
+    features: [
+      '25,000 Words',
+      '25 Credits',
+      '3 Workspace',
+      '3 Collaborator',
+      '10 Personas',
+      '1-Click Posting*',
+    ],
+    comming: true,
+    highlight: false,
+  },
+  {
+    name: 'Premium',
+    price: 50,
+    type: 'month',
+    features: [
+      '50,000 Words',
+      '50 Credits',
+      '5 Workspace',
+      '5 Collaborator',
+      'Unlimited Personas',
+      '1-Click Posting*',
+      '2GB of Storage*',
+    ],
+    comming: true,
+    highlight: true,
+  },
+]
+
+const showDialogSubscriptionsChangePlan = ref(false)
+</script>
+
+<template>
+  <div>
+    <DialogSubscriptionsChangePlan :is-dialog-visible="showDialogSubscriptionsChangePlan" />
+    <img
+      v-if="!$vuetify.display.mdAndDown"
+      :src="FrameRubiLogo"
+      class="frame-logo"
+    >
+    <!-- SECTION pricing plans -->
+    <VRow
+      justify="center"
+      class="mb-10"
+    >
+      <VCol
+        v-for="plan in pricingPlans"
+        :key="plan.name"
+        cols="12"
+        lg="3"
+        md="4"
+        sm="12"
+      >
+        <PlanCard
+          :name="plan.name"
+          :features="plan.features"
+          :price="plan.price"
+          :type_plan="plan.type"
+          :comming="plan.comming"
+          :highlight="plan.highlight"
+          :minimalist="false"
+          :current="false"
+        />
+      </VCol>
+    </VRow>
+    <VDivider class="mt-10" />
+    <h4 class="text-h4 mt-10">
+      My Current Subscriptions
+    </h4>
+    <VCard
+      title="Current Plan"
+      class="mt-5"
+    >
+      <VCardText>
+        <VRow>
+          <VCol
+            cols="12"
+            md="6"
+          >
+            <span class="text-base font-weight-medium text-high-emphasis">Your Current Plan is Basic</span><br>
+            <span class="text-sm">A simple start for everyone</span><br>
+          </VCol>
+          <VCol
+            cols="12"
+            md="6"
+          >
+            <VAlert
+              color="warning"
+              variant="tonal"
+            >
+              <VAlertTitle class="mb-2">
+                Your account is set to auto-renew
+              </VAlertTitle>
+              <span>Pay annually and get 2 months free.</span>
+            </VAlert>
+          </VCol>
+          <VCol
+            cols="12"
+            md="6"
+          >
+            <span class="text-base font-weight-medium text-high-emphasis">Active until Dec 09, 2021</span><br>
+            <span class="text-sm">We will send you a notification upon Subscription
+              expiration</span><br>
+          </VCol>
+          <VCol
+            cols="12"
+            md="6"
+          >
+            <div class="d-flex text-base font-weight-medium text-high-emphasis justify-space-between">
+              <span>Days</span>
+              <span>24 of 30 Days</span>
+            </div>
+            <VProgressLinear
+              model-value="30"
+              bg-color="secundary"
+              color="primary"
+            />
+            <span class="text-sm">6 days remaining until your plan requires update</span><br>
+          </VCol>
+          <VCol
+            cols="12"
+            md="6"
+          >
+            <span class="text-base font-weight-medium text-high-emphasis">$199 Per Month
+              <VChip
+                class="ma-1"
+                color="primary"
+                rounded="sm"
+              >
+                BASIC
+              </VChip></span><br>
+            <span class="text-sm">Standard plan for small to medium businesses</span><br>
+          </VCol>
+          <VCol
+            cols="12"
+            md="6"
+            class="d-flex gap-4"
+          />
+
+          <VCol
+            cols="12"
+            md="6"
+            class="d-flex gap-4"
+          >
+            <!-- 👉 submit and reset button -->
+            <VBtn @click="showDialogSubscriptionsChangePlan = true">
+              Change Plan
+            </VBtn>
+          </VCol>
+        </VRow>
+      </VCardText>
+    </VCard>
+    <VCard
+      title="Anytime Services"
+      subtitle="Septic and plumbing"
+      class="mt-5"
+    >
+      <VCardText>
+        <VRow>
+          <VCol
+            cols="12"
+            md="6"
+          >
+            <span class="text-base font-weight-medium text-high-emphasis">Your Current Plan is Basic</span><br>
+            <span class="text-sm">A simple start for everyone</span><br>
+          </VCol>
+          <VCol
+            cols="12"
+            md="6"
+          >
+            <VAlert
+              color="warning"
+              variant="tonal"
+            >
+              <VAlertTitle class="mb-2">
+                Your account is set to auto-renew
+              </VAlertTitle>
+              <span>Pay annually and get 2 months free.</span>
+            </VAlert>
+          </VCol>
+          <VCol
+            cols="12"
+            md="6"
+          >
+            <span class="text-base font-weight-medium text-high-emphasis">Active until Dec 09, 2021</span><br>
+            <span class="text-sm">We will send you a notification upon Subscription
+              expiration</span><br>
+          </VCol>
+          <VCol
+            cols="12"
+            md="6"
+          >
+            <div class="d-flex text-base font-weight-medium text-high-emphasis justify-space-between">
+              <span>Days</span>
+              <span>24 of 30 Days</span>
+            </div>
+            <VProgressLinear
+              model-value="30"
+              bg-color="secundary"
+              color="primary"
+            />
+            <span class="text-sm">6 days remaining until your plan requires update</span><br>
+          </VCol>
+          <VCol
+            cols="12"
+            md="6"
+          >
+            <span class="text-base font-weight-medium text-high-emphasis">$199 Per Month
+              <VChip
+                class="ma-1"
+                color="primary"
+                rounded="sm"
+              >
+                PRO
+              </VChip></span><br>
+            <span class="text-sm">Standard plan for small to medium businesses</span><br>
+          </VCol>
+          <VCol
+            cols="12"
+            md="6"
+            class="d-flex gap-4"
+          />
+
+          <VCol
+            cols="12"
+            md="6"
+            class="d-flex gap-4"
+          >
+            <!-- 👉 submit and reset button -->
+            <VBtn @click="showDialogSubscriptionsChangePlan = true">
+              Change Plan
+            </VBtn>
+          </VCol>
+        </VRow>
+      </VCardText>
+    </VCard>
+  </div>
+</template>
+
+<style lang="scss" scoped>
+.frame-logo {
+  position: absolute;
+  left: -40px;
+  top: -150px;
+}
+</style>

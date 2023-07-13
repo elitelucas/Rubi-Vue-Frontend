@@ -56,14 +56,7 @@ import avatar1 from '@images/avatars/avatar-1.png'
           <VDivider class="my-2" />
 
           <!-- 👉 Profile Details -->
-          <VListItem
-            :to="{
-              name: 'account-settings',
-              params: {
-                id: 3,
-              },
-            }"
-          >
+          <VListItem :to="{ name: 'profile-settings', params: { tab: 'profile' } }">
             <template #prepend>
               <VIcon
                 class="me-2"
