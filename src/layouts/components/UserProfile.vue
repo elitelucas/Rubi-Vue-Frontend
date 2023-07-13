@@ -55,8 +55,8 @@ import avatar1 from '@images/avatars/avatar-1.png'
 
           <VDivider class="my-2" />
 
-          <!-- 👉 My Account -->
-          <VListItem :to="{ name: 'account' }">
+          <!-- 👉 Profile Details -->
+          <VListItem :to="{ name: 'profile-settings', params: { tab: 'profile' } }">
             <template #prepend>
               <VIcon
                 class="me-2"
@@ -65,10 +65,23 @@ import avatar1 from '@images/avatars/avatar-1.png'
               />
             </template>
 
-            <VListItemTitle>My Account</VListItemTitle>
+            <VListItemTitle>Profile Details</VListItemTitle>
           </VListItem>
 
-          <!-- 👉 Orders -->
+          <!-- 👉 Subscriptions -->
+          <VListItem link>
+            <template #prepend>
+              <VIcon
+                class="me-2"
+                icon="tabler-exchange"
+                size="22"
+              />
+            </template>
+
+            <VListItemTitle>Subscriptions</VListItemTitle>
+          </VListItem>
+
+          <!-- 👉 Connections -->
           <VListItem link>
             <template #prepend>
               <VIcon
@@ -78,49 +91,7 @@ import avatar1 from '@images/avatars/avatar-1.png'
               />
             </template>
 
-            <VListItemTitle>Orders</VListItemTitle>
-          </VListItem>
-
-          <!-- Divider -->
-          <VDivider class="my-2" />
-
-          <!-- 👉 Personas -->
-          <VListItem link>
-            <template #prepend>
-              <VIcon
-                class="me-2"
-                icon="tabler-id"
-                size="22"
-              />
-            </template>
-
-            <VListItemTitle>Personas</VListItemTitle>
-          </VListItem>
-
-          <!-- 👉 Keywords -->
-          <VListItem link>
-            <template #prepend>
-              <VIcon
-                class="me-2"
-                icon="tabler-key"
-                size="22"
-              />
-            </template>
-
-            <VListItemTitle>Keywords</VListItemTitle>
-          </VListItem>
-
-          <!-- 👉 Audiences -->
-          <VListItem link>
-            <template #prepend>
-              <VIcon
-                class="me-2"
-                icon="tabler-speakerphone"
-                size="22"
-              />
-            </template>
-
-            <VListItemTitle>Audiences</VListItemTitle>
+            <VListItemTitle>Connections</VListItemTitle>
           </VListItem>
 
           <!-- Divider -->

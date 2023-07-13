@@ -117,7 +117,7 @@ const modalPersonifyStore = usePersonifyModalStore()
         your ideas into remarkable content.
       </p>
     </section>
-    <section class="content">
+    <section class="content d-none">
       <h3
         class="text-h3"
         style="margin-top: 105px"

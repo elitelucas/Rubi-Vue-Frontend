@@ -1,57 +1,38 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { VDataTable } from 'vuetify/labs/VDataTable'
-import DialogNewAudience from '@/views/pages/profile/audiences/DialogNewAudience.vue'
+import { usePersonifyModalStore } from '@/store/modal/personify'
+
+const modalPersonifyStore = usePersonifyModalStore()
 
 const i18n = useI18n()
 
 const data = [
   {
     id: 1,
-    description: 'AI Enthusiast',
+    name: 'AI Enthusiast',
     sub_title: '18-34 Male - $75K+',
     language: 'English',
     age: '18 - 34',
     level: 75000,
-    identifier: 75000,
-  },
-  {
-    id: 2,
-    description: 'AI Enthusiast',
-    sub_title: '18-34 Male - $75K+',
-    language: 'English',
-    age: '18 - 34',
-    level: 75000,
-    identifier: 75000,
-  },
-  {
-    id: 3,
-    description: 'AI Enthusiast',
-    sub_title: '18-34 Male - $75K+',
-    language: 'English',
-    age: '18 - 34',
-    level: 75000,
-    identifier: 75000,
+    tone: 'Entusiastic',
   },
 ]
 
 const headers = [
-  { title: 'Description'.toUpperCase(), key: 'description' },
+  { title: 'Name'.toUpperCase(), key: 'name' },
   { title: 'Preferred Language'.toUpperCase(), key: 'language' },
   { title: 'Age DEMO'.toUpperCase(), key: 'age' },
   { title: 'Income Levels'.toUpperCase(), key: 'level' },
-  { title: 'Main dentifier'.toUpperCase(), key: 'identifier' },
+  { title: 'Primary Tone'.toUpperCase(), key: 'tone' },
   { title: 'ACTIONS', key: 'actions', sortable: false },
 ]
 
 const selected = ref([])
-const showDialogNewAudience = ref(false)
 </script>
 
 <template>
   <div>
-    <HeaderProfile />
-    <DialogNewAudience v-model:is-dialog-visible="showDialogNewAudience" />
     <VCard>
       <VCardText>
         <VRow>
@@ -64,9 +45,9 @@ const showDialogNewAudience = ref(false)
             <VBtn
               prepend-icon="tabler-plus"
               style="width: 100%"
-              @click="showDialogNewAudience = true"
+              @click="modalPersonifyStore.showModal = true"
             >
-              Create New Audience
+              Create New Persona
             </VBtn>
           </VCol>
           <VSpacer />
@@ -96,17 +77,14 @@ const showDialogNewAudience = ref(false)
           show-select
           item-value="id"
         >
-          <template #item.description="{ item }">
-            <span class="text-h6">{{ item.raw.description }}</span><br>
+          <template #item.name="{ item }">
+            <span class="text-h6">{{ item.raw.name }}</span><br>
             <span class="text-p-small text-muted">{{
               item.raw.sub_title
             }}</span>
           </template>
           <template #item.level="{ item }">
             {{ i18n.n(item.raw.level, "currency") }}+
-          </template>
-          <template #item.identifier="{ item }">
-            {{ i18n.n(item.raw.identifier, "currency") }}+
           </template>
 
           <template #item.actions>
@@ -139,8 +117,8 @@ const showDialogNewAudience = ref(false)
 </template>
 
 <route lang="yaml">
-name: audiences
+name: personas
 meta:
   layout: default
-  name: audiences
+  name: personas
 </route>
