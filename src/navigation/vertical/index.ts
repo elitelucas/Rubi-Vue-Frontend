@@ -66,7 +66,7 @@ export default [
   },
   {
     title: 'Xtract Boosts',
-    to: { name: 'second-page' },
+    to: { name: 'xtract-boosts' },
     icon: { icon: 'tabler-rocket' },
   },
   {
