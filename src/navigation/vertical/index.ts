@@ -71,7 +71,7 @@ export default [
   },
   {
     title: 'Saved Content',
-    to: { name: 'second-page' },
+    to: { name: 'save-content', params: { tab: 'content' } },
     icon: { icon: 'tabler-device-floppy' },
   },
 ] as VerticalNavItems
