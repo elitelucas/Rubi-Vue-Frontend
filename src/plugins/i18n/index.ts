@@ -7,7 +7,7 @@ const messages = Object.fromEntries(
     .map(([key, value]) => [key.slice(10, -5), value.default]),
 )
 
-const numberFormats = {
+const numberFormats: any = {
   en: {
     currency: {
       style: 'currency', currency: 'USD', notation: 'standard',
@@ -21,10 +21,30 @@ const numberFormats = {
   },
 }
 
+const datetimeFormats: any = {
+  en: {
+    short: {
+      year: 'numeric', month: 'short', day: 'numeric',
+    },
+    datetime: {
+      year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric',
+    },
+    long: {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      weekday: 'short',
+      hour: 'numeric',
+      minute: 'numeric',
+    },
+  },
+}
+
 export default createI18n({
   legacy: false,
   locale: 'en',
   fallbackLocale: 'en',
   numberFormats,
   messages,
+  datetimeFormats,
 })

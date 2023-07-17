@@ -66,12 +66,12 @@ export default [
   },
   {
     title: 'Xtract Boosts',
-    to: { name: 'second-page' },
+    to: { name: 'xtract-boosts' },
     icon: { icon: 'tabler-rocket' },
   },
   {
     title: 'Saved Content',
-    to: { name: 'second-page' },
+    to: { name: 'save-content', params: { tab: 'content' } },
     icon: { icon: 'tabler-device-floppy' },
   },
 ] as VerticalNavItems
