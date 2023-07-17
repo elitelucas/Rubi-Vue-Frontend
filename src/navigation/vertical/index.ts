@@ -55,12 +55,12 @@ export default [
     icon: { icon: 'tabler-messages' },
   },
   {
-    title: 'Personas',
-    to: { name: 'second-page' },
-    icon: { icon: 'tabler-users' },
+    title: 'Create Content',
+    to: { name: 'content-create' },
+    icon: { icon: 'tabler-plus' },
   },
   {
-    title: 'Audiences',
+    title: 'SPI Audit',
     to: { name: 'second-page' },
     icon: { icon: 'tabler-speakerphone' },
   },
