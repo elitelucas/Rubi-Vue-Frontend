@@ -50,19 +50,19 @@ export default [
     icon: { icon: 'tabler-layout-grid-add' },
   },
   {
+    title: 'Create Content',
+    to: { name: 'content-create' },
+    icon: { icon: 'tabler-brand-pagekit' },
+  },
+  {
     title: 'Chat',
     to: { name: 'chat' },
     icon: { icon: 'tabler-messages' },
   },
   {
-    title: 'Personas',
-    to: { name: 'second-page' },
-    icon: { icon: 'tabler-users' },
-  },
-  {
-    title: 'Audiences',
-    to: { name: 'second-page' },
-    icon: { icon: 'tabler-speakerphone' },
+    title: 'SPI Audit',
+    to: { name: 'spi-audit' },
+    icon: { icon: 'tabler-map-search' },
   },
   {
     title: 'Xtract Boosts',

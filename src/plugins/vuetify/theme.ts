@@ -11,6 +11,7 @@ const theme: VuetifyOptions['theme'] = {
       dark: false,
       colors: {
         'primary': '#48B5FF',
+        'primary-300': '#7367F0',
         'on-primary': '#fff',
         'secondary': '#82868B',
         'on-secondary': '#fff',
@@ -83,6 +84,7 @@ const theme: VuetifyOptions['theme'] = {
       dark: true,
       colors: {
         'primary': localStorage.getItem(`${themeConfig.app.title}-darkThemePrimaryColor`) || staticPrimaryColor,
+        'primary-300': '#7367F0',
         'on-primary': '#fff',
         'secondary': '#A8AAAE',
         'on-secondary': '#fff',
