@@ -247,11 +247,16 @@ div.v-select-list div[role=list] div[role=listitem]:hover {
 }
 
 
-
-
 .editor-h-300 {
   .ql-container {
     height: 300px !important;
+  }
+}
+
+
+.placeholder-white {
+  input::placeholder {
+    color: white !important;
   }
 }
 
