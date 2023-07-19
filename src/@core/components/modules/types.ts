@@ -1,7 +1,7 @@
 export interface RootModuleGroup {
   title: string
   icon: string
-  color: string | null
+  color: string
   bgColor: string
   show: boolean
   features: OptionModuleGroup[]
