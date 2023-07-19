@@ -101,22 +101,33 @@ const modules: RootModuleGroup[] = [
   <div class="mt-10">
     <VCard>
       <VCardText>
-        <VCol class="px-8">
-          <VRow
-            align="center"
-            class="px-2"
-          >
-            <div class="box-icon-title">
-              <VIcon
-                size="31"
-                icon="tabler-apps"
-                color="text-color-body p-5"
-              />
-            </div>
-            <span class="text-h4 ml-2">Modules</span>
-          </VRow>
-          <VDivider class="my-8" />
-        </VCol>
+        <VRow class="px-8">
+          <VCol>
+            <VRow
+              align="center"
+              class="px-2"
+            >
+              <div class="box-icon-title">
+                <VIcon
+                  size="31"
+                  icon="tabler-apps"
+                  color="text-color-body p-5"
+                />
+              </div>
+              <span class="text-h4 ml-2">Modules</span>
+              <VSpacer />
+              <VCol
+                cols="12"
+                lg="2"
+                md="2"
+                sm="12"
+              >
+                <AppTextField placeholder="Search For Modules" />
+              </VCol>
+            </VRow>
+          </VCol>
+        </VRow>
+        <VDivider class="my-8 mx-2" />
 
         <ModuleGroup
           v-for="moduleItem in modules"
