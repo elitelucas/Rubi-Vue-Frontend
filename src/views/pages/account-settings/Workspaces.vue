@@ -38,11 +38,15 @@ const headers = [
 ]
 
 const showDialogNewWorkSpace = ref(false)
+const editMode = ref(false)
 </script>
 
 <template>
   <div>
-    <DialogNewWorkSpace v-model:is-dialog-visible="showDialogNewWorkSpace" />
+    <DialogNewWorkSpace
+      v-model:is-dialog-visible="showDialogNewWorkSpace"
+      :is-edit-mode="editMode"
+    />
     <VCard>
       <VCardText>
         <VRow>
@@ -55,7 +59,7 @@ const showDialogNewWorkSpace = ref(false)
             <VBtn
               prepend-icon="tabler-plus"
               style="width: 100%"
-              @click="showDialogNewWorkSpace = true"
+              @click="editMode = false;showDialogNewWorkSpace = true"
             >
               Create New Workspace
             </VBtn>
@@ -98,19 +102,24 @@ const showDialogNewWorkSpace = ref(false)
           </template>
           <template #item.actions>
             <VMenu>
-              <template #activator>
+              <template #activator="{ props }">
                 <VBtn
                   icon="mdi-dots-vertical"
                   variant="plain"
                   color="black"
+                  v-bind="props"
                 />
               </template>
 
               <VList>
+                <VListItem @click="editMode = true;showDialogNewWorkSpace = true">
+                  <VListItemTitle>Edit</VListItemTitle>
+                </VListItem>
                 <VListItem>
-                  <VListItemTitle>Hi</VListItemTitle>
-                  <VListItemTitle>Hi</VListItemTitle>
-                  <VListItemTitle>Hi</VListItemTitle>
+                  <VListItemTitle>Deactivate</VListItemTitle>
+                </VListItem>
+                <VListItem>
+                  <VListItemTitle>Remove</VListItemTitle>
                 </VListItem>
               </VList>
             </VMenu>

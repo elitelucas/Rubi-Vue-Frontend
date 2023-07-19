@@ -33,6 +33,7 @@ const selectedTab = computed(() => tabs.find(tab => tab.tab === activeTab.value)
         v-for="item in tabs"
         :key="item.icon"
         :value="item.tab"
+        class="text-text-color-body"
         :to="{ name: 'profile-settings', params: { tab: item.tab } }"
         :disabled="item.tab === 'none'"
       >
