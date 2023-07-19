@@ -6,6 +6,7 @@ import ContentAudiencePanel from '@/views/pages/content/panels/ContentAudiencePa
 import type { CustomInputContent } from '@/@core/types'
 import houseCheck from '@images/iconify-png/house-check.png'
 import gridIconPng from '@images/iconify-png/layout-grid-add.png'
+import SPIAuditScoring from '@/views/pages/content/SPIAuditScoring.vue'
 
 const selectPersona = ref('Persona')
 const selectVoice = ref('Voice')
@@ -488,133 +489,7 @@ function testClick() {
       <div class="editor mt-2">
         <QuillEditor toolbar="full" />
       </div>
-      <div class="bg-background-card mt-5 pb-15">
-        <VRow
-          class="content-m"
-          justify="space-between"
-          align-content="center"
-        >
-          <VCol
-            cols="12"
-            lg="6"
-            md="6"
-            sm="12"
-          >
-            <h3 class="text-h3">
-              SPI Scoring
-            </h3>
-            <p class="text-body-2-medium">
-              Surveillance and Plagiarism Identifier
-            </p>
-          </VCol>
-          <VCol
-            cols="12"
-            lg="6"
-            md="6"
-            sm="12"
-            align-self="end"
-          >
-            <p class="text-caption text-end">
-              SPI Credits: 1,947
-            </p>
-          </VCol>
-        </VRow>
-        <VDivider class="mt-2 mb-2" />
-        <VRow
-          justify="center"
-          class="mt-5"
-        >
-          <VCol
-            cols="12"
-            sm="4"
-          >
-            <VCardText class="d-flex flex-column justify-center align-center text-center ps-2 h-100">
-              <VCheckbox
-                label="SPI AI Detection"
-                class="mt-5"
-              />
-
-              <VProgressCircular
-                model-value="75"
-                color="error"
-                size="173"
-                width="10"
-                class="mt-5"
-              >
-                <span class="text-body-1">AI Detection Score</span>
-              </VProgressCircular>
-              <span class="text-body-2-medium mt-5"><span class="text-error">75%</span> AI</span>
-            </VCardText>
-          </VCol>
-          <VCol
-            cols="12"
-            sm="4"
-          >
-            <VCardText class="d-flex flex-column justify-center align-center text-center ps-2 h-100">
-              <VCheckbox
-                label="Check Readability"
-                class="mt-5"
-              />
-
-              <VProgressCircular
-                model-value="100"
-                color="success"
-                size="173"
-                width="10"
-                class="mt-5"
-              >
-                <div class="d-flex flex-column justify-center align-center">
-                  <span class="text-body-1 mt-5">Plagiarism Score</span>
-                  <VIcon
-                    icon="tabler-check"
-                    color="success"
-                    size="54"
-                    class="svg-strock-1"
-                  />
-                </div>
-              </VProgressCircular>
-              <span class="text-body-2-medium mt-5"><span class="text-success">0%</span> Plagiarized</span>
-            </VCardText>
-          </VCol>
-          <VCol
-            cols="12"
-            sm="4"
-          >
-            <VCardText class="d-flex flex-column justify-center align-center text-center ps-2 h-100">
-              <VCheckbox
-                label="Detect Plagiarism"
-                class="mt-5"
-              />
-
-              <VProgressCircular
-                model-value="82"
-                color="primary"
-                size="173"
-                width="10"
-                class="mt-5"
-              >
-                <div class="d-flex flex-column justify-center align-center">
-                  <span class="text-body-1 mt-5">Flesch-Kincaid <br>Reading Ease</span>
-                  <VIcon
-                    icon="tabler-check"
-                    color="success"
-                    size="54"
-                    class="svg-strock-1"
-                  />
-                </div>
-              </VProgressCircular>
-              <span class="text-body-2-medium mt-5"><span class="text-primary">82%</span>
-              </span>
-            </VCardText>
-          </VCol>
-        </VRow>
-        <VRow
-          justify="center"
-          class="mt-10"
-        >
-          <VBtn> Run Analysis </VBtn>
-        </VRow>
-      </div>
+      <SPIAuditScoring show-btn-run />
     </VCol>
   </VRow>
 </template>

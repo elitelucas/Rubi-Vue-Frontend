@@ -104,7 +104,7 @@ const resetAvatar = () => {
             >
               <AppTextField
                 label="First Name"
-                placeholder="First Name"
+                disabled
               />
             </VCol>
 
@@ -114,7 +114,7 @@ const resetAvatar = () => {
             >
               <AppTextField
                 label="Last Name"
-                placeholder="Last Name"
+                disabled
               />
             </VCol>
 
@@ -125,7 +125,7 @@ const resetAvatar = () => {
               <AppTextField
                 label="Email"
                 type="email"
-                placeholder="Email"
+                disabled
               />
             </VCol>
 
@@ -135,7 +135,7 @@ const resetAvatar = () => {
             >
               <AppTextField
                 label="Organization"
-                placeholder="Organization"
+                disabled
               />
             </VCol>
             <VCol
@@ -144,7 +144,7 @@ const resetAvatar = () => {
             >
               <AppTextField
                 label="Phone Number"
-                placeholder="Phone Number"
+                disabled
               />
             </VCol>
             <VCol
@@ -153,7 +153,7 @@ const resetAvatar = () => {
             >
               <AppTextField
                 label="Address"
-                placeholder="Address"
+                disabled
               />
             </VCol>
             <VCol
@@ -162,7 +162,7 @@ const resetAvatar = () => {
             >
               <AppTextField
                 label="City"
-                placeholder="City"
+                disabled
               />
             </VCol>
             <VCol
@@ -170,27 +170,26 @@ const resetAvatar = () => {
               md="6"
             >
               <AppTextField
-                label="State"
-                placeholder="State"
+                label="State/Province"
+                disabled
               />
             </VCol>
             <VCol
               cols="12"
               md="6"
             >
-              <AppSelect
+              <AppTextField
                 label="Country"
-                placeholder="Country"
-                :items="['USA']"
+                disabled
               />
             </VCol>
             <VCol
               cols="12"
               md="6"
             >
-              <AppSelect
-                label="Language"
-                placeholder="Language"
+              <AppTextField
+                label="Preferred Language"
+                disabled
               />
             </VCol>
             <VCol

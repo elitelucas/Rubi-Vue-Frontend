@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { useRoute } from 'vue-router'
 import Account from '@/views/pages/account-settings/Account.vue'
-import Audiences from '@/views/pages/account-settings/Audiences.vue'
 import Collaborators from '@/views/pages/account-settings/Collaborators.vue'
 import Personas from '@/views/pages/account-settings/Personas.vue'
 import Usage from '@/views/pages/account-settings/Usage.vue'
@@ -18,8 +17,6 @@ const tabs = [
   { title: 'Workspaces', icon: 'tabler-layout-board-split', tab: 'workspaces' },
   { title: 'Collaborators', icon: 'tabler-users', tab: 'collaborators' },
   { title: 'Personas', icon: 'tabler-id', tab: 'personas' },
-  { title: 'Audiences', icon: 'tabler-speakerphone', tab: 'audiences' },
-  { title: 'Keywords', icon: 'tabler-key', tab: '111' },
 ]
 
 const selectedTab = computed(() => tabs.find(tab => tab.tab === activeTab.value))
@@ -49,6 +46,7 @@ onMounted(() => {
         v-for="item in tabs"
         :key="item.tab"
         :value="item.tab"
+        class="text-text-color-body"
         :disabled="item.title === 'Add-ons'"
         :class="[item.tab !== activeTab && 'text-secondary']"
         :to="{ name: 'account-settings', query: { tab: item.tab }, params: { id: $route.params.id } }"
@@ -70,11 +68,6 @@ onMounted(() => {
       <!-- Account -->
       <VWindowItem value="account">
         <Account />
-      </VWindowItem>
-
-      <!-- Audiences -->
-      <VWindowItem value="audiences">
-        <Audiences />
       </VWindowItem>
 
       <!-- Collaborators -->

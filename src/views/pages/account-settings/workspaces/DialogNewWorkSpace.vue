@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { VNodeRenderer } from '@/@layouts/components/VNodeRenderer'
-import { config } from '@layouts/config'
-
 interface Emit {
   (e: 'update:isDialogVisible', value: boolean): void
 }
 
 interface Props {
   isDialogVisible: boolean
+  isEditMode?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {})
@@ -44,13 +42,13 @@ const dialogModelValueUpdate = (val: boolean) => {
     <VCard class="pa-5 pa-sm-8">
       <!-- 👉 Title -->
       <VCardItem class="text-center">
-        <VNodeRenderer :nodes="config.app.logo" />
+        <AppLogo />
         <div class="my-3" />
         <VCardTitle class="text-h5 font-weight-medium mb-3">
-          Create New Workspace
+          {{ isEditMode ? 'Edit' : 'Create New' }} Workspace
         </VCardTitle>
         <p class="mb-0">
-          A new workspace segments your content, personas and collaborators.
+          {{ isEditMode ? 'Edit' : 'A new' }} workspace segments your content, personas and collaborators.
         </p>
       </VCardItem>
 
@@ -115,7 +113,7 @@ const dialogModelValueUpdate = (val: boolean) => {
                 type="submit"
                 @click="formSubmit"
               >
-                Submit
+                {{ isEditMode ? 'Save' : 'Submit' }}
               </VBtn>
               <VBtn
                 color="secondary"

@@ -66,8 +66,16 @@ const data = {
   ],
 }
 
-const chartConfig = computed(() =>
-  getLineAreaChartConfig(vuetifyTheme.current.value),
+const chartConfig = computed(() => {
+  return {
+    ...getLineAreaChartConfig(vuetifyTheme.current.value),
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+  }
+},
 )
 </script>
 

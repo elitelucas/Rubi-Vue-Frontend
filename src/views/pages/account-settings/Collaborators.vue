@@ -38,11 +38,16 @@ const headers = [
   { title: 'USAGE', key: 'usage' },
   { title: 'ACTIONS', key: 'actions', sortable: false },
 ]
+
+const editMode = ref(false)
 </script>
 
 <template>
   <div>
-    <DialogNewContributor v-model:is-dialog-visible="showDialogNewContribuitor" />
+    <DialogNewContributor
+      v-model:is-dialog-visible="showDialogNewContribuitor"
+      :is-edit-mode="editMode"
+    />
     <VCard>
       <VCardText>
         <VRow>
@@ -55,7 +60,7 @@ const headers = [
             <VBtn
               prepend-icon="tabler-plus"
               style="width: 100%"
-              @click="showDialogNewContribuitor = true"
+              @click="editMode = false;showDialogNewContribuitor = true"
             >
               Invite New Collaborator
             </VBtn>
@@ -98,19 +103,24 @@ const headers = [
           </template>
           <template #item.actions>
             <VMenu>
-              <template #activator>
+              <template #activator="{ props }">
                 <VBtn
                   icon="mdi-dots-vertical"
                   variant="plain"
                   color="black"
+                  v-bind="props"
                 />
               </template>
 
               <VList>
+                <VListItem @click="editMode = true;showDialogNewContribuitor = true">
+                  <VListItemTitle>Edit</VListItemTitle>
+                </VListItem>
                 <VListItem>
-                  <VListItemTitle>Hi</VListItemTitle>
-                  <VListItemTitle>Hi</VListItemTitle>
-                  <VListItemTitle>Hi</VListItemTitle>
+                  <VListItemTitle>Deactivate</VListItemTitle>
+                </VListItem>
+                <VListItem>
+                  <VListItemTitle>Remove</VListItemTitle>
                 </VListItem>
               </VList>
             </VMenu>

@@ -112,9 +112,9 @@ const chartOptions = computed(() => {
       <div class="d-flex flex-column">
         <div class="mb-auto">
           <h6 class="text-h5 text-no-wrap">
-            SPI Credit Usage
+            Credit Usage
           </h6>
-          <span class="text-sm">Monthly Report</span>
+          <span class="text-sm">Includes Collaborators</span>
         </div>
 
         <div>
