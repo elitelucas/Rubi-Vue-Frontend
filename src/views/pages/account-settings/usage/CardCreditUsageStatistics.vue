@@ -7,7 +7,7 @@ const statistics = [
     color: 'primary',
   },
   {
-    title: 'Requests',
+    title: 'Booosts',
     stats: '10,384',
     icon: 'tabler-database-import',
     color: 'info',
@@ -25,12 +25,23 @@ const statistics = [
     color: 'success',
   },
 ]
+
+const date = ref('July, 2023')
 </script>
 
 <template>
   <VCard title="Statistics">
     <template #append>
-      <span class="text-sm text-disabled">Updated 1 month ago</span>
+      <AppDateTimePicker
+        v-model="date"
+        style="width: 180px;"
+        append-inner-icon="tabler-chevron-down"
+        density="compact"
+        color="primary"
+        class="text-primary"
+        base-color="primary"
+        :config="{ position: 'auto right', dateFormat: 'F, Y' }"
+      />
     </template>
 
     <VCardText class="pt-6">

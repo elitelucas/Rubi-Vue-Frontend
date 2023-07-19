@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { VNodeRenderer } from '@/@layouts/components/VNodeRenderer'
-import { config } from '@layouts/config'
-
 interface Emit {
   (e: 'update:isDialogVisible', value: boolean): void
 }
 
 interface Props {
   isDialogVisible: boolean
+  isEditMode?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {})
@@ -18,6 +16,7 @@ const form = reactive({
   last_name: '',
   email: '',
   contact: '',
+  workspace: '',
 })
 
 const formSubmit = () => {
@@ -41,10 +40,10 @@ const dialogModelValueUpdate = (val: boolean) => {
     <VCard class="pa-5 pa-sm-8">
       <!-- 👉 Title -->
       <VCardItem class="text-center">
-        <VNodeRenderer :nodes="config.app.logo" />
+        <AppLogo />
         <div class="my-3" />
         <VCardTitle class="text-h5 font-weight-medium mb-3">
-          Invite New Collaborator
+          {{ isEditMode ? 'Edit' : 'Invite New' }} Collaborator
         </VCardTitle>
         <p class="mb-0">
           You send the invite, we’ll take care of the rest.
@@ -92,6 +91,13 @@ const dialogModelValueUpdate = (val: boolean) => {
                 placeholder="723-348-2344"
               />
             </VCol>
+            <VCol cols="12">
+              <AppSelect
+                v-model="form.workspace"
+                label="Invite to Workspace"
+                :items="['AAO Workspace']"
+              />
+            </VCol>
 
             <!-- 👉 Card actions -->
             <VCol
@@ -103,7 +109,7 @@ const dialogModelValueUpdate = (val: boolean) => {
                 type="submit"
                 @click="formSubmit"
               >
-                Submit
+                {{ isEditMode ? 'Save' : 'Send Invite' }}
               </VBtn>
               <VBtn
                 color="secondary"

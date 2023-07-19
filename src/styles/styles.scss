@@ -84,6 +84,14 @@
   color: rgb(var(--v-theme-text-color-body));
 }
 
+.text-p-bold {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 22px;
+  color: rgb(var(--v-theme-text-color-body));
+}
+
 .text-p-lighter {
   font-size: 15px;
   line-height: 22px; 
@@ -203,4 +211,52 @@ div.v-select-list div[role=list] div[role=listitem]:hover {
 }
 
 
+.xtract-input {
+  position: relative;
+  
+  .btn-append-xtract {
+    position: absolute;
+    background-color: #4b4b4b;
+    width: 80px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(var(--v-theme-rubi-red));
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+    cursor: pointer;
+    border-radius: 0px 4px 4px 0px;
+    right: -71px;
+    top: 0;
+
+    .v-theme--dark & {
+      background-color: #d7d8de;
+    }
+  }
+}
+
+
+.editor {
+
+  .ql-editor {
+    background-color: rgb(var(--v-theme-background-card));
+  }
+}
+
+
+.editor-h-300 {
+  .ql-container {
+    height: 300px !important;
+  }
+}
+
+
+.placeholder-white {
+  input::placeholder {
+    color: white !important;
+  }
+}
 

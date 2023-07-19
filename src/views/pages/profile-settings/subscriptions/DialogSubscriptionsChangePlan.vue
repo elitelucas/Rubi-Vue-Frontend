@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import PlanCard from './PlanCard.vue'
-import { VNodeRenderer } from '@/@layouts/components/VNodeRenderer'
-import { config } from '@layouts/config'
 
 interface Emit {
   (e: 'update:isDialogVisible', value: boolean): void
@@ -83,7 +81,7 @@ const pricingPlans = [
     <VCard class="pa-5 pa-sm-8">
       <!-- 👉 Title -->
       <VCardItem class="text-center">
-        <VNodeRenderer :nodes="config.app.logo" />
+        <AppLogo />
         <div class="my-3" />
         <VCardTitle class="text-h5 font-weight-medium mb-3">
           Modify Your Subscription

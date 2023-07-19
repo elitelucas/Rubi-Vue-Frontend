@@ -62,6 +62,34 @@ const showDialogSubscriptionsChangePlan = ref(false)
       :src="FrameRubiLogo"
       class="frame-logo"
     >
+    <VRow
+      justify="center"
+      class="my-10 "
+    >
+      <VCol
+        cols="12"
+        lg="5"
+        md="4"
+        sm="12"
+      >
+        <h2 class="title-subscription">
+          LEVEL UP YOUR<br>
+          RUBI <span style="color: rgb(var(--v-theme-rubi-red));">EXPERIENCE</span>
+        </h2>
+      </VCol>
+      <VCol
+        cols="12"
+        lg="2"
+        md="4"
+        sm="12"
+      />
+      <VCol
+        cols="12"
+        lg="2"
+        md="4"
+        sm="12"
+      />
+    </VRow>
     <!-- SECTION pricing plans -->
     <VRow
       justify="center"
@@ -101,8 +129,25 @@ const showDialogSubscriptionsChangePlan = ref(false)
             cols="12"
             md="6"
           >
-            <span class="text-base font-weight-medium text-high-emphasis">Your Current Plan is Basic</span><br>
-            <span class="text-sm">A simple start for everyone</span><br>
+            <VCol
+              cols="12"
+              lg="6"
+              md="6"
+              sm="12"
+              style="border: 1px solid rgb(var(--v-theme-solid-color-extra-divider));border-radius: 4px;"
+            >
+              <span class="text-h6">BitJar Labs LLC</span>
+            </VCol>
+            <VCol
+              cols="12"
+              lg="6"
+              md="6"
+              sm="12"
+              style="border: 1px solid rgb(var(--v-theme-solid-color-extra-divider));border-radius: 4px;"
+              class="mt-2"
+            >
+              <span>Custom Software Development</span>
+            </VCol>
           </VCol>
           <VCol
             cols="12"
@@ -174,19 +219,32 @@ const showDialogSubscriptionsChangePlan = ref(false)
         </VRow>
       </VCardText>
     </VCard>
-    <VCard
-      title="Anytime Services"
-      subtitle="Septic and plumbing"
-      class="mt-5"
-    >
+    <VCard class="mt-5">
       <VCardText>
         <VRow>
           <VCol
             cols="12"
             md="6"
           >
-            <span class="text-base font-weight-medium text-high-emphasis">Your Current Plan is Basic</span><br>
-            <span class="text-sm">A simple start for everyone</span><br>
+            <VCol
+              cols="12"
+              lg="6"
+              md="6"
+              sm="12"
+              style="border: 1px solid rgb(var(--v-theme-solid-color-extra-divider));border-radius: 4px;"
+            >
+              <span class="text-h6">FLEX Technologies</span>
+            </VCol>
+            <VCol
+              cols="12"
+              lg="6"
+              md="6"
+              sm="12"
+              style="border: 1px solid rgb(var(--v-theme-solid-color-extra-divider));border-radius: 4px;"
+              class="mt-2"
+            >
+              <span>Leader of EXO AI</span>
+            </VCol>
           </VCol>
           <VCol
             cols="12"
@@ -235,7 +293,7 @@ const showDialogSubscriptionsChangePlan = ref(false)
                 color="primary"
                 rounded="sm"
               >
-                PRO
+                BASIC
               </VChip></span><br>
             <span class="text-sm">Standard plan for small to medium businesses</span><br>
           </VCol>
@@ -267,5 +325,21 @@ const showDialogSubscriptionsChangePlan = ref(false)
   left: -40px;
   top: -10px;
   height: 700px;
+}
+
+.title-subscription {
+  color: rgb(var(--v-theme-text-color-body));
+  font-family: Bebas Neue;
+  font-size: 96px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 92%; /* 88.32px */
+  letter-spacing: 0.43px;
+}
+
+.input-title {
+  input:disabled {
+    color: red !important;
+  }
 }
 </style>

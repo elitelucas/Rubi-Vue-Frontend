@@ -24,11 +24,33 @@ const colors: ChartJsCustomColors = {
   areaChartGreyLight: '#edf1f4',
   scatterChartWarning: '#ff9f43',
 }
+
+const workspace = ref('BitJar Labs Workspace')
+const date = ref('This week')
 </script>
 
 <template>
   <div>
     <VCard>
+      <VCardText>
+        <VRow>
+          <VCol
+            cols="12"
+            lg="2"
+            md="3"
+            sm="12"
+          >
+            <AppSelect
+              v-model="workspace"
+              :items="['BitJar Labs Workspace', 'BitJar Labs Workspace2']"
+              class="app-select-header"
+              base-color="primary"
+              color="primary"
+              item-color="primary"
+            />
+          </VCol>
+        </VRow>
+      </VCardText>
       <VCardText>
         <VRow class="match-height">
           <VCol
@@ -47,27 +69,78 @@ const colors: ChartJsCustomColors = {
           </VCol>
           <VCol cols="12">
             <VCard>
-              <VCardItem class="d-flex flex-wrap justify-space-between gap-4">
-                <VCardText>
-                  <div class="mb-auto">
-                    <h6 class="text-h5 text-no-wrap">
-                      Last updates
-                    </h6>
-                    <span class="text-sm">Commercial networks</span>
-                  </div>
-                </VCardText>
-
-                <template #append>
-                  <div class="date-picker-wrapper">
-                    <AppDateTimePicker
-                      model-value="2022-06-09"
-                      prepend-inner-icon="tabler-calendar"
-                      density="compact"
-                      :config="{ position: 'auto right' }"
-                    />
-                  </div>
-                </template>
-              </VCardItem>
+              <VCardText>
+                <VRow justify="space-between">
+                  <VCol
+                    cols="12"
+                    lg="4"
+                    md="4"
+                    sm="12"
+                  >
+                    <div class="mb-auto">
+                      <h6 class="text-h5 text-no-wrap">
+                        Word Usage
+                      </h6>
+                      <span class="text-sm">Includes Collaborators</span>
+                    </div>
+                  </VCol>
+                  <VCol
+                    cols="12"
+                    lg="4"
+                    md="4"
+                    sm="12"
+                  >
+                    <VRow justify="center">
+                      <VCol
+                        cols="12"
+                        lg="3"
+                        md="3"
+                        sm="12"
+                        class="text-center"
+                      >
+                        <span class="text-p-medium">12,827</span><br><VAvatar
+                          size="10"
+                          style="background-color: #48B5FF;"
+                          class="mr-1"
+                        /><span class="text-p">Module Usage</span>
+                      </VCol>
+                      <VCol
+                        cols="12"
+                        lg="3"
+                        md="3"
+                        sm="12"
+                        class="text-center"
+                      >
+                        <span class="text-p-medium">35,548</span><br><VAvatar
+                          size="10"
+                          style="background-color: #00CFE8;"
+                          class="mr-1"
+                        /><span class="text-p">Chat Usage</span>
+                      </VCol>
+                    </VRow>
+                  </VCol>
+                  <VCol
+                    cols="12"
+                    lg="4"
+                    md="4"
+                    sm="12"
+                    class="d-flex justify-lg-end justify-sm-center"
+                  >
+                    <div class="date-picker-wrapper">
+                      <AppSelect
+                        v-model="date"
+                        style="width: 180px;"
+                        append-inner-icon="tabler-chevron-down"
+                        density="compact"
+                        color="primary"
+                        class="text-primary"
+                        base-color="primary"
+                        :items="['This week', 'This month', 'This year']"
+                      />
+                    </div>
+                  </VCol>
+                </VRow>
+              </VCardText>
 
               <VCardText>
                 <CardChartUsageValues :colors="colors" />

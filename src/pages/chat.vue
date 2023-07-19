@@ -223,14 +223,6 @@ const chatHistories = [
                         icon="tabler-copy"
                         size="20"
                       />
-                      <VIcon
-                        icon="tabler-thumb-up"
-                        size="20"
-                      />
-                      <VIcon
-                        icon="tabler-thumb-down"
-                        size="20"
-                      />
                     </div>
                   </div>
                 </VCardText>
@@ -245,7 +237,7 @@ const chatHistories = [
                 <AppTextField
                   placeholder="Ask Rubi..."
                   variant="solo"
-                  density="default"
+
                   autofocus
                   class="chat-message-input"
                 >
@@ -265,7 +257,9 @@ const chatHistories = [
 
               <AppSelect
                 :items="['Persona 1']"
-                class="select"
+                class="select placeholder-white"
+                bg-color="primary"
+                placeholder="Persona"
               />
             </div>
             <VRow
@@ -445,7 +439,6 @@ const chatHistories = [
       }
       .select {
         max-width: 200px;
-        margin-top: 10px;
         @include media-query("md") {
           max-width: 100%;
           margin-top: 0px;

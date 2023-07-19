@@ -97,6 +97,18 @@ import avatar1 from '@images/avatars/avatar-1.png'
           <!-- Divider -->
           <VDivider class="my-2" />
 
+          <!-- 👉 Return to Back Office -->
+          <VListItem href="https://www.myflex.ai/0">
+            <template #prepend>
+              <VIcon
+                class="me-2"
+                icon="tabler-arrow-forward-up"
+                size="22"
+              />
+            </template>
+
+            <VListItemTitle>Return to Back Office</VListItemTitle>
+          </VListItem>
           <!-- 👉 Logout -->
           <VListItem to="/login">
             <template #prepend>
