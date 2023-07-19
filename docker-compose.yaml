@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+
+    app:
+      container_name: rubi-ui-customer
+      restart: unless-stopped
+      build:
+        context: .
+        dockerfile: ./Dockerfile
+      image: rubi/ui/customer
+      
+      
+      ports:
+          - 8800:8080
+
+networks:
+  default:
+    external: true
+    name: mac

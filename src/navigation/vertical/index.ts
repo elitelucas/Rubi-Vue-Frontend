@@ -62,7 +62,12 @@ export default [
   {
     title: 'SPI Audit',
     to: { name: 'spi-audit' },
-    icon: { icon: 'tabler-map-search' },
+    icon: { icon: 'tabler-map-search' ,
+  },
+  {
+    title: 'Create Content',
+    to: { name: 'content-create' },
+    icon: { icon: 'tabler-plus' },
   },
   {
     title: 'Xtract Boosts',
