@@ -4,13 +4,7 @@ export interface RootModuleGroup {
   color: string | null
   bgColor: string
   show: boolean
-  modules: ModuleGroup[]
-}
-
-export interface ModuleGroup {
-  title: string
-  color: string
-  options: OptionModuleGroup[]
+  features: OptionModuleGroup[]
 }
 
 export interface OptionModuleGroup {
