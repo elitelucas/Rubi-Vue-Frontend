@@ -32,8 +32,8 @@ const data = [
 ]
 
 const headers = [
-  { title: 'GUESS', sortable: true, key: 'workspace' },
-  { title: 'WORKSPACES', key: 'contributors' },
+  { title: 'WORKSPACE', sortable: true, key: 'workspace' },
+  { title: 'COLLABORATORS', key: 'contributors' },
   { title: 'JOINED DATE', key: 'joined_date' },
   { title: 'USAGE', key: 'usage' },
   { title: 'ACTIONS', key: 'actions', sortable: false },
