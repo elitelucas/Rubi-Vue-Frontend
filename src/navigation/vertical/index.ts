@@ -65,11 +65,6 @@ export default [
     icon: { icon: 'tabler-map-search' },
   },
   {
-    title: 'Create Content',
-    to: { name: 'content-create' },
-    icon: { icon: 'tabler-plus' },
-  },
-  {
     title: 'Xtract Boosts',
     to: { name: 'xtract-boosts' },
     icon: { icon: 'tabler-rocket' },

@@ -50,25 +50,10 @@ defineProps<Props>()
         >{{ module.title }}</span>
       </VExpansionPanelTitle>
       <VExpansionPanelText class="custom-text-div">
-        <VCol
-          v-for="item in module.modules"
-          :key="item.title"
-        >
-          <VRow
-            align="center"
-            class="header"
-          >
-            <VAvatar
-              size="24"
-              class="mr-2"
-              :style="`background-color: ${item.color}; border-radius: 23px;`"
-            />
-            <span class="text-h5">{{ item.title }}</span>
-          </VRow>
-          <div class="py-5" />
+        <VCol>
           <VueHorizontal class="horizontal">
             <div
-              v-for="option in item.options"
+              v-for="option in module.features"
               :key="option.title"
               class="card-module-option bg-surface"
             >
@@ -84,9 +69,9 @@ defineProps<Props>()
                   :to="option.to"
                   size="32"
                   icon="tabler-plus"
-                  :color="`rgb(${hexToRgb(item.color)}, 0.3)`"
+                  :color="`rgb(${hexToRgb(module.color)}, 0.3)`"
                   elevation="0"
-                  :style="`color: (${item.color};border-radius: 0px; border-radius: 23px;cursor: pointer;color:${item.color};`"
+                  :style="`color: (${module.color};border-radius: 0px; border-radius: 23px;cursor: pointer;color:${module.color};`"
                 />
               </div>
               <span class="text-h5 px-2">{{ option.title }}</span>
