@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { VDataTable } from 'vuetify/labs/VDataTable'
-import { usePersonifyModalStore } from '@/store/modal/personify'
+import DialogQuickStart from '../quick-start/DialogQuickStart.vue'
+import QuickStartPersonaViewer from '../quick-start/QuickStartPersonaViewer.vue'
+import avatar from '@images/avatars/avatar-10.png'
+import { useAccountSettingsTabs } from '@/store/accountSettingsTabs'
 
-const modalPersonifyStore = usePersonifyModalStore()
+const accountSettingsTabsStore = useAccountSettingsTabs()
 
 const i18n = useI18n()
 
@@ -29,11 +32,15 @@ const headers = [
 ]
 
 const selected = ref([])
+
+const showDialogQuickStart = ref(false)
+const showDetails = ref(false)
 </script>
 
 <template>
   <div>
-    <VCard>
+    <DialogQuickStart v-model:is-dialog-visible="showDialogQuickStart" />
+    <VCard v-if="!showDetails">
       <VCardText>
         <VRow>
           <VCol
@@ -45,7 +52,7 @@ const selected = ref([])
             <VBtn
               prepend-icon="tabler-plus"
               style="width: 100%"
-              @click="modalPersonifyStore.showModal = true"
+              @click="showDialogQuickStart = true"
             >
               Create New Persona
             </VBtn>
@@ -89,28 +96,48 @@ const selected = ref([])
 
           <template #item.actions>
             <VMenu>
-              <template #activator>
+              <template #activator=" { props }">
                 <VBtn
                   icon="mdi-dots-vertical"
                   variant="plain"
+                  v-bind="props"
                 />
               </template>
 
               <VList>
                 <VListItem>
-                  <VListItemTitle>Hi</VListItemTitle>
-                  <VListItemTitle>Hi</VListItemTitle>
-                  <VListItemTitle>Hi</VListItemTitle>
+                  <VListItemTitle>Deactivate</VListItemTitle>
+                </VListItem>
+                <VListItem @click="showDetails = true;accountSettingsTabsStore.add('Persona Details')">
+                  <VListItemTitle>Edit</VListItemTitle>
+                </VListItem>
+                <VListItem>
+                  <VListItemTitle>Remove</VListItemTitle>
                 </VListItem>
               </VList>
             </VMenu>
-            <VBtn
-              icon="tabler-pencil"
-              variant="plain"
-            />
           </template>
           <template #bottom />
         </VDataTable>
+      </VCardText>
+    </VCard>
+
+    <!-- Persona Detail  -->
+    <VCard v-else>
+      <VCardText>
+        <VBtn
+          prepend-icon="tabler-focus-2"
+          @click="showDialogQuickStart = true"
+        >
+          Recalibrate This Persona
+        </VBtn>
+      </VCardText>
+      <VCardText>
+        <QuickStartPersonaViewer
+          lg="3"
+          profile-lg="2"
+          :avatar="avatar"
+        />
       </VCardText>
     </VCard>
   </div>

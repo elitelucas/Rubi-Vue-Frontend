@@ -13,7 +13,7 @@ const lottieContainer = ref<HTMLDivElement>()
 onMounted(() => {
   window.lottie.loadAnimation({
     container: lottieContainer.value,
-    path: window.animationPath,
+    path: '/images/lotties/logo.json',
     renderer: 'svg', // Specify the renderer type (e.g., svg, canvas, html)
     loop: true, // Set whether the animation should loop
     autoplay: true, // Set whether the animation should play automatically
