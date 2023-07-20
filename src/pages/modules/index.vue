@@ -5,52 +5,46 @@ const modules: RootModuleGroup[] = [
   {
     title: 'Featured Modules',
     icon: 'tabler-star',
-    color: null,
+    color: '#1DA1F2',
     bgColor: '#1DA1F2',
     show: true,
-    modules: [
+    features: [
       {
-        title: 'Business Modules',
-        color: '#FF7012',
-        options: [
-          {
-            title: 'Announcement Email',
-            icon: 'tabler-mail',
-            description:
+        title: 'Announcement Email',
+        icon: 'tabler-mail',
+        description:
               'Engaging design, clear message, and compelling call to action. Grab attention and drive action!',
-          },
-          {
-            title: 'Advanced Real Estate Listing',
-            icon: 'tabler-map',
-            to: { name: 'content-create' },
-            description:
+      },
+      {
+        title: 'Advanced Real Estate Listing',
+        icon: 'tabler-map',
+        to: { name: 'content-create' },
+        description:
               'Engaging design, clear message, and compelling call to action. Grab attention and drive action!',
-          },
-          {
-            title: 'Announcement Email',
-            icon: 'tabler-mail',
-            description:
+      },
+      {
+        title: 'Announcement Email',
+        icon: 'tabler-mail',
+        description:
               'Engaging design, clear message, and compelling call to action. Grab attention and drive action!',
-          },
-          {
-            title: 'Announcement Email',
-            icon: 'tabler-mail',
-            description:
+      },
+      {
+        title: 'Announcement Email',
+        icon: 'tabler-mail',
+        description:
               'Engaging design, clear message, and compelling call to action. Grab attention and drive action!',
-          },
-          {
-            title: 'Announcement Email',
-            icon: 'tabler-mail',
-            description:
+      },
+      {
+        title: 'Announcement Email',
+        icon: 'tabler-mail',
+        description:
               'Engaging design, clear message, and compelling call to action. Grab attention and drive action!',
-          },
-          {
-            title: 'Announcement Email',
-            icon: 'tabler-mail',
-            description:
+      },
+      {
+        title: 'Announcement Email',
+        icon: 'tabler-mail',
+        description:
               'Engaging design, clear message, and compelling call to action. Grab attention and drive action!',
-          },
-        ],
       },
     ],
   },
@@ -60,50 +54,45 @@ const modules: RootModuleGroup[] = [
     color: '#6D54DC',
     bgColor: '#D7D8DE',
     show: true,
-    modules: [
+    features: [
       {
-        title: 'Business Modules',
-        color: '#FF7012',
-        options: [
-          {
-            title: 'Announcement Email',
-            icon: 'tabler-mail',
-            description:
+        title: 'Announcement Email',
+        icon: 'tabler-mail',
+        description:
               'Engaging design, clear message, and compelling call to action. Grab attention and drive action!',
-          },
-          {
-            title: 'Announcement Email',
-            icon: 'tabler-mail',
-            description:
+      },
+      {
+        title: 'Announcement Email',
+        icon: 'tabler-mail',
+        description:
               'Engaging design, clear message, and compelling call to action. Grab attention and drive action!',
-          },
-          {
-            title: 'Announcement Email',
-            icon: 'tabler-mail',
-            description:
+      },
+      {
+        title: 'Announcement Email',
+        icon: 'tabler-mail',
+        description:
               'Engaging design, clear message, and compelling call to action. Grab attention and drive action!',
-          },
-          {
-            title: 'Announcement Email',
-            icon: 'tabler-mail',
-            description:
+      },
+      {
+        title: 'Announcement Email',
+        icon: 'tabler-mail',
+        description:
               'Engaging design, clear message, and compelling call to action. Grab attention and drive action!',
-          },
-          {
-            title: 'Announcement Email',
-            icon: 'tabler-mail',
-            description:
+      },
+      {
+        title: 'Announcement Email',
+        icon: 'tabler-mail',
+        description:
               'Engaging design, clear message, and compelling call to action. Grab attention and drive action!',
-          },
-          {
-            title: 'Announcement Email',
-            icon: 'tabler-mail',
-            description:
+      },
+      {
+        title: 'Announcement Email',
+        icon: 'tabler-mail',
+        description:
               'Engaging design, clear message, and compelling call to action. Grab attention and drive action!',
-          },
-        ],
       },
     ],
+
   },
 ]
 </script>
@@ -112,22 +101,33 @@ const modules: RootModuleGroup[] = [
   <div class="mt-10">
     <VCard>
       <VCardText>
-        <VCol class="px-8">
-          <VRow
-            align="center"
-            class="px-2"
-          >
-            <div class="box-icon-title">
-              <VIcon
-                size="31"
-                icon="tabler-apps"
-                color="text-color-body p-5"
-              />
-            </div>
-            <span class="text-h4 ml-2">Modules</span>
-          </VRow>
-          <VDivider class="my-8" />
-        </VCol>
+        <VRow class="px-8">
+          <VCol>
+            <VRow
+              align="center"
+              class="px-2"
+            >
+              <div class="box-icon-title">
+                <VIcon
+                  size="31"
+                  icon="tabler-apps"
+                  color="text-color-body p-5"
+                />
+              </div>
+              <span class="text-h4 ml-2">Modules</span>
+              <VSpacer />
+              <VCol
+                cols="12"
+                lg="2"
+                md="2"
+                sm="12"
+              >
+                <AppTextField placeholder="Search For Modules" />
+              </VCol>
+            </VRow>
+          </VCol>
+        </VRow>
+        <VDivider class="my-8 mx-2" />
 
         <ModuleGroup
           v-for="moduleItem in modules"

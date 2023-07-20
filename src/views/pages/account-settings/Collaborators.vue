@@ -33,7 +33,7 @@ const data = [
 
 const headers = [
   { title: 'WORKSPACE', sortable: true, key: 'workspace' },
-  { title: 'CONTRIBUTORS', key: 'contributors' },
+  { title: 'COLLABORATORS', key: 'contributors' },
   { title: 'JOINED DATE', key: 'joined_date' },
   { title: 'USAGE', key: 'usage' },
   { title: 'ACTIONS', key: 'actions', sortable: false },
