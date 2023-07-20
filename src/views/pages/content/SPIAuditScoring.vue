@@ -173,7 +173,7 @@ const cardsHighlightingShowing = computed(() => cardsHighlighting.value.find(ite
 <template>
   <div class="bg-background-card mt-5 pb-15">
     <VRow
-      class="content-m"
+      class="content-m mx-2"
       justify="space-between"
       align-content="center"
     >
@@ -188,82 +188,88 @@ const cardsHighlightingShowing = computed(() => cardsHighlighting.value.find(ite
     </VRow>
     <VDivider
       v-if="!showBtnRun"
-      class="mx-10"
+      class="mx-5"
     />
-    <VRadioGroup
-      v-model="radioSelected"
-      column
-    >
-      <VRow
-        justify="center"
-        align="start"
-        class="mt-5"
-      >
-        <VCol
-          cols="12"
-          sm="4"
-        >
-          <VCardText class="d-flex flex-column justify-center align-center text-center ps-2 h-100">
-            <VCheckbox
-              label="SPI AI Detection"
-              class="mt-5"
-            />
 
-            <VProgressCircular
-              model-value="75"
-              color="error"
-              size="173"
-              width="10"
-              class="mt-5"
-            >
-              <span class="text-body-1">AI Detection Score</span>
-            </VProgressCircular>
-            <span class="text-body-2-medium mt-5"><span class="text-error">75%</span> AI</span>
+    <VRow
+      justify="center"
+      align="start"
+      class="mt-5"
+    >
+      <VCol
+        cols="12"
+        sm="4"
+      >
+        <VCardText class="d-flex flex-column justify-center align-center text-center ps-2 h-100">
+          <VCheckbox
+            label="SPI AI Detection"
+            class="mt-5"
+          />
+
+          <VProgressCircular
+            model-value="75"
+            color="error"
+            size="173"
+            width="10"
+            class="mt-5"
+          >
+            <span class="text-body-1">AI Detection Score</span>
+          </VProgressCircular>
+          <span class="text-body-2-medium mt-5"><span class="text-error">75%</span> AI</span>
+          <VRadioGroup
+            v-model="radioSelected"
+            column
+          >
             <VRadio
               label="Highlight results"
               class="mt-5"
               color="primary"
               value="ai"
             />
+          </VRadioGroup>
 
-            <span
-              class="text-caption mt-5 text-text-color-body"
-              style="width: 170px; text-align: start;"
-            >
-              SPI Originality Score. This score reflects our AI's confidence in predicting that the content scanned was produced by an AI tool. A score of 90% original and 10% AI should be thought of as "We are 90% confident that this content was created by a human" and NOT that 90% of the article is Human and 10% AI.
+          <span
+            class="text-caption mt-5 text-text-color-body"
+            style="width: 170px; text-align: start;"
+          >
+            SPI Originality Score. This score reflects our AI's confidence in predicting that the content scanned was produced by an AI tool. A score of 90% original and 10% AI should be thought of as "We are 90% confident that this content was created by a human" and NOT that 90% of the article is Human and 10% AI.
 
-              Learn More
-            </span>
-          </VCardText>
-        </VCol>
-        <VCol
-          cols="12"
-          sm="4"
-        >
-          <VCardText class="d-flex flex-column justify-center align-center text-center ps-2 h-100">
-            <VCheckbox
-              label="Detect Plagiarism"
-              class="mt-5"
-            />
+            Learn More
+          </span>
+        </VCardText>
+      </VCol>
+      <VCol
+        cols="12"
+        sm="4"
+      >
+        <VCardText class="d-flex flex-column justify-center align-center text-center ps-2 h-100">
+          <VCheckbox
+            label="Detect Plagiarism"
+            class="mt-5"
+          />
 
-            <VProgressCircular
-              model-value="100"
-              color="success"
-              size="173"
-              width="10"
-              class="mt-5"
-            >
-              <div class="d-flex flex-column justify-center align-center">
-                <span class="text-body-1 mt-5">Plagiarism Score</span>
-                <VIcon
-                  icon="tabler-check"
-                  color="success"
-                  size="54"
-                  class="svg-strock-1"
-                />
-              </div>
-            </VProgressCircular>
-            <span class="text-body-2-medium mt-5"><span class="text-success">0%</span> Plagiarized</span>
+          <VProgressCircular
+            model-value="100"
+            color="success"
+            size="173"
+            width="10"
+            class="mt-5"
+          >
+            <div class="d-flex flex-column justify-center align-center">
+              <span class="text-body-1 mt-5">Plagiarism Score</span>
+              <VIcon
+                icon="tabler-check"
+                color="success"
+                size="54"
+                class="svg-strock-1"
+              />
+            </div>
+          </VProgressCircular>
+          <span class="text-body-2-medium mt-5"><span class="text-success">0%</span> Plagiarized</span>
+          <VRadioGroup
+            v-model="radioSelected"
+            column
+          >
             <VRadio
               v-model="radioSelected"
               label="Highlight results"
@@ -271,82 +277,87 @@ const cardsHighlightingShowing = computed(() => cardsHighlighting.value.find(ite
               color="primary"
               value="plagiarism"
             />
+          </VRadioGroup>
 
-            <span
-              class="text-caption mt-5 text-text-color-body"
-              style="width: 170px; text-align: start;"
-            >
-              Based on our <u>Readability Score Study</u> ~70% of the top results in Google had a Dale-Chall Readability Grade between (5.6 - 8.4) <br><br>
+          <span
+            class="text-caption mt-5 text-text-color-body"
+            style="width: 170px; text-align: start;"
+          >
+            Based on our <u>Readability Score Study</u> ~70% of the top results in Google had a Dale-Chall Readability Grade between (5.6 - 8.4) <br><br>
 
-              Test for measuring the readability using words familiar to a fourth grader. The lower the score the more readable.
-            </span>
-          </VCardText>
-        </VCol>
-        <VCol
-          cols="12"
-          sm="4"
-        >
-          <VCardText class="d-flex flex-column justify-center align-center text-center ps-2 h-100">
-            <VCheckbox
-              label="Check Readability"
-              class="mt-5"
-            />
+            Test for measuring the readability using words familiar to a fourth grader. The lower the score the more readable.
+          </span>
+        </VCardText>
+      </VCol>
+      <VCol
+        cols="12"
+        sm="4"
+      >
+        <VCardText class="d-flex flex-column justify-center align-center text-center ps-2 h-100">
+          <VCheckbox
+            label="Check Readability"
+            class="mt-5"
+          />
 
-            <VProgressCircular
-              model-value="100"
-              :color="currentColumItem.color"
-              size="173"
-              width="10"
-              class="mt-5"
-            >
-              <div class="d-flex flex-column justify-center align-center">
-                <span
-                  class="text-body-1 mt-5"
-                  v-html="currentColumItem.circleTitle"
-                />
-                <VIcon
-                  v-if="currentColumItem.circleChecked"
-                  icon="tabler-check"
-                  color="success"
-                  size="54"
-                  class="svg-strock-1"
-                />
-              </div>
-            </VProgressCircular>
-            <VRow
-              align="center"
-              class="mt-5"
-            >
-              <VIcon
-                icon="tabler-chevron-left"
-                class="mr-2 cursor-pointer"
-                @click="setColum(-1)"
-              />
+          <VProgressCircular
+            model-value="100"
+            :color="currentColumItem.color"
+            size="173"
+            width="10"
+            class="mt-5"
+          >
+            <div class="d-flex flex-column justify-center align-center">
               <span
-                class="text-body-2-medium text-primary  font-weight-medium"
-                style="width: 85px;"
-              >{{ currentColumItem.scoreLabel }} {{ currentColumItem.score }}</span>
-              <VIcon
-                icon="tabler-chevron-right"
-                class="ml-2 cursor-pointer"
-                @click="setColum(1)"
+                class="text-body-1 mt-5"
+                v-html="currentColumItem.circleTitle"
               />
-            </VRow>
+              <VIcon
+                v-if="currentColumItem.circleChecked"
+                icon="tabler-check"
+                color="success"
+                size="54"
+                class="svg-strock-1"
+              />
+            </div>
+          </VProgressCircular>
+          <VRow
+            align="center"
+            class="mt-5"
+          >
+            <VIcon
+              icon="tabler-chevron-left"
+              class="mr-2 cursor-pointer"
+              @click="setColum(-1)"
+            />
+            <span
+              class="text-body-2-medium text-primary  font-weight-medium"
+              style="width: 85px;"
+            >{{ currentColumItem.scoreLabel }} {{ currentColumItem.score }}</span>
+            <VIcon
+              icon="tabler-chevron-right"
+              class="ml-2 cursor-pointer"
+              @click="setColum(1)"
+            />
+          </VRow>
+          <VRadioGroup
+            v-model="radioSelected"
+            column
+          >
             <VRadio
               label="Highlight results"
               class="mt-5"
               color="primary"
               :value="currentColumItem.radio_value"
             />
-            <span
-              class="text-caption mt-5 text-text-color-body"
-              style="width: 170px; text-align: start;"
-              v-html="currentColumItem.description"
-            />
-          </VCardText>
-        </VCol>
-      </VRow>
-    </VRadioGroup>
+          </VRadioGroup>
+          <span
+            class="text-caption mt-5 text-text-color-body"
+            style="width: 170px; text-align: start;"
+            v-html="currentColumItem.description"
+          />
+        </VCardText>
+      </VCol>
+    </VRow>
     <VRow
       v-if="showBtnRun"
       justify="center"
@@ -369,7 +380,7 @@ const cardsHighlightingShowing = computed(() => cardsHighlighting.value.find(ite
     />
     <VDivider
       v-else
-      class="mx-10"
+      class="mx-5"
     />
     <VCard
       v-if="!cardsHighlighting.find(item => item.show)"
