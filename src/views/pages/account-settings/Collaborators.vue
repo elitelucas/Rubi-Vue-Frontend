@@ -66,14 +66,7 @@ const editMode = ref(false)
             </VBtn>
           </VCol>
           <VSpacer />
-          <VCol
-            cols="12"
-            lg="2"
-            md="4"
-            sm="12"
-          >
-            <AppTextField placeholder="Search Guests" />
-          </VCol>
+
           <VCol
             cols="12"
             lg="2"

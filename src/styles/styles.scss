@@ -260,3 +260,38 @@ div.v-select-list div[role=list] div[role=listitem]:hover {
   }
 }
 
+.avatar-img-p-40 {
+  img {
+    padding: 40px;
+  }
+}
+
+
+.ql-editor.ql-blank::before {
+  color: rgb(var(--v-theme-on-surface)) !important;
+}
+
+.ql-formats {
+
+  svg {
+    fill:red !important;
+  }
+}
+
+.ql-toolbar .ql-stroke {
+  fill: none;
+  stroke: rgb(var(--v-theme-extra-dark)) !important;
+}
+
+.ql-toolbar .ql-fill {
+  stroke: rgb(var(--v-theme-extra-dark)) !important;
+  fill: none;
+}
+
+.ql-toolbar .ql-picker {
+  stroke: rgb(var(--v-theme-extra-dark)) !important;
+  fill: none;
+}
+.ql-toolbar .ql-picker-label {
+  color: rgb(var(--v-theme-extra-dark)) !important;
+}
