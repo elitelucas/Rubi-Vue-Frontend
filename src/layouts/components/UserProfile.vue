@@ -81,19 +81,6 @@ import avatar1 from '@images/avatars/avatar-1.png'
             <VListItemTitle>Subscriptions</VListItemTitle>
           </VListItem>
 
-          <!-- 👉 Connections -->
-          <VListItem link>
-            <template #prepend>
-              <VIcon
-                class="me-2"
-                icon="tabler-tag"
-                size="22"
-              />
-            </template>
-
-            <VListItemTitle>Connections</VListItemTitle>
-          </VListItem>
-
           <!-- Divider -->
           <VDivider class="my-2" />
 
