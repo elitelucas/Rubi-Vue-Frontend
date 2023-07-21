@@ -5,8 +5,10 @@ import Collaborators from '@/views/pages/account-settings/Collaborators.vue'
 import Personas from '@/views/pages/account-settings/Personas.vue'
 import Usage from '@/views/pages/account-settings/Usage.vue'
 import Workspaces from '@/views/pages/account-settings/Workspaces.vue'
+import { useAccountSettingsTabs } from '@/store/accountSettingsTabs'
 
 const route = useRoute()
+const accountSettingsTabsStore = useAccountSettingsTabs()
 
 const activeTab = ref(route.query.tab || 'account')
 
@@ -21,6 +23,10 @@ const tabs = [
 
 const selectedTab = computed(() => tabs.find(tab => tab.tab === activeTab.value))
 
+watch(activeTab, _ => {
+  accountSettingsTabsStore.setDefault(selectedTab.value!.title)
+})
+
 watch(() => route.fullPath, () => {
   setTimeout(() => activeTab.value = route.query.tab || 'account', 100)
 })
@@ -34,7 +40,13 @@ onMounted(() => {
   <div>
     <div class="breadcrumbs-header mt-5">
       <VRow class="row">
-        <span class="text-h4 text-muted">Account Settings</span>&nbsp;&nbsp;<span class="text-h4">/</span>&nbsp;&nbsp;<span class="text-h4 text-2">{{ selectedTab?.title }}</span>
+        <span class="text-h4 text-muted">Account Settings</span>
+        <span
+          v-for="(item, index) in accountSettingsTabsStore.breadcrumbs"
+          :key="item"
+        >&nbsp;&nbsp;<span :class="(accountSettingsTabsStore.breadcrumbs.length - 1) === index ? `text-h4` : 'text-h4 text-muted'">/</span>&nbsp;&nbsp;
+          <span :class="(accountSettingsTabsStore.breadcrumbs.length - 1) === index ? `text-h4 text-2` : 'text-h4 text-muted text-2'">{{ item }}</span>
+        </span>
       </VRow>
     </div>
     <VTabs
@@ -77,7 +89,7 @@ onMounted(() => {
 
       <!-- Personas -->
       <VWindowItem value="personas">
-        <Personas />
+        <Personas v-if="activeTab === 'personas'" />
       </VWindowItem>
 
       <!-- Usage -->

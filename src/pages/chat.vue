@@ -268,7 +268,7 @@ const chatHistories = [
             >
               <VBtn
                 variant="outlined"
-                color="rubi-red"
+                color="primary"
                 append-icon="tabler-refresh-dot"
               >
                 Regenerate Response

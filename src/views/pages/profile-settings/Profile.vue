@@ -187,7 +187,7 @@ const resetAvatar = () => {
               cols="12"
               md="6"
             >
-              <AppTextField
+              <AppSelect
                 label="Preferred Language"
                 disabled
               />
