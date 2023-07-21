@@ -16,6 +16,7 @@ defineProps<CardPlanProps>()
   <!-- 👉  Card -->
   <VCard
     flat
+    :style="minimalist ? '' : `width: 313px;`"
     :class="`plan-card ${highlight ? 'bg-rubi-red' : ''}`"
   >
     <VCardText

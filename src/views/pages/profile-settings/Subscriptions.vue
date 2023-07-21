@@ -64,38 +64,16 @@ const showDialogSubscriptionsChangePlan = ref(false)
     >
     <VRow
       justify="center"
-      class="my-10 "
+      class="my-10"
     >
-      <VCol
-        cols="12"
-        lg="5"
-        md="4"
-        sm="12"
-      >
-        <h2 class="title-subscription">
-          LEVEL UP YOUR<br>
-          RUBI <span style="color: rgb(var(--v-theme-rubi-red));">EXPERIENCE</span>
-        </h2>
-      </VCol>
-      <VCol
-        cols="12"
-        lg="2"
-        md="4"
-        sm="12"
-      />
-      <VCol
-        cols="12"
-        lg="2"
-        md="4"
-        sm="12"
-      />
+      <h2 class="title-subscription">
+        LEVEL UP YOUR<br>
+        RUBI <span style="color: rgb(var(--v-theme-rubi-red));">EXPERIENCE</span>
+      </h2>
     </VRow>
     <!-- SECTION pricing plans -->
-    <VRow
-      justify="center"
-      class="mb-10"
-    >
-      <VCol
+    <div class="mb-10 row-plans">
+      <div
         v-for="plan in pricingPlans"
         :key="plan.name"
         cols="12"
@@ -113,8 +91,8 @@ const showDialogSubscriptionsChangePlan = ref(false)
           :minimalist="false"
           :current="false"
         />
-      </VCol>
-    </VRow>
+      </div>
+    </div>
     <VDivider class="mt-10" />
     <h4 class="text-h4 mt-10">
       My Current Subscriptions
@@ -320,6 +298,8 @@ const showDialogSubscriptionsChangePlan = ref(false)
 </template>
 
 <style lang="scss" scoped>
+@import "@styles/responsive.scss";
+
 .frame-logo {
   position: absolute;
   left: -40px;
@@ -335,11 +315,41 @@ const showDialogSubscriptionsChangePlan = ref(false)
   font-weight: 400;
   line-height: 92%; /* 88.32px */
   letter-spacing: 0.43px;
+
+  margin-right: 500px;
+
+  @include media-query("lg") {
+    margin-right: 0;
+  }
+
+  @include media-query("sm") {
+    font-size: 60px;
+  }
+
 }
 
 .input-title {
   input:disabled {
     color: red !important;
+  }
+}
+
+.row-plans {
+  display: flex;
+  justify-content: center;
+  gap: 26px;
+
+  @include media-query("sm") {
+    flex-direction: column;
+  }
+
+  @include media-query("md") {
+    flex-direction: column;
+  }
+
+  @include media-query("lg") {
+    flex-direction: column;
+    align-items: center;
   }
 }
 </style>
