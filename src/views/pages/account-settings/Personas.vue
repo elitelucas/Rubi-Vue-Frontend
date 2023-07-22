@@ -39,7 +39,10 @@ const showDetails = ref(false)
 
 <template>
   <div>
-    <DialogQuickStart v-model:is-dialog-visible="showDialogQuickStart" />
+    <DialogQuickStart
+      v-model:is-dialog-visible="showDialogQuickStart"
+      :step="1"
+    />
     <VCard v-if="!showDetails">
       <VCardText>
         <VRow>

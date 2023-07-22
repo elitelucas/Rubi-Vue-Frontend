@@ -52,7 +52,7 @@ import SPIAuditScoring from '@/views/pages/content/SPIAuditScoring.vue'
             <p class="text-p-bold">
               <br>
               Total Word Count: 64 <br>
-              Total Word Count: 64
+              Credits Used: 3
             </p>
           </VCol>
         </VRow>
@@ -71,7 +71,7 @@ import SPIAuditScoring from '@/views/pages/content/SPIAuditScoring.vue'
           </VBtn>
         </VRow>
         <VRow justify="center">
-          <span class="text-caption text-muted">
+          <span class="text-caption text-muted mt-2">
             Each submission costs 1 credit
           </span>
         </VRow>

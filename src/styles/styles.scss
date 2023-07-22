@@ -295,3 +295,13 @@ div.v-select-list div[role=list] div[role=listitem]:hover {
 .ql-toolbar .ql-picker-label {
   color: rgb(var(--v-theme-extra-dark)) !important;
 }
+
+
+.text-input-medium {
+  input {
+    color: rgb(var(--v-theme-text-color-heading));
+    font-style: normal;
+    font-weight: 700;
+    line-height: 22px; 
+  }
+}
