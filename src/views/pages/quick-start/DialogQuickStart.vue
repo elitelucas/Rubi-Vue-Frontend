@@ -6,7 +6,15 @@ import { useGenerateImageVariant } from '@/@core/composable/useGenerateImageVari
 import logoPersonifyDark from '@images/components/modal-personify/personify-dark.png'
 import logoPersonifyLight from '@images/components/modal-personify/personify-light.png'
 
-const props = withDefaults(defineProps<Props>(), {})
+interface Props {
+  isDialogVisible: boolean
+  isEditMode?: boolean
+  step?: number
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  step: 0,
+})
 
 const emit = defineEmits<Emit>()
 
@@ -19,12 +27,7 @@ interface Emit {
   (e: 'update:isDialogVisible', value: boolean): void
 }
 
-interface Props {
-  isDialogVisible: boolean
-  isEditMode?: boolean
-}
-
-const steps = ref(0)
+const steps = ref(props.step)
 
 const loading = ref(false)
 
@@ -50,7 +53,7 @@ const createPerson = () => {
 
 const dialogModelValueUpdate = (val: boolean) => {
   emit('update:isDialogVisible', val)
-  steps.value = 0
+  steps.value = props.step
 }
 </script>
 
@@ -129,8 +132,9 @@ const dialogModelValueUpdate = (val: boolean) => {
             v-if="steps !== 2"
             cols="12"
           >
-            <VRow justify="space-between">
+            <VRow :justify="step === 0 ? 'space-between' : 'end'">
               <VBtn
+                v-if="step === 0"
                 class="ml-3"
                 color="secondary"
                 variant="tonal"

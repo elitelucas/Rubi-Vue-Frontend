@@ -16,7 +16,7 @@ const form = reactive({
   keywords: [],
   collaborator: '',
   search: null,
-  items: ['test'],
+  items: [''],
 })
 
 const formSubmit = () => {
@@ -64,42 +64,27 @@ const dialogModelValueUpdate = (val: boolean) => {
             </VCol>
 
             <VCol cols="12">
+              <VLabel
+                class="mb-1 text-body-2 text-high-emphasis"
+                text="Keywords"
+              />
+              <p class="text-caption">
+                Type your keywords and hit the Enter key to save each one.
+              </p>
               <AppCombobox
                 v-model="form.keywords"
-                v-model:search="form.search"
-                label="Keywords"
-                placeholder="Keywords"
-                :hide-no-data="false"
-                :items="form.items"
-                hide-selected
                 multiple
-                persistent-hint
-                small-chips
-              >
-                <template #selection="{ item }">
-                  <VChip @click="removeKey(item.title)">
-                    <span>{{ item.title }}</span>
-                    <VIcon
-                      icon="tabler-x"
-                      class="ml-2"
-                    />
-                  </VChip>
-                </template>
-                <template #no-data>
-                  <VListItem>
-                    <VListItemTitle>
-                      No results matching "<strong>{{ form.search }}</strong>". Press <kbd>enter</kbd> to create a new one
-                    </VListItemTitle>
-                  </VListItem>
-                </template>
-              </AppCombobox>
+                clear-icon="tabler-trash-x"
+                chips
+                closable-chips
+              />
             </VCol>
-
             <VCol cols="12">
-              <AppTextField
+              <AppSelect
                 v-model="form.collaborator"
                 label="Add Collaborators"
                 placeholder="Collaborator"
+                :items="['NickName', 'NickName 2']"
               />
             </VCol>
 
