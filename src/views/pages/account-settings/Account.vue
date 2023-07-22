@@ -95,21 +95,6 @@ const resetAvatar = () => {
               </form>
             </div>
           </VCol>
-          <VCol
-            cols="12"
-            lg="6"
-            md="6"
-            sm="12"
-          >
-            <VRadio
-              label="Make primary account"
-              color="primary"
-            />
-            <AppTextField
-              label="Account Nickname"
-              placeholder="Marketing Account"
-            />
-          </VCol>
         </VRow>
       </VCardText>
       <VDivider />
@@ -118,115 +103,28 @@ const resetAvatar = () => {
           <VRow>
             <VCol
               cols="12"
+              lg="6"
               md="6"
+              sm="12"
             >
-              <AppTextField
-                label="First Name"
-                placeholder="First Name"
+              <VRadio
+                label="Make primary account"
+                color="primary"
               />
-            </VCol>
-
+              <AppTextField label="Account Nickname" />
+            </VCol> <VCol
+              cols="12"
+              lg="6"
+              md="6"
+              sm="12"
+            />
             <VCol
               cols="12"
+              lg="6"
               md="6"
+              sm="12"
             >
-              <AppTextField
-                label="Last Name"
-                placeholder="Last Name"
-              />
-            </VCol>
-
-            <VCol
-              cols="12"
-              md="6"
-            >
-              <AppTextField
-                label="Email"
-                type="email"
-                placeholder="Email"
-              />
-            </VCol>
-
-            <VCol
-              cols="12"
-              md="6"
-            >
-              <AppTextField
-                label="Organization"
-                placeholder="Organization"
-              />
-            </VCol>
-            <VCol
-              cols="12"
-              md="6"
-            >
-              <AppTextField
-                label="Phone Number"
-                placeholder="Phone Number"
-              />
-            </VCol>
-            <VCol
-              cols="12"
-              md="6"
-            >
-              <AppTextField
-                label="Address"
-                placeholder="Address"
-              />
-            </VCol>
-            <VCol
-              cols="12"
-              md="6"
-            >
-              <AppTextField
-                label="City"
-                placeholder="City"
-              />
-            </VCol>
-            <VCol
-              cols="12"
-              md="6"
-            >
-              <AppTextField
-                label="State"
-                placeholder="State"
-              />
-            </VCol>
-            <VCol
-              cols="12"
-              md="6"
-            >
-              <AppSelect
-                label="Country"
-                placeholder="Country"
-                :items="['USA']"
-              />
-            </VCol>
-            <VCol
-              cols="12"
-              md="6"
-            >
-              <AppSelect
-                label="Language"
-                placeholder="Language"
-              />
-            </VCol>
-            <VCol
-              cols="12"
-              class="d-flex gap-4"
-            >
-              <!-- 👉 submit and reset button -->
-              <VBtn type="submit">
-                Save Changes
-              </VBtn>
-
-              <VBtn
-                color="secondary"
-                type="reset"
-                variant="tonal"
-              >
-                Cancel
-              </VBtn>
+              <AppTextField label="Short Description" />
             </VCol>
           </VRow>
         </VForm>
