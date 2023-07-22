@@ -126,6 +126,23 @@ const resetAvatar = () => {
             >
               <AppTextField label="Short Description" />
             </VCol>
+            <VCol
+              cols="12"
+              class="d-flex gap-4"
+            >
+              <!-- 👉 submit and reset button -->
+              <VBtn type="submit">
+                Save Changes
+              </VBtn>
+
+              <VBtn
+                color="secondary"
+                type="reset"
+                variant="tonal"
+              >
+                Cancel
+              </VBtn>
+            </VCol>
           </VRow>
         </VForm>
       </VCardText>
