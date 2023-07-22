@@ -51,6 +51,13 @@ const pricingPlans = [
   },
 ]
 
+const subs = reactive({
+  name1: 'BitJar Labs LLC',
+  sub_name1: 'Custom Software Development',
+  name2: 'FLEX Technologies',
+  sub_name2: 'Leader of EXO AI',
+})
+
 const showDialogSubscriptionsChangePlan = ref(false)
 </script>
 
@@ -112,19 +119,26 @@ const showDialogSubscriptionsChangePlan = ref(false)
               lg="6"
               md="6"
               sm="12"
-              style="border: 1px solid rgb(var(--v-theme-solid-color-extra-divider));border-radius: 4px;"
+              style="padding: 0px;"
             >
-              <span class="text-h6">BitJar Labs LLC</span>
+              <span class="text-h6" />
+              <AppTextField
+                v-model="subs.name1"
+                class="text-input-medium"
+              />
             </VCol>
             <VCol
               cols="12"
               lg="6"
               md="6"
               sm="12"
-              style="border: 1px solid rgb(var(--v-theme-solid-color-extra-divider));border-radius: 4px;"
+              style="padding: 0px;"
               class="mt-2"
             >
-              <span>Custom Software Development</span>
+              <AppTextField
+                v-model="subs.sub_name1"
+                class="text-h5"
+              />
             </VCol>
           </VCol>
           <VCol
@@ -209,19 +223,27 @@ const showDialogSubscriptionsChangePlan = ref(false)
               lg="6"
               md="6"
               sm="12"
-              style="border: 1px solid rgb(var(--v-theme-solid-color-extra-divider));border-radius: 4px;"
+              style="padding: 0px;"
             >
-              <span class="text-h6">FLEX Technologies</span>
+              <span class="text-h6" />
+              <AppTextField
+                v-model="subs.name2"
+                class="text-input-medium"
+              />
             </VCol>
             <VCol
               cols="12"
               lg="6"
               md="6"
               sm="12"
-              style="border: 1px solid rgb(var(--v-theme-solid-color-extra-divider));border-radius: 4px;"
+              style="padding: 0px;"
               class="mt-2"
             >
-              <span>Leader of EXO AI</span>
+              <span class="text-h6" />
+              <AppTextField
+                v-model="subs.sub_name2"
+                class=""
+              />
             </VCol>
           </VCol>
           <VCol
