@@ -316,3 +316,12 @@ div.v-select-list div[role=list] div[role=listitem]:hover {
 .content-tooltip-shadow {
   box-shadow: 0px 0px 20px 0px rgba(75, 70, 92, 0.40);
 }
+
+.balance-tooltip-content {
+  background-color: rgb(var(--v-theme-gray-900)) !important;
+
+
+  span {
+    color: white !important;
+  }
+}
