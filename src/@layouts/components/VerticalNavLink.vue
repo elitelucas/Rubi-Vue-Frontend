@@ -28,6 +28,7 @@ const hideTitleAndBadge = isVerticalNavMini(windowWidth)
     >
       <Component
         :is="config.app.iconRenderer || 'div'"
+        v-if="item.icon"
         v-bind="item.icon || config.verticalNav.defaultNavItemIconProps"
         class="nav-item-icon"
       />
