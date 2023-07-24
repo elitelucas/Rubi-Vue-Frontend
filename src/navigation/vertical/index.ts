@@ -20,7 +20,6 @@ export default [
             id: 1,
           },
         },
-        icon: { icon: 'tabler-user' },
       },
       {
         title: 'Nickname 2',
@@ -30,7 +29,6 @@ export default [
             id: 2,
           },
         },
-        icon: { icon: 'tabler-user' },
       },
       {
         title: 'Nickname 3',
@@ -40,7 +38,6 @@ export default [
             id: 3,
           },
         },
-        icon: { icon: 'tabler-user' },
       },
     ],
   },

@@ -15,6 +15,17 @@ const data = [
     id: 1,
     name: 'AI Enthusiast',
     sub_title: '18-34 Male - $75K+',
+    status: false,
+    language: 'English',
+    age: '18 - 34',
+    level: 75000,
+    tone: 'Entusiastic',
+  },
+  {
+    id: 1,
+    name: 'AI Enthusiast',
+    sub_title: '18-34 Male - $75K+',
+    status: true,
     language: 'English',
     age: '18 - 34',
     level: 75000,
@@ -24,6 +35,7 @@ const data = [
 
 const headers = [
   { title: 'Name'.toUpperCase(), key: 'name' },
+  { title: 'STATUS', key: 'status' },
   { title: 'Preferred Language'.toUpperCase(), key: 'language' },
   { title: 'Age DEMO'.toUpperCase(), key: 'age' },
   { title: 'Income Levels'.toUpperCase(), key: 'level' },
@@ -92,6 +104,15 @@ const showDetails = ref(false)
             <span class="text-p-small text-muted">{{
               item.raw.sub_title
             }}</span>
+          </template>
+          <template #item.status="{ item }">
+            <VChip
+              :color="item.raw.status ? 'success' : 'error'"
+              rounded="sm"
+              variant="flat"
+            >
+              {{ item.raw.status ? 'Active' : 'Inactive' }}
+            </VChip>
           </template>
           <template #item.level="{ item }">
             {{ i18n.n(item.raw.level, "currency") }}+

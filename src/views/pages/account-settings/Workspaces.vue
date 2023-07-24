@@ -9,6 +9,7 @@ const data = [
   {
     workspace: 'BitJar Labs',
     sub_title: 'Software Development',
+    status: true,
     contributors: 5,
     joined_date: Date.now(),
     usage: 1210,
@@ -17,6 +18,7 @@ const data = [
     workspace: 'BitJar Labs',
     sub_title: 'Software Development',
     contributors: 5,
+    status: true,
     joined_date: Date.now(),
     usage: 1210,
   },
@@ -24,6 +26,7 @@ const data = [
     workspace: 'BitJar Labs',
     sub_title: 'Software Development',
     contributors: 5,
+    status: false,
     joined_date: Date.now(),
     usage: 1210,
   },
@@ -31,6 +34,7 @@ const data = [
 
 const headers = [
   { title: 'WORKSPACE', sortable: true, key: 'workspace' },
+  { title: 'STATUS', key: 'status' },
   { title: 'CONTRIBUTORS', key: 'contributors' },
   { title: 'JOINED DATE', key: 'joined_date' },
   { title: 'USAGE', key: 'usage' },
@@ -93,6 +97,15 @@ const editMode = ref(false)
             <span class="text-p-small text-muted">{{
               item.raw.sub_title
             }}</span>
+          </template>
+          <template #item.status="{ item }">
+            <VChip
+              :color="item.raw.status ? 'success' : 'error'"
+              rounded="sm"
+              variant="flat"
+            >
+              {{ item.raw.status ? 'Active' : 'Inactive' }}
+            </VChip>
           </template>
           <template #item.usage="{ item }">
             {{ n(item.raw.usage) }} words
