@@ -5,7 +5,13 @@ interface Props {
   showBtnRun?: boolean
 }
 
+interface Emit {
+  (e: 'close', value: boolean): void
+}
+
 defineProps<Props>()
+
+defineEmits<Emit>()
 
 const colunsScore = ref([
   {
@@ -176,6 +182,7 @@ const cardsHighlightingShowing = computed(() => cardsHighlighting.value.find(ite
       class="content-m mx-2"
       justify="space-between"
       align-content="center"
+      align="center"
     >
       <VCol>
         <h3 class="text-h3">
@@ -185,6 +192,12 @@ const cardsHighlightingShowing = computed(() => cardsHighlighting.value.find(ite
           Surveillance and Plagiarism Identifier
         </p>
       </VCol>
+      <VSpacer />
+      <DialogCloseBtn
+        rounded="sm"
+        class="mr-2"
+        @click="$emit('close')"
+      />
     </VRow>
     <VDivider
       v-if="!showBtnRun"
@@ -212,7 +225,31 @@ const cardsHighlightingShowing = computed(() => cardsHighlighting.value.find(ite
             size="173"
             width="10"
             class="mt-5"
+            style="position: relative;"
           >
+            <VTooltip
+              location="bottom"
+              max-width="170"
+              content-class="content-tooltip-shadow"
+            >
+              <template #activator="{ props }">
+                <IconBtn
+                  v-bind="props"
+                  icon="tabler-info-circle"
+                  color="primary"
+                  style="position: absolute; top: 15px;"
+                />
+              </template>
+
+              <span
+                class="text-caption mt-5 text-text-color-body"
+                style="text-align: start;"
+              >
+                SPI Originality Score. This score reflects our AI's confidence in predicting that the content scanned was produced by an AI tool. A score of 90% original and 10% AI should be thought of as "We are 90% confident that this content was created by a human" and NOT that 90% of the article is Human and 10% AI.
+
+                Learn More
+              </span>
+            </VTooltip>
             <span class="text-body-1">AI Detection Score</span>
           </VProgressCircular>
           <span class="text-body-2-medium mt-5"><span class="text-error">75%</span> AI</span>
@@ -227,15 +264,6 @@ const cardsHighlightingShowing = computed(() => cardsHighlighting.value.find(ite
               value="ai"
             />
           </VRadioGroup>
-
-          <span
-            class="text-caption mt-5 text-text-color-body"
-            style="width: 170px; text-align: start;"
-          >
-            SPI Originality Score. This score reflects our AI's confidence in predicting that the content scanned was produced by an AI tool. A score of 90% original and 10% AI should be thought of as "We are 90% confident that this content was created by a human" and NOT that 90% of the article is Human and 10% AI.
-
-            Learn More
-          </span>
         </VCardText>
       </VCol>
       <VCol
@@ -254,7 +282,31 @@ const cardsHighlightingShowing = computed(() => cardsHighlighting.value.find(ite
             size="173"
             width="10"
             class="mt-5"
+            style="position: relative;"
           >
+            <VTooltip
+              location="bottom"
+              max-width="170"
+              content-class="content-tooltip-shadow"
+            >
+              <template #activator="{ props }">
+                <IconBtn
+                  v-bind="props"
+                  icon="tabler-info-circle"
+                  color="primary"
+                  style="position: absolute; top: 15px;"
+                />
+              </template>
+
+              <span
+                class="text-caption mt-5 text-text-color-body"
+                style="width: 170px; text-align: start;"
+              >
+                Based on our <u>Readability Score Study</u> ~70% of the top results in Google had a Dale-Chall Readability Grade between (5.6 - 8.4) <br><br>
+
+                Test for measuring the readability using words familiar to a fourth grader. The lower the score the more readable.
+              </span>
+            </VTooltip>
             <div class="d-flex flex-column justify-center align-center">
               <span class="text-body-1 mt-5">Plagiarism Score</span>
               <VIcon
@@ -278,15 +330,6 @@ const cardsHighlightingShowing = computed(() => cardsHighlighting.value.find(ite
               value="plagiarism"
             />
           </VRadioGroup>
-
-          <span
-            class="text-caption mt-5 text-text-color-body"
-            style="width: 170px; text-align: start;"
-          >
-            Based on our <u>Readability Score Study</u> ~70% of the top results in Google had a Dale-Chall Readability Grade between (5.6 - 8.4) <br><br>
-
-            Test for measuring the readability using words familiar to a fourth grader. The lower the score the more readable.
-          </span>
         </VCardText>
       </VCol>
       <VCol
@@ -305,7 +348,28 @@ const cardsHighlightingShowing = computed(() => cardsHighlighting.value.find(ite
             size="173"
             width="10"
             class="mt-5"
+            style="position: relative;"
           >
+            <VTooltip
+              location="bottom"
+              max-width="170"
+              content-class="content-tooltip-shadow"
+            >
+              <template #activator="{ props }">
+                <IconBtn
+                  v-bind="props"
+                  icon="tabler-info-circle"
+                  color="primary"
+                  style="position: absolute; top: 15px;"
+                />
+              </template>
+
+              <span
+                class="text-caption mt-5 text-text-color-body"
+                style="width: 170px; text-align: start;"
+                v-html="currentColumItem.description"
+              />
+            </VTooltip>
             <div class="d-flex flex-column justify-center align-center">
               <span
                 class="text-body-1 mt-5"
@@ -350,25 +414,20 @@ const cardsHighlightingShowing = computed(() => cardsHighlighting.value.find(ite
               :value="currentColumItem.radio_value"
             />
           </VRadioGroup>
-          <span
-            class="text-caption mt-5 text-text-color-body"
-            style="width: 170px; text-align: start;"
-            v-html="currentColumItem.description"
-          />
         </VCardText>
       </VCol>
     </VRow>
     <VRow
       v-if="showBtnRun"
       justify="center"
-      class="mt-10"
+      class="mt-1"
     >
-      <VBtn> Run Analysis </VBtn>
+      <VBtn> Run Audit </VBtn>
     </VRow>
     <VRow
       v-if="showBtnRun"
       justify="center"
-      class="mt-5 mb-5"
+      class="mt-10 mb-5"
     >
       <span class="text-caption text-muted">
         Each submission costs 1 credit

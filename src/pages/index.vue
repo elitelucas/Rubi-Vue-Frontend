@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { usePersonifyModalStore } from '@/store/modal/personify'
+import DialogQuickStart from '@/views/pages/quick-start/DialogQuickStart.vue'
 import avatar10 from '@images/avatars/avatar-10.png'
 import discord from '@images/iconify-png/Discord.png'
 import laptop from '@images/iconify-png/Laptop.png'
@@ -7,11 +8,13 @@ import lightbulb from '@images/iconify-png/Lightbulb.png'
 import puzzle2 from '@images/iconify-png/puzzle-2.png'
 import puzzle from '@images/iconify-png/puzzle.png'
 
-const modalPersonifyStore = usePersonifyModalStore()
+const personifyModalStore = usePersonifyModalStore()
+const showDialogQuickStart = ref(false)
 </script>
 
 <template>
   <main>
+    <DialogQuickStart v-model:is-dialog-visible="showDialogQuickStart" />
     <section class="banner">
       <div class="mask">
         <h2>
@@ -28,9 +31,9 @@ const modalPersonifyStore = usePersonifyModalStore()
           </p>
           <VBtn
             color="white"
-            @click="modalPersonifyStore.showModal = true"
+            @click="showDialogQuickStart = true"
           >
-            Set Up Your Persona
+            Quick Start
           </VBtn>
         </div>
       </div>
@@ -39,7 +42,7 @@ const modalPersonifyStore = usePersonifyModalStore()
       <VBtn
         id="btn-new-content"
         size="large"
-        :to="{ name: 'modules' }"
+        :to="{ name: 'content-create' }"
       >
         Create New Content
       </VBtn>
@@ -47,16 +50,16 @@ const modalPersonifyStore = usePersonifyModalStore()
         <div class="card-action">
           <img :src="puzzle2">
           <h5 class="text-h5">
-            New Campaign
+            Featured Modules
           </h5>
           <p>
-            Whether you're new or you're a power user, this article<br>
-            will…
+            Check out the latest modules for streamlining your work
           </p>
           <VBtn
             color="primary"
             elevation="0"
             size="small"
+            :to="{ name: 'modules' }"
           >
             Create
           </VBtn>
@@ -65,16 +68,16 @@ const modalPersonifyStore = usePersonifyModalStore()
         <div class="card-action">
           <img :src="puzzle">
           <h5 class="text-h5">
-            Historical Content
+            Saved Content
           </h5>
           <p>
-            Are you a new customer wondering how to get<br>
-            started?
+            Explore your saved content vault here.
           </p>
           <VBtn
             color="primary"
             elevation="0"
             size="small"
+            :to="{ name: 'save-content', params: { tab: 'content' } }"
           >
             Read More
           </VBtn>
@@ -86,15 +89,15 @@ const modalPersonifyStore = usePersonifyModalStore()
             Create Persona
           </h5>
           <p>
-            This article will show you how to expand the <br>functionality
-            of...
+            Find your authentic voice through the magic of Personify.
           </p>
           <VBtn
             color="primary"
             elevation="0"
             size="small"
+            @click="personifyModalStore.showModal = true"
           >
-            Read More
+            Open Personify
           </VBtn>
         </div>
       </div>
@@ -104,7 +107,10 @@ const modalPersonifyStore = usePersonifyModalStore()
       <h3 class="text-h3">
         Hi, James! How can I help?
       </h3>
-      <div class="ask-input">
+      <div
+        class="ask-input"
+        @click="$router.push({ name: 'chat' })"
+      >
         <AppTextField
           placeholder="ask a question.."
           bg-color="white"

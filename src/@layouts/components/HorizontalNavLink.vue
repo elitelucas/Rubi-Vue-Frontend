@@ -35,6 +35,7 @@ const { dynamicI18nProps } = useLayouts()
     >
       <Component
         :is="config.app.iconRenderer || 'div'"
+        v-if="item.icon"
         class="nav-item-icon"
         v-bind="item.icon || config.verticalNav.defaultNavItemIconProps"
       />

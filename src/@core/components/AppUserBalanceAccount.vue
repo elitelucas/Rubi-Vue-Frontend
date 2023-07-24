@@ -71,27 +71,34 @@ const databaseSvg = useGenerateImageVariant(`<svg
 
 <template>
   <div class="balance-row">
-    <div class="balance-row-label">
-      <RouterLink to="/">
-        <div v-html="keyboardSvg" />
-      </RouterLink>
-      <span class="app-header-words-remaining mr-2 text-black">Balance: 5,602</span>
-    </div>
-
-    <div class="balance-row-label">
-      <RouterLink to="/">
-        <div v-html="databaseSvg" />
-      </RouterLink>
-      <span class="app-header-words-remaining mr-2 text-black">Balance: 10</span>
-      <VTooltip
-        activator="parent"
-        location="bottom"
-        class="balance-tooltip"
-        text="sadsadsad"
-      >
-        <span>Buy Words</span>
-      </VTooltip>
-    </div>
+    <VTooltip content-class="balance-tooltip-content">
+      <template #activator="{ props }">
+        <div class="balance-row-label">
+          <RouterLink
+            to="/"
+            v-bind="props"
+          >
+            <div v-html="keyboardSvg" />
+          </RouterLink>
+          <span class="app-header-words-remaining mr-2 text-black">Balance: 5,602</span>
+        </div>
+      </template>
+      <span>Buy Words</span>
+    </VTooltip>
+    <VTooltip content-class="balance-tooltip-content">
+      <template #activator="{ props }">
+        <div class="balance-row-label">
+          <RouterLink
+            to="/"
+            v-bind="props"
+          >
+            <div v-html="databaseSvg" />
+          </RouterLink>
+          <span class="app-header-words-remaining mr-2 text-black">Balance: 10</span>
+        </div>
+      </template>
+      <span>Buy Credits</span>
+    </VTooltip>
   </div>
 </template>
 
