@@ -94,7 +94,7 @@ onMounted(() => {
 
       <!-- Usage -->
       <VWindowItem value="usage">
-        <Usage v-if="activeTab === 'usage'" />
+        <Usage />
       </VWindowItem>
 
       <!-- Personas -->
