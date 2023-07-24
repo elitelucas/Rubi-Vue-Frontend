@@ -211,7 +211,9 @@ const cardsHighlightingShowing = computed(() => cardsHighlighting.value.find(ite
     >
       <VCol
         cols="12"
-        sm="4"
+        lg="4"
+        md="6"
+        sm="6"
       >
         <VCardText class="d-flex flex-column justify-center align-center text-center ps-2 h-100">
           <VCheckbox
@@ -268,7 +270,9 @@ const cardsHighlightingShowing = computed(() => cardsHighlighting.value.find(ite
       </VCol>
       <VCol
         cols="12"
-        sm="4"
+        lg="4"
+        md="6"
+        sm="6"
       >
         <VCardText class="d-flex flex-column justify-center align-center text-center ps-2 h-100">
           <VCheckbox
@@ -334,7 +338,9 @@ const cardsHighlightingShowing = computed(() => cardsHighlighting.value.find(ite
       </VCol>
       <VCol
         cols="12"
-        sm="4"
+        lg="4"
+        md="6"
+        sm="6"
       >
         <VCardText class="d-flex flex-column justify-center align-center text-center ps-2 h-100">
           <VCheckbox

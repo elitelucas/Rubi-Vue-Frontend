@@ -186,7 +186,11 @@ const itensInfo = [
       </VRow>
       <VRow>
         <h3 class="text-h3">
-          Emma, the Educator <br>
+          <input
+            as="input"
+            value="Emma, the Educator"
+            class="input-name"
+          > <br>
           <div
             style="height: 4px; background-color: rgb(var(--v-theme-rubi-red));border-radius: 6px;"
             color="rubi-red"
@@ -232,5 +236,14 @@ const itensInfo = [
     right: 10px;
     bottom: 0px;
   }
+}
+
+.input-name {
+  min-width: 100px;
+}
+
+.input-name:focus {
+
+    outline: 0px solid transparent;
 }
 </style>
