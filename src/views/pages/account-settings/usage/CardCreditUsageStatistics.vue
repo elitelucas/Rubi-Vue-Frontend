@@ -1,13 +1,13 @@
 <script setup lang="ts">
 const statistics = [
   {
-    title: 'Documents',
+    title: 'Submissions',
     stats: '400',
     icon: 'tabler-file-text',
     color: 'primary',
   },
   {
-    title: 'Booosts',
+    title: 'Boosts',
     stats: '10,384',
     icon: 'tabler-database-import',
     color: 'info',

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import CardUsageHistory from './usage/CardUsageHistory.vue'
 import type { ChartJsCustomColors } from '@/@core/types'
 import CardChartUsageValues from '@/views/pages/account-settings/usage/CardChartUsageValues.vue'
 import CardCreditUsage from '@/views/pages/account-settings/usage/CardCreditUsage.vue'
@@ -148,6 +149,9 @@ const date = ref('This week')
             </VCard>
           </VCol>
         </VRow>
+      </VCardText>
+      <VCardText>
+        <CardUsageHistory />
       </VCardText>
     </VCard>
   </div>
