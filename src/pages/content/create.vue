@@ -434,6 +434,7 @@ watch(selectedBoost, () => {
                     variant="text"
                     color="text-color-body"
                     size="small"
+                    @click="showDialogSaveContent = true"
                   >
                     <VIcon
                       icon="tabler-archive"
