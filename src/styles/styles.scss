@@ -253,6 +253,12 @@ div.v-select-list div[role=list] div[role=listitem]:hover {
   }
 }
 
+.editor-h-650 {
+  .ql-container {
+    height: 650px !important;
+  }
+}
+
 
 .placeholder-white {
   input::placeholder {
@@ -304,4 +310,9 @@ div.v-select-list div[role=list] div[role=listitem]:hover {
     font-weight: 700;
     line-height: 22px; 
   }
+}
+
+
+.content-tooltip-shadow {
+  box-shadow: 0px 0px 20px 0px rgba(75, 70, 92, 0.40);
 }

@@ -32,6 +32,7 @@ const bg = computed(() => {
     <VExpansionPanel
       :disabled="buttonMode"
       :style="buttonMode ? `cursor: pointer !important` : ''"
+      elevation="0"
       @click="emit('click')"
     >
       <VExpansionPanelTitle :expand-icon="buttonMode ? 'none' : 'tabler-chevron-up'">
@@ -43,8 +44,8 @@ const bg = computed(() => {
             } ${bg ? `background-color:${bg};` : ''}`"
           >
           <div>
-            <span class="text-h3">{{ props.title }}</span>
-            <span class="text-p-medium">{{ props.subTitle }}</span>
+            <span class="text-h5">{{ props.title }}</span>
+            <span class="text-p text-text-color-body">{{ props.subTitle }}</span>
           </div>
         </div>
       </VExpansionPanelTitle>
@@ -59,7 +60,7 @@ const bg = computed(() => {
 @import "@styles/responsive.scss";
 
 .card-option-content {
-  height: 144px;
+  height: 75px;
   background-color: rgb(var(--v-theme-background-card));
   display: flex;
   align-items: center;
@@ -94,8 +95,8 @@ const bg = computed(() => {
   }
 
   & img {
-    height: 79px;
-    width: 79px;
+    height: 50px;
+    width: 50px;
     border-radius: 6px;
     border: 1px solid #4b4b4b;
 
