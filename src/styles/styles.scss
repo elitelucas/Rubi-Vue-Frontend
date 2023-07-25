@@ -99,6 +99,15 @@
   color: rgb(var(--v-theme-text-color-body));
 }
 
+.text-p-light {
+  font-feature-settings: 'clig' off, 'liga' off; 
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  color: rgb(var(--v-theme-text-color-body));
+}
+
 .text-p-small {
   font-style: normal;
   font-weight: 400;
