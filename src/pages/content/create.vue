@@ -103,10 +103,6 @@ const showDialogBoost = ref(false)
 const showDialogBoostScraperMode = ref(false)
 const slider2 = ref(0)
 
-function testClick() {
-  alert()
-}
-
 watch(selectedBoost, () => {
   showDialogBoost.value = true
 })
