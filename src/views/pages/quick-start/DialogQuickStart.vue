@@ -31,6 +31,21 @@ const steps = ref(props.step)
 
 const loading = ref(false)
 
+const texts = [
+  'Jazz hands! RUBI is working magic!',
+  'Sit back and relax, RUBI is working wonders.',
+  'Shhhh. RUBI is brewing up something wild.',
+  'Brace yourself for mind-blowing RUBI-rificness!',
+  'Get ready to be amazed, RUBI style!',
+  'Brace yourself for mind-blowing RUBI-rificness!',
+  'Get ready to be amazed, RUBI-style!',
+]
+
+const loadingText = ref('')
+
+let intervalID: any
+let nextIndex = 0
+
 const changeStep = (value: number) => {
   const stepValue = steps.value + value
 
@@ -44,22 +59,36 @@ const changeStep = (value: number) => {
 
 const createPerson = () => {
   loading.value = true
+
+  setInterval(() => {
+    loadingText.value = texts[nextIndex]
+    nextIndex += 1
+    if (nextIndex >= texts.length)
+      nextIndex = 0
+  }, 3998)
+
   setTimeout(() => {
     loading.value = false
     steps.value = 2
-    document.getElementById('dialog-quick-start')?.scrollIntoView({ behavior: 'smooth' })
-  }, 5000)
+    document
+      .getElementById('dialog-quick-start')
+      ?.scrollIntoView({ behavior: 'smooth' })
+  }, 15000)
 }
 
 const dialogModelValueUpdate = (val: boolean) => {
   emit('update:isDialogVisible', val)
   steps.value = props.step
 }
+
+watch(loading, value => {
+  if (!value)
+    clearInterval(intervalID)
+})
 </script>
 
 <template>
   <VDialog
-
     :width="$vuetify.display.smAndDown ? 'auto' : 750"
     :model-value="props.isDialogVisible"
     @update:model-value="dialogModelValueUpdate"
@@ -71,27 +100,9 @@ const dialogModelValueUpdate = (val: boolean) => {
       persistent
     >
       <LogoAnimated />
-      <h5 class="text-h5 text-white">
-        Jazz hands! RUBI is working magic!
-      </h5><br>
-      <h5 class="text-h5 text-white">
-        Sit back and relax, RUBI is working wonders.
-      </h5><br>
-      <h5 class="text-h5 text-white">
-        Shhhh. RUBI is brewing up something wild.
-      </h5><br>
-      <h5 class="text-h5 text-white">
-        Brace yourself for mind-blowing RUBI-rificness!
-      </h5><br>
-      <h5 class="text-h5 text-white">
-        Get ready to be amazed, RUBI style!
-      </h5><br>
-      <span class="text-p-small text-black">
-        "Brace yourself for mind-blowing RUBI-rificness!"
-      </span><br>
-      <span class="text-p-small text-black">
-        Get ready to be amazed, RUBI-style!"
-      </span>
+      <h5 class="text-h5 text-white text-animation">
+        {{ loadingText }}
+      </h5>
     </VOverlay>
     <!-- Dialog close btn -->
     <DialogCloseBtn @click="dialogModelValueUpdate(false)" />
@@ -150,7 +161,7 @@ const dialogModelValueUpdate = (val: boolean) => {
                 append-icon="tabler-arrow-narrow-right"
                 @click="steps === 1 ? createPerson() : changeStep(1)"
               >
-                {{ steps === 1 ? 'Create Persona' : 'Next' }}
+                {{ steps === 1 ? "Create Persona" : "Next" }}
               </VBtn>
             </VRow>
           </VCol>
@@ -159,3 +170,22 @@ const dialogModelValueUpdate = (val: boolean) => {
     </VCard>
   </VDialog>
 </template>
+
+<style lang="scss" scoped>
+@keyframes typewriter {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.text-animation {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typewriter 4s steps(40) infinite;
+  animation-delay: 2s;
+}
+</style>
