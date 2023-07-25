@@ -186,6 +186,5 @@ watch(loading, value => {
   overflow: hidden;
   white-space: nowrap;
   animation: typewriter 4s steps(40) infinite;
-  animation-delay: 2s;
 }
 </style>
