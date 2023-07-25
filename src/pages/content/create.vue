@@ -8,11 +8,13 @@ import gridIconPng from '@images/iconify-png/layout-grid-add.png'
 import SPIAuditScoring from '@/views/pages/content/SPIAuditScoring.vue'
 import DialogSaveContent from '@/views/pages/content/DialogSaveContent.vue'
 import DialogXtract from '@/views/pages/xtract-boosts/DialogXtract.vue'
+import { useModuleStore } from '@/store/module'
 
 const selectPersona = ref('Persona')
 const selectVoice = ref('Voice')
 const selectTone = ref('Tone')
 const selectLanguage = ref('Language')
+const moduleStore = useModuleStore()
 
 const radioContent: CustomInputContent[] = [
   {
@@ -100,10 +102,6 @@ const selectedBoost = ref()
 const showDialogBoost = ref(false)
 const showDialogBoostScraperMode = ref(false)
 const slider2 = ref(0)
-
-function testClick() {
-  alert()
-}
 
 watch(selectedBoost, () => {
   showDialogBoost.value = true
@@ -214,7 +212,7 @@ watch(selectedBoost, () => {
           sub-title="Combine modules to craft even more spectacular content."
           button-mode
           class="pr-1"
-          @click="testClick"
+          @click="moduleStore.showModal = true"
         />
         <CardOptionContent
           :icon-img="houseCheck"
@@ -434,6 +432,7 @@ watch(selectedBoost, () => {
                     variant="text"
                     color="text-color-body"
                     size="small"
+                    @click="showDialogSaveContent = true"
                   >
                     <VIcon
                       icon="tabler-archive"

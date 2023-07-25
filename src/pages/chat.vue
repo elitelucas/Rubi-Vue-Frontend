@@ -4,6 +4,7 @@ import { useDisplay } from 'vuetify/lib/framework.mjs'
 import avatar from '@images/avatars/avatar-1.png'
 import bot from '@images/iconify-png/rubi_icon.png'
 import { useResponsiveLeftSidebar } from '@/@core/composable/useResponsiveSidebar'
+import ChatTipDrawer from '@/views/pages/chat/ChatTipDrawer.vue'
 
 const vuetifyDisplays = useDisplay()
 
@@ -89,10 +90,13 @@ const chatHistories = [
     ],
   },
 ]
+
+const showChatTipDrawer = ref(false)
 </script>
 
 <template>
   <div>
+    <ChatTipDrawer v-model="showChatTipDrawer" />
     <VRow
       v-if="$vuetify.display.smAndDown && !isLeftSidebarOpen"
       class="my-2"
@@ -131,6 +135,22 @@ const chatHistories = [
               </VBtn>
               <VSpacer />
 
+              <VTooltip
+                content-class="balance-tooltip-content"
+                location="bottom"
+              >
+                <template #activator="{ props }">
+                  <VIcon
+                    icon="custom-lightbulb"
+                    size="40"
+                    color="rubi-red"
+                    class="cursor-pointer"
+                    v-bind="props"
+                    @click="showChatTipDrawer = true"
+                  />
+                </template>
+                <span>Tip Drawer</span>
+              </VTooltip>
               <VIcon
                 v-if="$vuetify.display.smAndDown"
                 icon="tabler-x"
@@ -139,14 +159,6 @@ const chatHistories = [
                 class="cursor-pointer"
                 style="transform: rotate(90deg)"
                 @click="isLeftSidebarOpen = !isLeftSidebarOpen"
-              />
-              <VIcon
-                v-else
-                icon="tabler-layout-navbar"
-                size="24"
-                color="text-color-heading"
-                class="cursor-pointer"
-                style="transform: rotate(90deg)"
               />
             </VRow>
             <VDivider class="my-4" />

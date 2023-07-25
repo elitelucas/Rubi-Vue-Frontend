@@ -69,7 +69,10 @@ import avatar1 from '@images/avatars/avatar-1.png'
           </VListItem>
 
           <!-- 👉 Subscriptions -->
-          <VListItem link>
+          <VListItem
+            link
+            :to="{ name: 'profile-settings', params: { tab: 'subscriptions' } }"
+          >
             <template #prepend>
               <VIcon
                 class="me-2"
@@ -85,7 +88,7 @@ import avatar1 from '@images/avatars/avatar-1.png'
           <VDivider class="my-2" />
 
           <!-- 👉 Return to Back Office -->
-          <VListItem href="https://www.myflex.ai/0">
+          <VListItem href="https://www.myflex.ai">
             <template #prepend>
               <VIcon
                 class="me-2"

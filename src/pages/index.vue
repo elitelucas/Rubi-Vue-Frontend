@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { usePersonifyModalStore } from '@/store/modal/personify'
 import DialogQuickStart from '@/views/pages/quick-start/DialogQuickStart.vue'
-import avatar10 from '@images/avatars/avatar-10.png'
+import avatar from '@images/avatars/avatar-16.png'
 import discord from '@images/iconify-png/Discord.png'
 import laptop from '@images/iconify-png/Laptop.png'
 import lightbulb from '@images/iconify-png/Lightbulb.png'
@@ -84,7 +84,7 @@ const showDialogQuickStart = ref(false)
         </div>
 
         <div class="card-action">
-          <img :src="avatar10">
+          <img :src="avatar">
           <h5 class="text-h5">
             Create Persona
           </h5>
