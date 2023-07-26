@@ -9,7 +9,7 @@ export default {
     getData(data: any) {
         APISettings.headers.set('Content-Type', 'multipart/form-data');
 
-        return axios.post(APISettings.baseTestURL + '/admin/module-generator', data)
+        return axios.post(APISettings.baseURL + '/admin/module-generator', data)
             .then(function (response) {
                 if (response.status != 200) {
                     throw response.status;
