@@ -100,6 +100,7 @@ const selectedBoost = ref()
 const showDialogBoost = ref(false)
 const showDialogBoostScraperMode = ref(false)
 const slider2 = ref(0)
+const promptData = ref('');
 
 function testClick() {
   alert()
@@ -108,6 +109,13 @@ function testClick() {
 watch(selectedBoost, () => {
   showDialogBoost.value = true
 })
+
+const handleChangeContent = (e:any) => {
+  promptData.value = e.ops[0].insert
+}
+
+const handleInitail = (e:any) => {
+}
 </script>
 
 <template>
@@ -134,6 +142,7 @@ watch(selectedBoost, () => {
         <SPIAuditScoring
           v-if="showAuditDialog"
           show-btn-run
+          :promptData="promptData"
           class="mr-2"
           @close="showAuditDialog = false"
         />
@@ -576,7 +585,7 @@ watch(selectedBoost, () => {
         </VRow>
       </VRow>
       <div class="editor editor-h-650">
-        <QuillEditor toolbar="full" />
+        <QuillEditor toolbar="full" v-model="promptData" @update:content="handleChangeContent" @ready="handleInitail"/>
       </div>
     </VCol>
   </VRow>
