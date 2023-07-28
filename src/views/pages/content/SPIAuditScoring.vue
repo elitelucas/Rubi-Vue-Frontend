@@ -1,179 +1,332 @@
 <script setup lang="ts">
-import { VDataTable } from 'vuetify/labs/VDataTable'
+import { VDataTable } from "vuetify/labs/VDataTable";
+import SpiAuditAPI from "@/services/spiAction/SpiAuditMethod";
 
 interface Props {
-  showBtnRun?: boolean
+  showBtnRun?: boolean;
+  promptData?: string;
+  running?: boolean;
 }
 
 interface Emit {
-  (e: 'close', value: boolean): void
+  (e: "close", value: boolean): void;
+  (e: "getData"): void;
 }
 
-defineProps<Props>()
+const props = defineProps<Props>();
 
-defineEmits<Emit>()
+const emit = defineEmits<Emit>();
 
 const colunsScore = ref([
   {
-    checkTitle: 'Check Readability',
-    circleTitle: 'Flesch-Kincaid<br>Reading Ease',
-    color: 'primary',
-    circleChecked: true,
-    score: 82.9,
-    scoreLabel: '',
-    radio_value: 'readability',
-    description: `Based on our <u>Readability Score Study</u> ~70% of the top results in Google had a Dale-Chall Readability Grade between (5.6 - 8.4) <br><br>
-
-Test for measuring the readability using words familiar to a fourth grader. The lower the score the more readable.`,
-  },
-  {
-    checkTitle: 'Check Readability',
-    circleTitle: 'FORCAST Grade<br>Level',
-    color: 'warning',
+    checkTitle: "Check Readability",
+    circleTitle: "Flesch-Kincaid<br>Reading Ease",
+    color: "primary",
     circleChecked: false,
-    score: null,
-    scoreLabel: '',
-    radio_value: '4234',
+    score: 0,
+    scoreLabel: "",
+    radio_value: "readability",
+    diff_value: 100,
+    min_value: 0,
     description: `Based on our <u>Readability Score Study</u> ~70% of the top results in Google had a Dale-Chall Readability Grade between (5.6 - 8.4) <br><br>
 
 Test for measuring the readability using words familiar to a fourth grader. The lower the score the more readable.`,
   },
   {
-    checkTitle: 'Check Readability',
-    circleTitle: 'Gunning-Fog<br>Index',
-    color: 'primary-300',
-    circleChecked: true,
-    score: 7.5,
-    scoreLabel: 'Grade',
-    radio_value: '34234',
+    checkTitle: "Check Readability",
+    circleTitle: "FORCAST Grade<br>Level",
+    color: "warning",
+    circleChecked: false,
+    score: 0,
+    scoreLabel: "Grade",
+    radio_value: "4234",
+    diff_value: 14.7,
+    min_value: 0,
     description: `Based on our <u>Readability Score Study</u> ~70% of the top results in Google had a Dale-Chall Readability Grade between (5.6 - 8.4) <br><br>
 
 Test for measuring the readability using words familiar to a fourth grader. The lower the score the more readable.`,
   },
   {
-    checkTitle: 'Check Readability',
-    circleTitle: 'Dale-Chall<br>Readability Grade',
-    color: 'info',
-    circleChecked: true,
-    score: 7.5,
-    scoreLabel: 'Grade',
-    radio_value: '657567',
+    checkTitle: "Check Readability",
+    circleTitle: "Gunning-Fog<br>Index",
+    color: "primary-300",
+    circleChecked: false,
+    score: 0,
+    scoreLabel: "",
+    radio_value: "34234",
+    diff_value: 14.3,
+    min_value: 0,
     description: `Based on our <u>Readability Score Study</u> ~70% of the top results in Google had a Dale-Chall Readability Grade between (5.6 - 8.4) <br><br>
 
 Test for measuring the readability using words familiar to a fourth grader. The lower the score the more readable.`,
   },
-])
+  {
+    checkTitle: "Check Readability",
+    circleTitle: "Dale-Chall<br>Readability Grade",
+    color: "info",
+    circleChecked: false,
+    score: 0,
+    scoreLabel: "Grade",
+    radio_value: "657567",
+    diff_value: 8.4,
+    min_value: 0,
+    description: `Based on our <u>Readability Score Study</u> ~70% of the top results in Google had a Dale-Chall Readability Grade between (5.6 - 8.4) <br><br>
 
-const currentColum = ref(0)
+Test for measuring the readability using words familiar to a fourth grader. The lower the score the more readable.`,
+  },
+]);
 
-const currentColumItem = computed(() => colunsScore.value[currentColum.value])
+const AiDetection = ref(0);
+const Plagiarized = ref("0%");
+
+const isVisibleProgress = ref(false);
+
+const currentColum = ref(0);
+
+const res = ref();
+
+const currentColumItem = computed(() => colunsScore.value[currentColum.value]);
 
 function setColum(index: number) {
-  const nextIndex = currentColum.value + index
+  const nextIndex = currentColum.value + index;
 
-  if (nextIndex < 0)
-    return
-  if (nextIndex >= colunsScore.value.length)
-    return
+  if (nextIndex < 0) return;
+  if (nextIndex >= colunsScore.value.length) return;
 
-  currentColum.value = nextIndex
+  currentColum.value = nextIndex;
 }
 
-const data = ref([
-  {
-    matched: 'The greatest glory in living lies not in never falling, but in rising every time we fall. -Nelson Mandela',
-    average_score: 81,
-    websites: [
-      {
-        website: 'www.examplecitation.com',
-        url: 'https://www.examplecitation.com/2004/12/05/today-is-the-day',
-      },
-      {
-        website: 'www.examplecitation2.com',
-        url: 'https://www.examplecitation.com/2004/12/05/today-is-the-day',
-      },
-    ],
-  },
-  {
-    matched: 'The greatest glory in living lies not in never falling, but in rising every time we fall. -Nelson Mandela',
-    average_score: 81,
-    websites: [
-      {
-        website: 'www.examplecitation3.com',
-        url: 'https://www.examplecitation.com/2004/12/05/today-is-the-day',
-      },
-      {
-        website: 'www.examplecitation4.com',
-        url: 'https://www.examplecitation.com/2004/12/05/today-is-the-day',
-      },
-    ],
-  },
-])
+watch(props, () => {
+  props.running && runAduit()
+})
+
+const data = ref([]);
 
 const headers = [
-  { title: 'Matched Plagiarized Phrase', sortable: false, key: 'matched' },
-  { title: 'Averag\nScore', key: 'average_score' },
-  { title: 'Matched\nWebsites', key: 'websites' },
-]
+  { title: "Matched Plagiarized Phrase", sortable: false, key: "matched" },
+  { title: "Averag\nScore", key: "average_score" },
+  { title: "Matched\nWebsites", key: "websites" },
+];
 
-const radioSelected = ref()
+const radioSelected = ref();
 
 const cardsHighlighting = computed(() => [
   {
-    title: 'AI Detection Highlighting Color Key',
-    show: radioSelected.value === 'ai',
+    title: "AI Detection Highlighting Color Key",
+    show: radioSelected.value === "ai",
     highlightings: [
       {
-        name: '90% confidence this sentence was generated by AI.',
-        color: '#EA5455',
+        name: "90% confidence this sentence was generated by AI.",
+        color: "#EA5455",
       },
       {
-        name: '70% confidence this sentence was generated by AI.',
-        color: '#FF9F43',
+        name: "70% confidence this sentence was generated by AI.",
+        color: "#FF9F43",
       },
       {
-        name: '50% confidence this sentence was generated by AI.',
-        color: '#FBFF43',
+        name: "50% confidence this sentence was generated by AI.",
+        color: "#FBFF43",
       },
       {
-        name: '70% confidence this sentence was human written.',
-        color: '#28C76F',
+        name: "70% confidence this sentence was human written.",
+        color: "#28C76F",
       },
       {
-        name: '90% confidence this sentence was human written.',
-        color: '#48B5FF',
+        name: "90% confidence this sentence was human written.",
+        color: "#48B5FF",
       },
     ],
   },
   {
-    title: 'Readability Highlighting Color Key',
-    show: radioSelected.value === 'readability',
+    title: "Readability Highlighting Color Key",
+    show: radioSelected.value === "readability",
     highlightings: [
       {
-        name: 'Sentence is hard to read. (over 20 syllables)',
-        color: '#EA5455',
+        name: "Sentence is hard to read. (over 20 syllables)",
+        color: "#EA5455",
       },
       {
-        name: 'Sentence is very hard to read. (over 30 syllables)',
-        color: '#FF9F43',
+        name: "Sentence is very hard to read. (over 30 syllables)",
+        color: "#FF9F43",
       },
       {
-        name: 'This word is over 13 characters. Consider using a different, shorter word.',
-        color: '#FBFF43',
+        name:
+          "This word is over 13 characters. Consider using a different, shorter word.",
+        color: "#FBFF43",
       },
       {
-        name: 'This word is over 4 syllables. Consider using a word with less syllables.',
-        color: '#28C76F',
+        name: "This word is over 4 syllables. Consider using a word with less syllables.",
+        color: "#28C76F",
       },
       {
-        name: 'This is an adverb. Try to use a more concise word.',
-        color: '#48B5FF',
+        name: "This is an adverb. Try to use a more concise word.",
+        color: "#48B5FF",
       },
     ],
   },
-])
+]);
 
-const cardsHighlightingShowing = computed(() => cardsHighlighting.value.find(item => item.show))
+const runAduit = async () => {
+  try {
+    isVisibleProgress.value = true;
+    const data = {
+      prompt: props.promptData,
+    };
+
+    res.value = await SpiAuditAPI.getData(data);
+    emit('getData');
+    isVisibleProgress.value = false;
+    setAIDetection(res.value.AI_detection);
+    setPlag(res.value["Plagiarism & readability"]);
+    setDatas();
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const setAIDetection = (data: any) => {
+  AiDetection.value = Number((data.score.ai * 100).toFixed(2));
+};
+
+const setPlag = (res: any) => {
+  Plagiarized.value = res.total_text_score;
+  colunsScore.value[0].score = res.readability.readability.fleschReadingEase;
+  colunsScore.value[1].score = res.readability.readability.fleschGradeLevel;
+  colunsScore.value[2].score = res.readability.readability.gunningFoxIndex;
+  colunsScore.value[3].score = res.readability.readability.daleChallReadabilityGrade;
+
+  data.value = res.results.map((ele: any) => ({
+    matched: ele.phrase,
+    average_score: ele.matches[0].score,
+    websites: [
+      {
+        website: ele.matches[0].website,
+        url: ele.matches[0].website.split("com")[0] + "com",
+      },
+    ],
+  }));
+};
+
+const cardsHighlightingShowing = computed(() =>
+  cardsHighlighting.value.find((item) => item.show)
+);
+
+const AIData = ref("");
+const PlagData = ref("");
+const readData = ref("");
+
+const handleRadioChange = () => {
+  if (!res.value) return;
+
+  const editorElement = document.getElementsByClassName("ql-editor")[0] as HTMLElement;
+
+  if (radioSelected.value === "ai") {
+    if (editorElement) {
+      editorElement.innerHTML = AIData.value;
+    }
+  } else if (radioSelected.value === "plagiarism") {
+    if (editorElement) {
+      editorElement.innerHTML = PlagData.value;
+    }
+  } else if (radioSelected.value === "readability") {
+    if (editorElement) {
+      editorElement.innerHTML = readData.value;
+    }
+  }
+};
+
+const setDatas = () => {
+  res.value.AI_detection.blocks.map((ele: any) => {
+    AIData.value +=
+      "<span style='background-color: " +
+      (ele.result.fake > 0.5 ? "#eb8e70" : "#57bc8a") +
+      "; color: white'>" +
+      ele.text +
+      "</span>";
+  });
+  let newPrompt = "";
+  res.value["Plagiarism & readability"].results.map((ele: any, id: number) => {
+    if (props.promptData) {
+      if (props.promptData?.indexOf(ele.phrase) > -1) {
+        if (id === 0) {
+          newPrompt += props.promptData?.slice(0, props.promptData?.indexOf(ele.phrase));
+        }
+
+        newPrompt +=
+          "<span style='background-color: " +
+          (ele.matches.score > 70 ? "#57bc8a" : "#eb8e70") +
+          "; color:" +
+          (ele.matches.score > 80 ? "#000" : "#fff") +
+          "'>" +
+          ele.phrase +
+          "</span>";
+        if (id === res.value["Plagiarism & readability"].results.length - 1) {
+          newPrompt += props.promptData?.slice(
+            props.promptData?.indexOf(ele.phrase) + ele.phrase.length
+          );
+        }
+      }
+    }
+  });
+  PlagData.value = newPrompt;
+  newPrompt = "";
+  res.value["Plagiarism & readability"].readability.sentences.map(
+    (ele: any, id: number) => {
+      if (props.promptData) {
+        if (props.promptData?.indexOf(ele.phrase) > -1) {
+          if (id === 0) {
+            newPrompt += props.promptData?.slice(
+              0,
+              props.promptData?.indexOf(ele.phrase)
+            );
+          }
+
+          // let partData = "";
+
+          // if (ele.phrase.indexOf(ele.phrase) > -1) {
+          //   if (id === 0) {
+          //     partData += ele.phrase.slice(0, ele.phrase.indexOf(ele.phrase));
+          //   }
+
+          //   partData +=
+          //     "<label style='background-color: " +
+          //     getColor(ele) +
+          //     ";'>" +
+          //     ele.phrase +
+          //     "</label>";
+          //   if (id === res.value["Plagiarism & readability"].ele.phrase.length - 1) {
+          //     partData += ele.phrase.slice(
+          //       ele.phrase.indexOf(ele.phrase) + ele.phrase.length
+          //     );
+          //   }
+          // }
+
+          newPrompt +=
+            "<span style='background-color: " +
+            getColor(ele) +
+            ";'>" +
+            ele.phrase +
+            "</span>";
+          if (
+            id ===
+            res.value["Plagiarism & readability"].readability.sentences.length - 1
+          ) {
+            newPrompt += props.promptData?.slice(
+              props.promptData?.indexOf(ele.phrase) + ele.phrase.length
+            );
+          }
+        }
+      }
+    }
+  );
+  readData.value = newPrompt;
+};
+
+const getColor = (data: any) => {
+  if (data.isVeryHard) return "#e67c73";
+  else if (data.isHard) return "#ffd666";
+  // else return "white";
+};
 </script>
 
 <template>
@@ -185,49 +338,28 @@ const cardsHighlightingShowing = computed(() => cardsHighlighting.value.find(ite
       align="center"
     >
       <VCol>
-        <h3 class="text-h3">
-          SPI Scoring
-        </h3>
-        <p class="text-body-2-medium">
-          Surveillance and Plagiarism Identifier
-        </p>
+        <h3 class="text-h3">SPI Scoring</h3>
+        <p class="text-body-2-medium">Surveillance and Plagiarism Identifier</p>
       </VCol>
       <VSpacer />
-      <DialogCloseBtn
-        rounded="sm"
-        class="mr-2"
-        @click="$emit('close')"
-      />
+      <DialogCloseBtn rounded="sm" class="mr-2" @click="$emit('close')" />
     </VRow>
-    <VDivider
-      v-if="!showBtnRun"
-      class="mx-5"
-    />
+    <VDivider v-if="!showBtnRun" class="mx-5" />
 
-    <VRow
-      justify="center"
-      align="start"
-      class="mt-5"
-    >
-      <VCol
-        cols="12"
-        lg="4"
-        md="6"
-        sm="6"
-      >
-        <VCardText class="d-flex flex-column justify-center align-center text-center ps-2 h-100">
-          <VCheckbox
-            label="SPI AI Detection"
-            class="mt-5"
-          />
+    <VRow justify="center" align="start" class="mt-5">
+      <VCol cols="12" lg="4" md="6" sm="6">
+        <VCardText
+          class="d-flex flex-column justify-center align-center text-center ps-2 h-100"
+        >
+          <VCheckbox label="SPI AI Detection" class="mt-5" />
 
           <VProgressCircular
-            model-value="75"
+            :model-value="AiDetection"
             color="error"
             size="173"
             width="10"
             class="mt-5"
-            style="position: relative;"
+            style="position: relative"
           >
             <VTooltip
               location="bottom"
@@ -239,54 +371,50 @@ const cardsHighlightingShowing = computed(() => cardsHighlighting.value.find(ite
                   v-bind="props"
                   icon="tabler-info-circle"
                   color="primary"
-                  style="position: absolute; top: 15px;"
+                  style="position: absolute; top: 15px"
                 />
               </template>
 
               <span
                 class="text-caption mt-5 text-text-color-body"
-                style="text-align: start;"
+                style="text-align: start"
               >
-                SPI Originality Score. This score reflects our AI's confidence in predicting that the content scanned was produced by an AI tool. A score of 90% original and 10% AI should be thought of as "We are 90% confident that this content was created by a human" and NOT that 90% of the article is Human and 10% AI.
-
-                Learn More
+                SPI Originality Score. This score reflects our AI's confidence in
+                predicting that the content scanned was produced by an AI tool. A score of
+                90% original and 10% AI should be thought of as "We are 90% confident that
+                this content was created by a human" and NOT that 90% of the article is
+                Human and 10% AI. Learn More
               </span>
             </VTooltip>
             <span class="text-body-1">AI Detection Score</span>
           </VProgressCircular>
-          <span class="text-body-2-medium mt-5"><span class="text-error">75%</span> AI</span>
-          <VRadioGroup
-            v-model="radioSelected"
-            column
+          <span class="text-body-2-medium mt-5"
+            ><span class="text-error">{{ AiDetection }}%</span> AI</span
           >
+          <VRadioGroup v-model="radioSelected" column>
             <VRadio
               label="Highlight results"
               class="mt-5"
               color="primary"
               value="ai"
+              @change="handleRadioChange"
             />
           </VRadioGroup>
         </VCardText>
       </VCol>
-      <VCol
-        cols="12"
-        lg="4"
-        md="6"
-        sm="6"
-      >
-        <VCardText class="d-flex flex-column justify-center align-center text-center ps-2 h-100">
-          <VCheckbox
-            label="Detect Plagiarism"
-            class="mt-5"
-          />
+      <VCol cols="12" lg="4" md="6" sm="6">
+        <VCardText
+          class="d-flex flex-column justify-center align-center text-center ps-2 h-100"
+        >
+          <VCheckbox label="Detect Plagiarism" class="mt-5" />
 
           <VProgressCircular
-            model-value="100"
+            :model-value="Number(100 - Number(Plagiarized.slice(0, -1)))"
             color="success"
             size="173"
             width="10"
             class="mt-5"
-            style="position: relative;"
+            style="position: relative"
           >
             <VTooltip
               location="bottom"
@@ -298,63 +426,59 @@ const cardsHighlightingShowing = computed(() => cardsHighlighting.value.find(ite
                   v-bind="props"
                   icon="tabler-info-circle"
                   color="primary"
-                  style="position: absolute; top: 15px;"
+                  style="position: absolute; top: 15px"
                 />
               </template>
 
               <span
                 class="text-caption mt-5 text-text-color-body"
-                style="width: 170px; text-align: start;"
+                style="width: 170px; text-align: start"
               >
-                Based on our <u>Readability Score Study</u> ~70% of the top results in Google had a Dale-Chall Readability Grade between (5.6 - 8.4) <br><br>
+                Based on our <u>Readability Score Study</u> ~70% of the top results in
+                Google had a Dale-Chall Readability Grade between (5.6 - 8.4) <br /><br />
 
-                Test for measuring the readability using words familiar to a fourth grader. The lower the score the more readable.
+                Test for measuring the readability using words familiar to a fourth
+                grader. The lower the score the more readable.
               </span>
             </VTooltip>
             <div class="d-flex flex-column justify-center align-center">
               <span class="text-body-1 mt-5">Plagiarism Score</span>
-              <VIcon
-                icon="tabler-check"
-                color="success"
-                size="54"
-                class="svg-strock-1"
-              />
+              <VIcon icon="tabler-check" color="success" size="54" class="svg-strock-1" />
             </div>
           </VProgressCircular>
-          <span class="text-body-2-medium mt-5"><span class="text-success">0%</span> Plagiarized</span>
-          <VRadioGroup
-            v-model="radioSelected"
-            column
+          <span class="text-body-2-medium mt-5"
+            ><span class="text-success">{{ Plagiarized }}</span> Plagiarized</span
           >
+          <VRadioGroup v-model="radioSelected" column>
             <VRadio
               v-model="radioSelected"
               label="Highlight results"
               class="mt-5"
               color="primary"
               value="plagiarism"
+              @change="handleRadioChange"
             />
           </VRadioGroup>
         </VCardText>
       </VCol>
-      <VCol
-        cols="12"
-        lg="4"
-        md="6"
-        sm="6"
-      >
-        <VCardText class="d-flex flex-column justify-center align-center text-center ps-2 h-100">
-          <VCheckbox
-            label="Check Readability"
-            class="mt-5"
-          />
+      <VCol cols="12" lg="4" md="6" sm="6">
+        <VCardText
+          class="d-flex flex-column justify-center align-center text-center ps-2 h-100"
+        >
+          <VCheckbox label="Check Readability" class="mt-5" />
 
           <VProgressCircular
-            model-value="100"
+            :model-value="
+              Number(
+                Number(currentColumItem.score - currentColumItem.min_value) /
+                  (currentColumItem.diff_value - currentColumItem.min_value)
+              ) * 100
+            "
             :color="currentColumItem.color"
             size="173"
             width="10"
             class="mt-5"
-            style="position: relative;"
+            style="position: relative"
           >
             <VTooltip
               location="bottom"
@@ -366,21 +490,18 @@ const cardsHighlightingShowing = computed(() => cardsHighlighting.value.find(ite
                   v-bind="props"
                   icon="tabler-info-circle"
                   color="primary"
-                  style="position: absolute; top: 15px;"
+                  style="position: absolute; top: 15px"
                 />
               </template>
 
               <span
                 class="text-caption mt-5 text-text-color-body"
-                style="width: 170px; text-align: start;"
+                style="width: 170px; text-align: start"
                 v-html="currentColumItem.description"
               />
             </VTooltip>
             <div class="d-flex flex-column justify-center align-center">
-              <span
-                class="text-body-1 mt-5"
-                v-html="currentColumItem.circleTitle"
-              />
+              <span class="text-body-1 mt-5" v-html="currentColumItem.circleTitle" />
               <VIcon
                 v-if="currentColumItem.circleChecked"
                 icon="tabler-check"
@@ -390,82 +511,60 @@ const cardsHighlightingShowing = computed(() => cardsHighlighting.value.find(ite
               />
             </div>
           </VProgressCircular>
-          <VRow
-            align="center"
-            class="mt-5"
-          >
+          <VRow align="center" class="mt-5">
             <VIcon
               icon="tabler-chevron-left"
               class="mr-2 cursor-pointer"
               @click="setColum(-1)"
             />
             <span
-              class="text-body-2-medium text-primary  font-weight-medium"
-              style="width: 85px;"
-            >{{ currentColumItem.scoreLabel }} {{ currentColumItem.score }}</span>
+              class="text-body-2-medium text-primary font-weight-medium"
+              style="width: 85px"
+              >{{ currentColumItem.scoreLabel }} {{ currentColumItem.score }}</span
+            >
             <VIcon
               icon="tabler-chevron-right"
               class="ml-2 cursor-pointer"
               @click="setColum(1)"
             />
           </VRow>
-          <VRadioGroup
-            v-model="radioSelected"
-            column
-          >
+          <VRadioGroup v-model="radioSelected" column>
             <VRadio
               label="Highlight results"
               class="mt-5"
               color="primary"
               :value="currentColumItem.radio_value"
+              @change="handleRadioChange"
             />
           </VRadioGroup>
         </VCardText>
       </VCol>
     </VRow>
-    <VRow
-      v-if="showBtnRun"
-      justify="center"
-      class="mt-1"
-    >
-      <VBtn> Run Audit </VBtn>
+    <VRow v-if="showBtnRun" justify="center" class="mt-1">
+      <VBtn @click="runAduit()">
+        <VProgressCircular
+          :size="25"
+          width="4"
+          style="margin-right: 5px"
+          color="warning"
+          indeterminate
+          v-if="isVisibleProgress"
+        />
+
+        Run Audit
+      </VBtn>
     </VRow>
-    <VRow
-      v-if="showBtnRun"
-      justify="center"
-      class="mt-10 mb-5"
-    >
-      <span class="text-caption text-muted">
-        Each submission costs 1 credit
-      </span>
+    <VRow v-if="showBtnRun" justify="center" class="mt-10 mb-5">
+      <span class="text-caption text-muted"> Each submission costs 1 credit </span>
     </VRow>
-    <div
-      v-if="showBtnRun"
-      class="py-2 bg-background"
-    />
-    <VDivider
-      v-else
-      class="mx-5"
-    />
-    <VCard
-      v-if="!cardsHighlighting.find(item => item.show)"
-      elevation="0"
-    >
+    <div v-if="showBtnRun" class="py-2 bg-background" />
+    <VDivider v-else class="mx-5" />
+    <VCard v-if="!cardsHighlighting.find((item) => item.show)" elevation="0">
       <VCardText>
-        <p class="text-p-bold">
-          Matched Phrases <span class="text-rubi-red">(2)</span>
-        </p>
-        <VDataTable
-          :headers="headers"
-          :items="data"
-          show-expand
-        >
+        <p class="text-p-bold">Matched Phrases <span class="text-rubi-red">(2)</span></p>
+        <VDataTable :headers="headers" :items="data" show-expand>
           <template #item.average_score="{ item }">
-            <VChip
-              color="rubi-red"
-              variant="flat"
-              rounded="sm"
-            >
+            <VChip color="rubi-red" variant="flat" rounded="sm">
               {{ item.raw.average_score }}%
             </VChip>
           </template>
@@ -484,11 +583,9 @@ const cardsHighlightingShowing = computed(() => cardsHighlighting.value.find(ite
                     <p class="p-small-bold">
                       {{ website.website }}
                     </p>
-                    <a
-                      :href="website.url"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >{{ website.url }}</a>
+                    <a :href="website.url" target="_blank" rel="noopener noreferrer">{{
+                      website.url
+                    }}</a>
                   </VCol>
                   <VCol cols="1">
                     <VBtn
@@ -507,11 +604,7 @@ const cardsHighlightingShowing = computed(() => cardsHighlighting.value.find(ite
         </VDataTable>
       </VCardText>
     </VCard>
-    <VCard
-      v-else
-      elevation="0"
-      :title="cardsHighlightingShowing?.title"
-    >
+    <VCard v-else elevation="0" :title="cardsHighlightingShowing?.title">
       <div class="my-1" />
       <VCardText
         v-for="highlight in cardsHighlightingShowing?.highlightings"
@@ -520,10 +613,8 @@ const cardsHighlightingShowing = computed(() => cardsHighlighting.value.find(ite
         class="mb-5 ml-5"
       >
         <VRow>
-          <VAvatar
-            size="26"
-            :style="`background-color: ${highlight.color};`"
-          /> <span class="ml-5 text-h6">{{ highlight.name }}</span>
+          <VAvatar size="26" :style="`background-color: ${highlight.color};`" />
+          <span class="ml-5 text-h6">{{ highlight.name }}</span>
         </VRow>
       </VCardText>
     </VCard>
