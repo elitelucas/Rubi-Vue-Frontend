@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { VDataTable } from "vuetify/labs/VDataTable";
-import SpiAuditAPI from "@/api/spiAction/SpiAuditMethod";
+import SpiAuditAPI from "@/services/spiAction/SpiAuditMethod";
 
 interface Props {
   showBtnRun?: boolean;
