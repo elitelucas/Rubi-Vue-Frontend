@@ -1,5 +1,14 @@
 <script setup lang="ts">
+import { useAuthStore } from '@/store/auth'
 import avatar1 from '@images/avatars/avatar-1.png'
+
+const authStore = useAuthStore()
+const router = useRouter()
+
+function handleLogout() {
+  authStore.handleLogout()
+  router.push({ name: 'login' })
+}
 </script>
 
 <template>
@@ -100,7 +109,7 @@ import avatar1 from '@images/avatars/avatar-1.png'
             <VListItemTitle>Return to Back Office</VListItemTitle>
           </VListItem>
           <!-- 👉 Logout -->
-          <VListItem to="/login">
+          <VListItem @click="handleLogout">
             <template #prepend>
               <VIcon
                 class="me-2"

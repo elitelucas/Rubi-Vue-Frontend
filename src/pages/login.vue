@@ -9,7 +9,9 @@ import authV2LoginIllustrationBorderedLight from '@images/pages/auth-v2-login-il
 
 import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
 import { themeConfig } from '@themeConfig'
+import { useAuthStore } from '@/store/auth'
 
+const authStore = useAuthStore()
 const router = useRouter()
 
 const authThemeImg = useGenerateImageVariant(authBackgroundIllustrationLight, authBackgroundIllustrationLight, authV2LoginIllustrationBorderedLight, authV2LoginIllustrationBorderedDark, true)
@@ -17,16 +19,24 @@ const authThemeImg = useGenerateImageVariant(authBackgroundIllustrationLight, au
 const isPasswordVisible = ref(false)
 
 const refVForm = ref<VForm>()
-const email = ref('admin@demo.com')
-const password = ref('admin')
+const email = ref('')
+const password = ref('')
 const rememberMe = ref(false)
 const inputValidations = [(v: string) => v.length || 'This field is required']
+const showError = ref(false)
 
 async function handleSubmit() {
   const { valid } = await refVForm.value?.validate() as never
-
-  if (valid)
-    router.push('/')
+  if (valid) {
+    try {
+      showError.value = false
+      await authStore.handleLogin(email.value, password.value)
+      router.push('/')
+    }
+    catch (error) {
+      showError.value = true
+    }
+  }
 }
 </script>
 
@@ -73,6 +83,13 @@ async function handleSubmit() {
         </VCardText>
 
         <VCardText>
+          <VAlert
+            v-if="showError"
+            color="error"
+            class="mb-2"
+          >
+            The login or password is incorrect
+          </VAlert>
           <VForm
             ref="refVForm"
             validate-on="submit"
@@ -119,6 +136,7 @@ async function handleSubmit() {
 
                 <VBtn
                   block
+                  :loading="authStore.loading_login"
                   type="submit"
                 >
                   Sign in
@@ -205,6 +223,8 @@ async function handleSubmit() {
 </style>
 
 <route lang="yaml">
+name: login
 meta:
+  requiredAuth: false
   layout: blank
 </route>

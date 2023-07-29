@@ -5,7 +5,7 @@ export default {
     console.log('TO DO')
   },
   getData(data: any) {
-    return http.post('/spi-audit', data, {
+    return http.post('/v1/spi-audit', data, {
       headers: {
         'content-type': 'multipart/form-data',
       },
