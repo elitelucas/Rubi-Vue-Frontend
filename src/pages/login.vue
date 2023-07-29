@@ -23,14 +23,19 @@ const email = ref('')
 const password = ref('')
 const rememberMe = ref(false)
 const inputValidations = [(v: string) => v.length || 'This field is required']
+const showError = ref(false)
 
 async function handleSubmit() {
   const { valid } = await refVForm.value?.validate() as never
-
-  console.log(valid)
   if (valid) {
-    authStore.handleLogin(email.value, password.value)
-    router.push('/')
+    try {
+      showError.value = false
+      await authStore.handleLogin(email.value, password.value)
+      router.push('/')
+    }
+    catch (error) {
+      showError.value = true
+    }
   }
 }
 </script>
@@ -78,6 +83,13 @@ async function handleSubmit() {
         </VCardText>
 
         <VCardText>
+          <VAlert
+            v-if="showError"
+            color="error"
+            class="mb-2"
+          >
+            The login or password is incorrect
+          </VAlert>
           <VForm
             ref="refVForm"
             validate-on="submit"
@@ -124,6 +136,7 @@ async function handleSubmit() {
 
                 <VBtn
                   block
+                  :loading="authStore.loading_login"
                   type="submit"
                 >
                   Sign in

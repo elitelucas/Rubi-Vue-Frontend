@@ -18,5 +18,11 @@ export const useAuthStore = defineStore('auth', {
         this.loading_login = false
       }
     },
+
+    handleLogout() {
+      localStorage.removeItem(TOKEN_KEY)
+      localStorage.removeItem(TOKEN_TYPE)
+      this.auth = {}
+    },
   },
 })

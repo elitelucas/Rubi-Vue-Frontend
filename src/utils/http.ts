@@ -1,8 +1,10 @@
 import axios from 'axios'
 import { TOKEN_KEY, TOKEN_TYPE } from '@/router/utils'
 
+const BASE_URL = `${location.protocol}//${location.host}/api`
+
 const instancia = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL,
+  baseURL: import.meta.env.VITE_BASE_URL || BASE_URL,
 })
 
 instancia.interceptors.request.use((config: any) => {
