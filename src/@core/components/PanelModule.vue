@@ -1,55 +1,115 @@
 <script setup lang="ts">
-import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
-import { useModuleStore } from '@/store/module'
+import { PerfectScrollbar } from "vue3-perfect-scrollbar";
+import { useModuleStore } from "@/store/module";
+import ModuleAPI from "@/services/spiAction/ModulesMethod";
 
-const moduleStore = useModuleStore()
+const moduleStore = useModuleStore();
 
 const options = ref([
   {
-    name: 'View All Modules',
-    value: 'View All Modules',
-    color: 'none',
+    name: "View All Modules",
+    value: "View All Modules",
+    color: "none",
   },
   {
-    name: 'Marketing/Advertising',
-    value: 'Marketing/Advertising',
-    color: '#FCCC0F',
+    name: "Marketing/Advertising",
+    value: "Marketing/Advertising",
+    color: "#FCCC0F",
   },
   {
-    name: 'Businessg',
-    value: 'Businessg',
-    color: '#FF7012',
+    name: "Businessg",
+    value: "Businessg",
+    color: "#FF7012",
   },
-])
+]);
 
-const listOptions = [
+const listOptions = ref([
   {
-    name: 'AIDA Framework',
-    icon: 'tabler-calendar-event',
-    color: '#F272E14D',
-    colorIcon: '#F272E1',
+    name: "Advanced Real Estate Listing",
+    icon: "tabler-calendar-event",
+    color: "#F272E14D",
+    colorIcon: "#F272E1",
   },
   {
-    name: 'Facebook Post',
-    icon: 'tabler-brand-facebook',
-    color: '#3498DB33',
-    colorIcon: '#049DDF',
+    name: "Paragraph Generator",
+    icon: "tabler-brand-facebook",
+    color: "#3498DB33",
+    colorIcon: "#049DDF",
   },
   {
-    name: 'TicTok Script',
-    icon: 'tabler-brand-tiktok',
-    color: '#3498DB33',
-    colorIcon: '#3498DB',
+    name: "Facebook Post",
+    icon: "tabler-brand-facebook",
+    color: "#3498DB33",
+    colorIcon: "#049DDF",
   },
   {
-    name: 'Blog Outline',
-    icon: 'tabler-brand-tiktok',
-    color: '#E8004C33',
-    colorIcon: '#E8004C',
+    name: "Vision Writer",
+    icon: "tabler-writing",
+    color: "#3498DB33",
+    colorIcon: "#3498DB",
   },
-]
+  {
+    name: "Blog Outline",
+    icon: "tabler-brand-tiktok",
+    color: "#E8004C33",
+    colorIcon: "#E8004C",
+  },
+  {
+    name: "Content Polisher",
+    icon: "tabler-calendar",
+    color: "#E804C33",
+    colorIcon: "green",
+  },
+]);
 
-const module = ref(null)
+const colorIcon = ["#F272E1", "#049DDF", "#3498DB", "#E8004C"];
+const color = ["#F272E14D", "#3498DB33", "#3498DB33", "#E8004C33"];
+
+const module = ref(null);
+
+const handleSelectModule = (name: string) => {
+  // moduleStore.selectedItem = moduleStore.ModuleItems.filter(
+  //   (ele: any) => (ele.name = name)
+  // );
+  moduleStore.selectedItem = {
+    name,
+  };
+  moduleStore.selected = true;
+  moduleStore.showModal = false;
+};
+
+const handleSearchMdoule = (data: any) => {
+  if (data.target.value === "") return listOptions.value = moduleStore.ModuleItems;
+  listOptions.value = [];
+  moduleStore.ModuleItems.forEach((ele: any, id: number) => {
+    if (ele.name.indexOf(data.target.value) > -1) {
+      listOptions.value.push({
+        name: ele.name,
+        icon: ele.icon,
+        color: color[id % 4],
+        colorIcon: colorIcon[id % 4],
+      });
+    }
+  });
+};
+
+onMounted(async () => {
+  moduleStore.ModuleItems = listOptions.value;
+  try {
+    let res = await ModuleAPI.getData();
+    moduleStore.ModuleItems = res;
+    listOptions.value = res.map((ele: any, id: number) => {
+      return {
+        name: ele.name,
+        icon: ele.icon,
+        color: color[id % 4],
+        colorIcon: colorIcon[id % 4],
+      };
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
 </script>
 
 <template>
@@ -67,43 +127,22 @@ const module = ref(null)
       class="customizer-heading d-flex align-center justify-space-between"
       style="gap: 10px"
     >
-      <VIcon
-        size="60"
-        icon="tabler-apps"
-        color="text-color-body"
-        class="svg-strock-1"
-      />
+      <VIcon size="60" icon="tabler-apps" color="text-color-body" class="svg-strock-1" />
       <span class="text-display-4">Modules</span>
       <VSpacer />
-      <IconBtn
-        class="me-2"
-        @click="() => moduleStore.setModal(false)"
-      >
-        <VIcon
-          size="20"
-          class="cursor-pointer"
-          icon="tabler-x"
-          color="text-color-body"
-        />
+      <IconBtn class="me-2" @click="() => moduleStore.setModal(false)">
+        <VIcon size="20" class="cursor-pointer" icon="tabler-x" color="text-color-body" />
       </IconBtn>
     </div>
     <!-- 👉 body -->
-    <PerfectScrollbar
-      tag="ul"
-      :options="{ wheelPropagation: false }"
-    >
+    <PerfectScrollbar tag="ul" :options="{ wheelPropagation: false }">
       <VRow
         align-content="center"
         align="center"
         class="px-10 my-2"
         style="min-height: 70px"
       >
-        <VCol
-          cols="12"
-          sm="12"
-          md="6"
-          lg="6"
-        >
+        <VCol cols="12" sm="12" md="6" lg="6">
           <VRow>
             <VTextField
               color="text-color-heading"
@@ -111,16 +150,12 @@ const module = ref(null)
               placeholder="Search modules here..."
               prepend-icon="tabler-search"
               variant="solo"
+              :onkeydown="handleSearchMdoule"
               flat
             />
           </VRow>
         </VCol>
-        <VCol
-          cols="12"
-          sm="12"
-          md="6"
-          lg="6"
-        >
+        <VCol cols="12" sm="12" md="6" lg="6">
           <VSelect
             v-model="module"
             color="text-color-heading"
@@ -138,19 +173,14 @@ const module = ref(null)
                   <VAvatar
                     size="28"
                     :style="`background-color: ${item.raw.color};${
-                      item.raw.color === 'none'
-                        ? 'border: 1px solid #000000;'
-                        : ''
+                      item.raw.color === 'none' ? 'border: 1px solid #000000;' : ''
                     }`"
                   />
                 </template>
               </VListItem>
             </template>
             <template #prepend-item>
-              <VListItem
-                class="text-h6"
-                title="Modules Collections"
-              >
+              <VListItem class="text-h6" title="Modules Collections">
                 <template #title="{ title }">
                   <h6 class="text-h6">
                     {{ title }}
@@ -160,10 +190,7 @@ const module = ref(null)
               </VListItem>
             </template>
             <template #item="{ item, props: { onClick } }">
-              <VListItem
-                :title="item.title"
-                @click="(onClick as any)"
-              >
+              <VListItem :title="item.title" @click="(onClick as any)">
                 <template #title="{ title }">
                   <h6 class="text-h6">
                     {{ title }}
@@ -173,9 +200,7 @@ const module = ref(null)
                   <VAvatar
                     size="28"
                     :style="`background-color: ${item.raw.color};${
-                      item.raw.color === 'none'
-                        ? 'border: 1px solid #000000;'
-                        : ''
+                      item.raw.color === 'none' ? 'border: 1px solid #000000;' : ''
                     }`"
                   />
                 </template>
@@ -191,16 +216,10 @@ const module = ref(null)
           cols="6"
           class="text-center border-t cursor-pointer pa-4 shortcut-icon"
           :class="(index + 1) % 2 ? 'border-e' : ''"
+          @click="handleSelectModule(option.name)"
         >
-          <VAvatar
-            variant="tonal"
-            size="48"
-            :style="`background: ${option.color}`"
-          >
-            <VIcon
-              :icon="option.icon"
-              :style="`color: ${option.colorIcon}`"
-            />
+          <VAvatar variant="tonal" size="48" :style="`background: ${option.color}`">
+            <VIcon :icon="option.icon" :style="`color: ${option.colorIcon}`" />
           </VAvatar>
 
           <h6 class="text-base font-weight-medium mt-2 mb-0">

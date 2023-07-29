@@ -8,12 +8,30 @@ import gridIconPng from "@images/iconify-png/layout-grid-add.png";
 import SPIAuditScoring from "@/views/pages/content/SPIAuditScoring.vue";
 import DialogSaveContent from "@/views/pages/content/DialogSaveContent.vue";
 import DialogXtract from "@/views/pages/xtract-boosts/DialogXtract.vue";
-import ModuleAPI from "@/services/spiAction/ModulesMethod";
+import { useModuleStore } from '@/store/module';
+import { toast } from 'vue3-toastify'
+import ModuleGeneraterAPI from "@/services/spiAction/ModulesGeneratorMethod";
 
-const selectPersona = ref("Persona");
-const selectVoice = ref("Voice");
-const selectTone = ref("Tone");
-const selectLanguage = ref("Language");
+const selectPersona = ref('Persona')
+const selectVoice = ref('Voice')
+const selectTone = ref('Tone')
+const selectLanguage = ref('Language')
+const moduleStore = useModuleStore()
+
+interface Item {
+  kind: string;
+  data: Array<string>;
+  title: string;
+  checkedBox: Array<string>;
+  currentlayout: number;
+  currentLength: string;
+}
+
+interface ModuleList {
+  currentTitle: string;
+  selectedLayout: Array<number>;
+  moduleItem: Item[];
+}
 
 const radioContent: CustomInputContent[] = [
   {
@@ -46,6 +64,8 @@ const radioContentSentiment: CustomInputContent[] = [
 ];
 
 const selectedRadioSentiment = ref("sale");
+
+const ModuleItems = ref<Array<any>>([]);
 
 const radioContent2: CustomInputContent[] = [
   {
@@ -89,10 +109,9 @@ const checkboxContent: CustomInputContent[] = [
   },
 ];
 
-const selectedCheckbox = ref(["Single Garage"]);
-
 const open = ref(["features"]);
 const input = ref("");
+const selectedCheckbox = ref()
 const showContentVoicePanel = ref(false);
 const showContentTonePanel = ref(false);
 const showAuditDialog = ref(false);
@@ -102,14 +121,14 @@ const showDialogBoost = ref(false);
 const showDialogBoostScraperMode = ref(false);
 const slider2 = ref(0);
 const promptData = ref("");
-
-function testClick() {
-  alert();
-}
+const moduleInputValue = ref('');
+const createdModuleList = ref<ModuleList[]>([]);
 
 watch(selectedBoost, () => {
   showDialogBoost.value = true;
 });
+
+watch(moduleStore, () => (moduleStore.selected && !moduleStore.showModal) && ModuleItems.value.push(moduleStore.selectedItem));
 
 const handleChangeContent = (e: any) => {
   promptData.value = e.ops[0].insert;
@@ -117,10 +136,94 @@ const handleChangeContent = (e: any) => {
 
 const handleInitail = (e: any) => {};
 
-onMounted(async () => {
-  let res = await ModuleAPI.getData();
-  
-});
+const handleCheckBox = (e: any, value: any, ind: number) => {
+  createdModuleList.value.map((item, index) => {
+    item.moduleItem.map((ele, id) => {
+      if (
+        ele.title === value.title &&
+        ele.currentlayout === value.currentlayout &&
+        ind === index
+      ) {
+        if (
+          value.kind !== "Radio Buttons" &&
+          value.kind !== "Dropdown" &&
+          value.kind !== "Small Text Entry" &&
+          value.kind !== "Large Text Entry"
+        ) {
+          let index = 0;
+          ele.checkedBox.map((el, i) => {
+            if (el === e.target.value) {
+              ele.checkedBox.splice(i, 1);
+              index++;
+            }
+          });
+          if (index == 0) ele.checkedBox.push(e.target.value);
+        } else {
+          if (value.kind === "Dropdown") {
+            ele.checkedBox = value.checkedBox;
+          } else ele.checkedBox = e.target.value;
+        }
+      }
+    });
+  });
+
+  handleModuleDropdown();
+};
+
+const handleModuleDropdown = () => {
+  moduleInputValue.value = "";
+  writeInput();
+};
+
+const writeInput = () => {
+  moduleInputValue.value = "";
+  createdModuleList.value.map((item, index) => {
+    let indexs = 0;
+    item.moduleItem.map((e) => indexs++);
+    item.moduleItem.map((ele, id) => {
+      moduleInputValue.value =
+        Number(indexs) +
+        ". " +
+        ele.title +
+        ": " +
+        ele.checkedBox +
+        " \n" +
+        moduleInputValue.value;
+      indexs--;
+    });
+    moduleInputValue.value = item.currentTitle + ": \n" + moduleInputValue.value;
+  });
+  moduleInputValue.value = "Generate prompt here:\n" + moduleInputValue.value;
+};
+
+const isVisibleProgress = ref(false);
+const moduleResultValue = ref('');
+
+const GenerateAction = async () => {
+
+  try {
+    const data = {
+      prompt: moduleInputValue.value.split("Tone of voice:")[0],
+      // voice: selectVoice.value,
+      // tone: selectedTone.value,
+      // language: selectedLanguage.value,
+      // persona: selectPersona.value,
+    };
+    isVisibleProgress.value = true;
+    const res = await ModuleGeneraterAPI.getData(data);
+    moduleResultValue.value = res;
+    isVisibleProgress.value = false;
+    toast.success("New collection created!", {
+      position: "top-right",
+    });
+  } catch (error: any) {
+    toast.warning(`Error: ${error.message}`, {
+      position: "top-right",
+    });
+    isVisibleProgress.value = false;
+  }
+};
+
 </script>
 
 <template>
@@ -178,19 +281,77 @@ onMounted(async () => {
           sub-title="Combine modules to craft even more spectacular content."
           button-mode
           class="pr-1"
-          @click="testClick"
+          @click="moduleStore.showModal = true"
         />
         <CardOptionContent
-          :icon-img="houseCheck"
-          title="Advanced Real Estate Listing"
+          v-for="(item, index) in ModuleItems"
+          :icon-img="item.icon ?? houseCheck"
+          :title="item.name"
           class="mt-1 pr-1"
-          sub-title="Create a personalized real estate listing description."
+          :sub-title="item.des"
           show-arrow
           bg-icon-color-light="#28C76F"
           bg-icon-color-dark="#28C76F"
           :padding-icon="12"
           toggle
         >
+        <AppCardActions :title="items.currentTitle" v-for="(items, index) in item.items">
+            <VCardText class="layout_item">
+              <div class="item">
+                <div :class="'f-' + ele" v-for="(ele, id) in items.selectedLayout">
+                  <div v-for="moduleComponent in items.moduleItem">
+                    <div v-if="moduleComponent.currentlayout === id">
+                      <div v-if="moduleComponent.kind === 'Radio Buttons'">
+                        <h1>{{ moduleComponent.title }}</h1>
+                        <VRadioGroup inline>
+                          <VRadio v-for="radio in moduleComponent.data" :key="radio" :label="radio" color="primary"
+                            class="listening__type" :value="radio.toLocaleLowerCase()"
+                            @change="handleCheckBox($event, moduleComponent, index)" />
+                        </VRadioGroup>
+                      </div>
+                      <div v-else-if="moduleComponent.kind === 'Check Boxes'">
+                        <h1>{{ moduleComponent.title }}</h1>
+                        <div class="demo-space-x">
+                          <VCheckbox v-for="color in moduleComponent.data" :key="color" :label="color" color="primary"
+                            class="listening__type" :value="color"
+                            @change="handleCheckBox($event, moduleComponent, index)" />
+                        </div>
+                      </div>
+                      <div v-else-if="moduleComponent.kind === 'Small Text Entry'">
+                        <div class="input_area">
+                          <h2>{{ moduleComponent.title }}</h2>
+                          <p style="padding: 0; margin: 0">
+                            {{ moduleComponent.currentLength.length }} /
+                            {{ moduleComponent.data }}
+                          </p>
+                        </div>
+                        <AppTextField placeholder="" persistent-placeholder :maxlength="moduleComponent.data"
+                          v-model="moduleComponent.currentLength"
+                          @change="handleCheckBox($event, moduleComponent, index)" />
+                      </div>
+                      <div v-else-if="moduleComponent.kind === 'Large Text Entry'">
+                        <div class="input_area">
+                          <h2>{{ moduleComponent.title }}</h2>
+                          <p style="padding: 0; margin: 0">
+                            {{ moduleComponent.currentLength.length }} /
+                            {{ moduleComponent.data }}
+                          </p>
+                        </div>
+                        <AppTextarea placeholder="" persistent-placeholder :maxlength="moduleComponent.data"
+                          v-model="moduleComponent.currentLength"
+                          @change="handleCheckBox($event, moduleComponent, index)" />
+                      </div>
+                      <div v-else-if="moduleComponent.kind === 'Dropdown'">
+                        <AppSelect v-model="moduleComponent.checkedBox" :label="moduleComponent.title"
+                          :items="moduleComponent.data" single-line variant="filled"
+                          @vnode-updated="handleCheckBox($event, moduleComponent, index)" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </VCardText>
+          </AppCardActions>
           <VCol cols="12" class="content-p mt-5">
             <h3 class="text-h3">Persona Selection</h3>
 
@@ -307,7 +468,9 @@ onMounted(async () => {
           </VExpansionPanels>
           <VDivider class="mt-5 mb-5" />
           <VRow justify="center" class="mt-12">
-            <VBtn>Generate</VBtn>
+            <VBtn @click="GenerateAction">
+              <VProgressCircular :size="30" width="3" color="primary" indeterminate v-if="isVisibleProgress" />
+            Generate</VBtn>
           </VRow>
 
           <VCol cols="12" style="padding-bottom: 0px">
@@ -330,6 +493,7 @@ onMounted(async () => {
                     variant="text"
                     color="text-color-body"
                     size="small"
+                    @click="showDialogSaveContent = true"
                   >
                     <VIcon icon="tabler-archive" class="mb-0" size="large" />
                     Save
@@ -358,7 +522,7 @@ onMounted(async () => {
             </VRow>
           </VCol>
 
-          <AppTextarea bg-color="background-card" class="content-m mb-10" disabled />
+          <AppTextarea bg-color="background-card" class="content-m mb-10" disabled v-model="moduleResultValue"/>
         </CardOptionContent>
       </div>
     </VCol>
