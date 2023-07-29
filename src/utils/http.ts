@@ -1,12 +1,13 @@
 import axios from 'axios'
+import { TOKEN_KEY, TOKEN_TYPE } from '@/router/utils'
 
 const instancia = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
 })
 
 instancia.interceptors.request.use((config: any) => {
-  const token = localStorage.getItem('TOKEN_NAME')
-  const tokenType = localStorage.getItem('TOKEN_TYPE') // Bearer
+  const token = localStorage.getItem(TOKEN_KEY)
+  const tokenType = localStorage.getItem(TOKEN_TYPE) // Bearer
 
   if (token)
     config.headers.Authorization = `${tokenType} ${token}`
