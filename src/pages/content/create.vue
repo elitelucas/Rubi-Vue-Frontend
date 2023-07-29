@@ -283,7 +283,7 @@ const GenerateAction = async () => {
           class="pr-1"
           @click="moduleStore.showModal = true"
         />
-        <CardOptionContent
+        <AppCardActions
           v-for="(item, index) in ModuleItems"
           :icon-img="item.icon ?? houseCheck"
           :title="item.name"
@@ -523,7 +523,7 @@ const GenerateAction = async () => {
           </VCol>
 
           <AppTextarea bg-color="background-card" class="content-m mb-10" disabled v-model="moduleResultValue"/>
-        </CardOptionContent>
+        </AppCardActions>
       </div>
     </VCol>
     <VCol cols="12" lg="6" md="12" sm="12" class="pt-5">
