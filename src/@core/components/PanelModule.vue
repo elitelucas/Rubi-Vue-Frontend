@@ -68,12 +68,9 @@ const color = ["#F272E14D", "#3498DB33", "#3498DB33", "#E8004C33"];
 const module = ref(null);
 
 const handleSelectModule = (name: string) => {
-  // moduleStore.selectedItem = moduleStore.ModuleItems.filter(
-  //   (ele: any) => (ele.name = name)
-  // );
-  moduleStore.selectedItem = {
-    name,
-  };
+  moduleStore.selectedItem = moduleStore.ModuleItems.filter(
+    (ele: any) => (ele.name = name)
+  );
   moduleStore.selected = true;
   moduleStore.showModal = false;
 };
