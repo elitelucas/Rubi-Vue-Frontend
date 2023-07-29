@@ -1,128 +1,130 @@
 <script setup lang="ts">
-import { QuillEditor } from '@vueup/vue-quill'
-import ContentVoicePanel from '@/views/pages/content/panels/ContentVoicePanel.vue'
-import ContentTonePanel from '@/views/pages/content/panels/ContentTonePanel.vue'
-import type { CustomInputContent } from '@/@core/types'
-import houseCheck from '@images/iconify-png/house-check.png'
-import gridIconPng from '@images/iconify-png/layout-grid-add.png'
-import SPIAuditScoring from '@/views/pages/content/SPIAuditScoring.vue'
-import DialogSaveContent from '@/views/pages/content/DialogSaveContent.vue'
-import DialogXtract from '@/views/pages/xtract-boosts/DialogXtract.vue'
+import { QuillEditor } from "@vueup/vue-quill";
+import ContentVoicePanel from "@/views/pages/content/panels/ContentVoicePanel.vue";
+import ContentTonePanel from "@/views/pages/content/panels/ContentTonePanel.vue";
+import type { CustomInputContent } from "@/@core/types";
+import houseCheck from "@images/iconify-png/house-check.png";
+import gridIconPng from "@images/iconify-png/layout-grid-add.png";
+import SPIAuditScoring from "@/views/pages/content/SPIAuditScoring.vue";
+import DialogSaveContent from "@/views/pages/content/DialogSaveContent.vue";
+import DialogXtract from "@/views/pages/xtract-boosts/DialogXtract.vue";
+import ModuleAPI from "@/services/spiAction/ModulesMethod";
 
-const selectPersona = ref('Persona')
-const selectVoice = ref('Voice')
-const selectTone = ref('Tone')
-const selectLanguage = ref('Language')
+const selectPersona = ref("Persona");
+const selectVoice = ref("Voice");
+const selectTone = ref("Tone");
+const selectLanguage = ref("Language");
 
 const radioContent: CustomInputContent[] = [
   {
-    title: 'For Sale',
-    subtitle: '',
-    value: 'sale',
+    title: "For Sale",
+    subtitle: "",
+    value: "sale",
   },
   {
-    title: 'For Rent',
-    value: 'rent',
+    title: "For Rent",
+    value: "rent",
   },
-]
+];
 
-const selectedRadio = ref('sale')
+const selectedRadio = ref("sale");
 
 const radioContentSentiment: CustomInputContent[] = [
   {
-    title: 'Negative',
-    subtitle: '',
-    value: 'Negative',
+    title: "Negative",
+    subtitle: "",
+    value: "Negative",
   },
   {
-    title: 'Neutral',
-    value: 'Neutral',
+    title: "Neutral",
+    value: "Neutral",
   },
   {
-    title: 'Positive',
-    value: 'Positive',
+    title: "Positive",
+    value: "Positive",
   },
-]
+];
 
-const selectedRadioSentiment = ref('sale')
+const selectedRadioSentiment = ref("sale");
 
 const radioContent2: CustomInputContent[] = [
   {
-    title: 'Single-Family home',
-    value: 'Single-Family home',
+    title: "Single-Family home",
+    value: "Single-Family home",
   },
   {
-    title: 'Duplex',
-    subtitle: '',
-    value: 'Duplex',
-    desc: '',
+    title: "Duplex",
+    subtitle: "",
+    value: "Duplex",
+    desc: "",
   },
   {
-    title: 'Multi-Family',
-    subtitle: '',
-    value: 'Multi-Family',
-    desc: '',
+    title: "Multi-Family",
+    subtitle: "",
+    value: "Multi-Family",
+    desc: "",
   },
   {
-    title: 'Commercial Bldg.',
-    subtitle: '',
-    value: 'Commercial Bldg.',
-    desc: '',
+    title: "Commercial Bldg.",
+    subtitle: "",
+    value: "Commercial Bldg.",
+    desc: "",
   },
-]
+];
 
-const selectedRadio2 = ref('Duplex')
+const selectedRadio2 = ref("Duplex");
 
 const checkboxContent: CustomInputContent[] = [
   {
-    title: 'Single Garage',
-    value: 'Single Garage',
+    title: "Single Garage",
+    value: "Single Garage",
   },
   {
-    title: 'Alarm',
-    value: 'Alarm',
+    title: "Alarm",
+    value: "Alarm",
   },
   {
-    title: 'Smart Home',
-    value: 'Smart Home',
+    title: "Smart Home",
+    value: "Smart Home",
   },
-]
+];
 
-const selectedCheckbox = ref(['Single Garage'])
+const selectedCheckbox = ref(["Single Garage"]);
 
-const open = ref(['features'])
-const input = ref('')
-const showContentVoicePanel = ref(false)
-const showContentTonePanel = ref(false)
-const showAuditDialog = ref(false)
-const showDialogSaveContent = ref(false)
-const selectedBoost = ref()
-const showDialogBoost = ref(false)
-const showDialogBoostScraperMode = ref(false)
-const slider2 = ref(0)
-const promptData = ref('');
+const open = ref(["features"]);
+const input = ref("");
+const showContentVoicePanel = ref(false);
+const showContentTonePanel = ref(false);
+const showAuditDialog = ref(false);
+const showDialogSaveContent = ref(false);
+const selectedBoost = ref();
+const showDialogBoost = ref(false);
+const showDialogBoostScraperMode = ref(false);
+const slider2 = ref(0);
+const promptData = ref("");
 
 function testClick() {
-  alert()
+  alert();
 }
 
 watch(selectedBoost, () => {
-  showDialogBoost.value = true
-})
+  showDialogBoost.value = true;
+});
 
-const handleChangeContent = (e:any) => {
-  promptData.value = e.ops[0].insert
-}
+const handleChangeContent = (e: any) => {
+  promptData.value = e.ops[0].insert;
+};
 
-const handleInitail = (e:any) => {
-}
+const handleInitail = (e: any) => {};
+
+onMounted(async () => {
+  let res = await ModuleAPI.getData();
+  
+});
 </script>
 
 <template>
-  <VRow
-    no-gutters
-    class="body-background"
-  >
+  <VRow no-gutters class="body-background">
     <DialogXtract
       v-model:is-dialog-visible="showDialogBoost"
       v-model:is-scraper-mode="showDialogBoostScraperMode"
@@ -131,13 +133,7 @@ const handleInitail = (e:any) => {
     <ContentTonePanel v-model="showContentTonePanel" />
     <DialogSaveContent v-model:is-dialog-visible="showDialogSaveContent" />
 
-    <VCol
-      cols="12"
-      lg="6"
-      md="12"
-      sm="12"
-      class="first-colum pt-5"
-    >
+    <VCol cols="12" lg="6" md="12" sm="12" class="first-colum pt-5">
       <VSlideXTransition>
         <SPIAuditScoring
           v-if="showAuditDialog"
@@ -148,70 +144,29 @@ const handleInitail = (e:any) => {
         />
       </VSlideXTransition>
       <div v-if="!showAuditDialog">
-        <h3 class="text-h3 content-p">
-          Global Composition Settings
-        </h3>
+        <h3 class="text-h3 content-p">Global Composition Settings</h3>
 
         <VRow class="content-m global-composition-row mb-4">
-          <VCol
-            cols="12"
-            lg="3"
-            sm="12"
-            md="12"
-          >
-            <AppSelect
-              v-model="selectPersona"
-              bg-color="primary"
-              :items="['Persona']"
-            />
+          <VCol cols="12" lg="3" sm="12" md="12">
+            <AppSelect v-model="selectPersona" bg-color="primary" :items="['Persona']" />
           </VCol>
-          <VCol
-            cols="12"
-            lg="3"
-            sm="12"
-            md="12"
-          >
-            <AppSelect
-              v-model="selectVoice"
-              :items="[selectVoice]"
-            >
+          <VCol cols="12" lg="3" sm="12" md="12">
+            <AppSelect v-model="selectVoice" :items="[selectVoice]">
               <template #prepend-item>
-                <VListItem
-                  title="Edit"
-                  @click="showContentVoicePanel = true"
-                />
+                <VListItem title="Edit" @click="showContentVoicePanel = true" />
               </template>
             </AppSelect>
           </VCol>
 
-          <VCol
-            cols="12"
-            lg="3"
-            sm="12"
-            md="12"
-          >
-            <AppSelect
-              v-model="selectTone"
-              :items="[selectTone]"
-            >
+          <VCol cols="12" lg="3" sm="12" md="12">
+            <AppSelect v-model="selectTone" :items="[selectTone]">
               <template #prepend-item>
-                <VListItem
-                  title="Edit"
-                  @click="showContentTonePanel = true"
-                />
+                <VListItem title="Edit" @click="showContentTonePanel = true" />
               </template>
             </AppSelect>
           </VCol>
-          <VCol
-            cols="12"
-            lg="3"
-            sm="12"
-            md="12"
-          >
-            <AppSelect
-              v-model="selectLanguage"
-              :items="[selectLanguage]"
-            />
+          <VCol cols="12" lg="3" sm="12" md="12">
+            <AppSelect v-model="selectLanguage" :items="[selectLanguage]" />
           </VCol>
         </VRow>
 
@@ -236,28 +191,18 @@ const handleInitail = (e:any) => {
           :padding-icon="12"
           toggle
         >
-          <VCol
-            cols="12"
-            class="content-p mt-5"
-          >
-            <h3 class="text-h3">
-              Persona Selection
-            </h3>
+          <VCol cols="12" class="content-p mt-5">
+            <h3 class="text-h3">Persona Selection</h3>
 
             <AppSelect class="mt-5 mb-5" />
 
-            <VExpansionPanels
-              v-model="open"
-              class="expanded-element-content"
-            >
+            <VExpansionPanels v-model="open" class="expanded-element-content">
               <VExpansionPanel
                 value="features"
                 bg-color="rgb(var(--v-theme-background-body))"
               >
                 <VExpansionPanelTitle expand-icon="tabler-chevron-up">
-                  <p class="text-p">
-                    Transaction Type *
-                  </p>
+                  <p class="text-p">Transaction Type *</p>
                 </VExpansionPanelTitle>
                 <VExpansionPanelText>
                   <CustomRadios
@@ -269,18 +214,13 @@ const handleInitail = (e:any) => {
               </VExpansionPanel>
             </VExpansionPanels>
 
-            <VExpansionPanels
-              v-model="open"
-              class="expanded-element-content"
-            >
+            <VExpansionPanels v-model="open" class="expanded-element-content">
               <VExpansionPanel
                 value="features"
                 bg-color="rgb(var(--v-theme-background-body))"
               >
                 <VExpansionPanelTitle expand-icon="tabler-chevron-up">
-                  <p class="text-p">
-                    Listing Type *
-                  </p>
+                  <p class="text-p">Listing Type *</p>
                 </VExpansionPanelTitle>
                 <VExpansionPanelText>
                   <CustomRadios
@@ -292,18 +232,13 @@ const handleInitail = (e:any) => {
               </VExpansionPanel>
             </VExpansionPanels>
 
-            <VExpansionPanels
-              v-model="open"
-              class="expanded-element-content"
-            >
+            <VExpansionPanels v-model="open" class="expanded-element-content">
               <VExpansionPanel
                 value="features"
                 bg-color="rgb(var(--v-theme-background-body))"
               >
                 <VExpansionPanelTitle expand-icon="tabler-chevron-up">
-                  <p class="text-p">
-                    Features *
-                  </p>
+                  <p class="text-p">Features *</p>
                 </VExpansionPanelTitle>
                 <VExpansionPanelText>
                   <CustomCheckboxes
@@ -322,38 +257,18 @@ const handleInitail = (e:any) => {
               class="mt-2"
             />
             <VRow>
-              <VCol
-                cols="12"
-                lg="8"
-                md="12"
-                sm="12"
-              >
+              <VCol cols="12" lg="8" md="12" sm="12">
                 <AppTextField label="Lot Size" />
               </VCol>
-              <VCol
-                cols="12"
-                lg="4"
-                md="12"
-                sm="12"
-              >
+              <VCol cols="12" lg="4" md="12" sm="12">
                 <AppSelect label="Units" />
               </VCol>
             </VRow>
             <VRow>
-              <VCol
-                cols="12"
-                lg="8"
-                md="12"
-                sm="12"
-              >
+              <VCol cols="12" lg="8" md="12" sm="12">
                 <AppTextField label="Living Space" />
               </VCol>
-              <VCol
-                cols="12"
-                lg="4"
-                md="12"
-                sm="12"
-              >
+              <VCol cols="12" lg="4" md="12" sm="12">
                 <AppSelect label="Units" />
               </VCol>
             </VRow>
@@ -362,21 +277,13 @@ const handleInitail = (e:any) => {
           </VCol>
           <VDivider class="mt-5 mb-5" />
 
-          <VExpansionPanels
-            v-model="open"
-            class="expanded-element-content content-p"
-          >
+          <VExpansionPanels v-model="open" class="expanded-element-content content-p">
             <VExpansionPanel
               value="features"
               bg-color="rgb(var(--v-theme-background-body))"
             >
-              <VExpansionPanelTitle
-                expand-icon="tabler-chevron-up"
-                class="content-m"
-              >
-                <p class="text-h3">
-                  Advanced Settings
-                </p>
+              <VExpansionPanelTitle expand-icon="tabler-chevron-up" class="content-m">
+                <p class="text-h3">Advanced Settings</p>
               </VExpansionPanelTitle>
               <VExpansionPanelText class="content-p">
                 <VLabel> Randomness </VLabel>
@@ -389,9 +296,7 @@ const handleInitail = (e:any) => {
                   :tick-size="3"
                   :track-size="2"
                 />
-                <VLabel class="mb-4">
-                  Sentiment
-                </VLabel>
+                <VLabel class="mb-4"> Sentiment </VLabel>
                 <CustomRadios
                   v-model:selected-radio="selectedRadioSentiment"
                   :radio-content="radioContentSentiment"
@@ -401,28 +306,14 @@ const handleInitail = (e:any) => {
             </VExpansionPanel>
           </VExpansionPanels>
           <VDivider class="mt-5 mb-5" />
-          <VRow
-            justify="center"
-            class="mt-12"
-          >
+          <VRow justify="center" class="mt-12">
             <VBtn>Generate</VBtn>
           </VRow>
 
-          <VCol
-            cols="12"
-            style="padding-bottom: 0px;"
-          >
+          <VCol cols="12" style="padding-bottom: 0px">
             <VRow align="center">
-              <VCol
-                cols="12"
-
-                class="d-flex flex-row justify-space-between "
-              >
-                <VLabel
-
-                  class="text-body-2 text-high-emphasis"
-                  text="Results"
-                />
+              <VCol cols="12" class="d-flex flex-row justify-space-between">
+                <VLabel class="text-body-2 text-high-emphasis" text="Results" />
                 <div>
                   <VBtn
                     class="vertical-button"
@@ -430,11 +321,7 @@ const handleInitail = (e:any) => {
                     color="text-color-body"
                     size="small"
                   >
-                    <VIcon
-                      icon="tabler-copy"
-                      class="mb-0"
-                      size="large"
-                    />
+                    <VIcon icon="tabler-copy" class="mb-0" size="large" />
                     Copy
                   </VBtn>
 
@@ -444,11 +331,7 @@ const handleInitail = (e:any) => {
                     color="text-color-body"
                     size="small"
                   >
-                    <VIcon
-                      icon="tabler-archive"
-                      class="mb-0"
-                      size="large"
-                    />
+                    <VIcon icon="tabler-archive" class="mb-0" size="large" />
                     Save
                   </VBtn>
                   <VBtn
@@ -457,72 +340,39 @@ const handleInitail = (e:any) => {
                     color="text-color-body"
                     size="small"
                   >
-                    <VIcon
-                      icon="tabler-forms"
-                      class="mb-0"
-                      size="large"
-                    />
+                    <VIcon icon="tabler-forms" class="mb-0" size="large" />
                     Send
-                    <VTooltip
-                      activator="parent"
-                      location="bottom"
-                      color="#E5E5E5"
-                      scrim
-                    >
+                    <VTooltip activator="parent" location="bottom" color="#E5E5E5" scrim>
                       <VCol>
                         <span class="text-h5">Send to Editor</span>
                         <p class="text-p mt-3">
-                          Click to copy the results to the<br>
-                          current location of your cursor<br>
+                          Click to copy the results to the<br />
+                          current location of your cursor<br />
                           in the text editor.
                         </p>
                       </VCol>
                     </VTooltip>
                   </VBtn>
                 </div>
-              </Vcol>
+              </VCol>
             </VRow>
           </VCol>
 
-          <AppTextarea
-            bg-color="background-card"
-            class="content-m mb-10"
-            disabled
-          />
+          <AppTextarea bg-color="background-card" class="content-m mb-10" disabled />
         </CardOptionContent>
       </div>
     </VCol>
-    <VCol
-      cols="12"
-      lg="6"
-      md="12"
-      sm="12"
-      class="pt-5"
-    >
-      <h3 class="text-h3 content-m">
-        Output Composer & SPI Scoring
-      </h3>
-      <VRow
-        class="mt-1 content-m"
-        align="center"
-      >
-        <VCol
-          cols="12"
-          lg="6"
-          md="6"
-          sm="12"
-          style="padding-left: 0px;"
-        >
+    <VCol cols="12" lg="6" md="12" sm="12" class="pt-5">
+      <h3 class="text-h3 content-m">Output Composer & SPI Scoring</h3>
+      <VRow class="mt-1 content-m" align="center">
+        <VCol cols="12" lg="6" md="6" sm="12" style="padding-left: 0px">
           <VBtn
             class="vertical-button"
             variant="text"
             color="text-color-body"
             size="small"
           >
-            <VIcon
-              icon="tabler-copy"
-              size="large"
-            />
+            <VIcon icon="tabler-copy" size="large" />
             Copy
           </VBtn>
           <VBtn
@@ -532,10 +382,7 @@ const handleInitail = (e:any) => {
             size="small"
             @click="showDialogSaveContent = true"
           >
-            <VIcon
-              icon="tabler-archive"
-              size="large"
-            />
+            <VIcon icon="tabler-archive" size="large" />
             Save
           </VBtn>
 
@@ -545,35 +392,17 @@ const handleInitail = (e:any) => {
             color="text-color-body"
             size="small"
           >
-            <VIcon
-              icon="tabler-download"
-              size="large"
-            />
+            <VIcon icon="tabler-download" size="large" />
             Download
           </VBtn>
         </VCol>
 
         <VSpacer />
         <VRow>
-          <VCol
-            cols="12"
-            lg="6"
-            md="6"
-            sm="6"
-          >
-            <VBtn
-              block
-              @click="showAuditDialog = true"
-            >
-              SPI Audit
-            </VBtn>
+          <VCol cols="12" lg="6" md="6" sm="6">
+            <VBtn block @click="showAuditDialog = true"> SPI Audit </VBtn>
           </VCol>
-          <VCol
-            cols="12"
-            lg="6"
-            md="6"
-            sm="6"
-          >
+          <VCol cols="12" lg="6" md="6" sm="6">
             <AppSelect
               v-model="selectedBoost"
               bg-color="primary"
@@ -585,7 +414,12 @@ const handleInitail = (e:any) => {
         </VRow>
       </VRow>
       <div class="editor editor-h-650">
-        <QuillEditor toolbar="full" v-model="promptData" @update:content="handleChangeContent" @ready="handleInitail"/>
+        <QuillEditor
+          toolbar="full"
+          v-model="promptData"
+          @update:content="handleChangeContent"
+          @ready="handleInitail"
+        />
       </div>
     </VCol>
   </VRow>
@@ -615,7 +449,6 @@ const handleInitail = (e:any) => {
 }
 
 .first-colum {
-
   max-height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
