@@ -4,7 +4,6 @@ export default {
   index() {
     console.log('TO DO')
   },
-
   getData() {
     return http.get('/admin/modules')
       .then(function (response) {

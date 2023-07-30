@@ -40,7 +40,13 @@
       ],
       "@validators": [
         "src/@core/utils/validators"
-      ]
+      ],
+      "@http": [
+        "src/utils/http"
+      ],
+      "@services/*": [
+        "src/services/*"
+      ],
     },
     "lib": [
       "esnext",

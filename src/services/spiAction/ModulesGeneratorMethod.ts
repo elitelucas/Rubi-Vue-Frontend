@@ -5,7 +5,7 @@ export default {
     console.log('TO DO')
   },
   getData(data: any) {
-    return http.post('/admin/module-generator', data, {
+    return http.post('/v1/admin/module-generator', data, {
       headers: {
         'content-type': 'multipart/form-data',
       },
