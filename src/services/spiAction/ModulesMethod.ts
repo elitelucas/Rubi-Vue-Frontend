@@ -6,7 +6,7 @@ export default {
   },
 
   getData() {
-    return http.get('/admin/modules')
+    return http.get('/v1/admin/modules')
       .then(function (response) {
         if (response.status != 200) {
           throw response.status;
