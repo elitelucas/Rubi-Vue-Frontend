@@ -13,7 +13,6 @@ export default {
       .then(response => {
         if (response.status !== 200)
           throw response.status
-
         else
           return response.data
       })
