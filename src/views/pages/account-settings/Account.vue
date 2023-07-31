@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import avatar1 from '@images/avatars/avatar-14.png'
+import http from "@/utils/http";
 
 const refInputEl = ref<HTMLElement>()
 
@@ -26,6 +27,57 @@ const changeAvatar = (file: Event) => {
 // reset avatar image
 const resetAvatar = () => {
   accountDataLocal.value.avatarImg = accountData.avatarImg
+}
+
+
+
+interface Props {
+  account_id: string;
+}
+const props = defineProps<Props>();
+const account_id = ref(props.account_id);
+const account_data = ref({});
+
+watch(
+  () => props.account_id,
+  async (newVal, oldVla) => {
+    account_id.value = newVal;
+
+    const response = await http.get(
+      "/v1/subscriptions?order_col=id",
+      {},
+      {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      }
+    );
+    let resdata = response.data?.data;
+
+    const foundItem = resdata.find((item) => item.id == props.account_id);
+    if (foundItem) {
+      account_data.value = foundItem;
+    }
+  },
+  { immediate: true }
+);
+
+async function handleButtonClick() {
+  try {
+    const response = await http.patch(
+      "/v1/subscriptions/" + account_id.value,
+      { ...account_data.value, created_by_user_id: 1 },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+   alert("Saved successfully!");
+    // window.location.reload();
+  } catch (error) {
+    console.error("Error in async function:", error);
+  }
 }
 </script>
 
@@ -111,7 +163,7 @@ const resetAvatar = () => {
                 label="Make primary account"
                 color="primary"
               />
-              <AppTextField label="Account Nickname" />
+              <AppTextField label="Account Nickname" v-model="account_data.name"/>
             </VCol> <VCol
               cols="12"
               lg="6"
@@ -124,14 +176,14 @@ const resetAvatar = () => {
               md="6"
               sm="12"
             >
-              <AppTextField label="Short Description" />
+              <AppTextField label="Short Description" v-model="account_data.description"/>
             </VCol>
             <VCol
               cols="12"
               class="d-flex gap-4"
             >
               <!-- 👉 submit and reset button -->
-              <VBtn type="submit">
+              <VBtn type="submit" @click="handleButtonClick">
                 Save Changes
               </VBtn>
 
