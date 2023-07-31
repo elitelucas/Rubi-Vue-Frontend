@@ -69,14 +69,15 @@ const module = ref(null);
 
 const handleSelectModule = (name: string) => {
   moduleStore.selectedItem = moduleStore.ModuleItems.filter(
-    (ele: any) => (ele.name = name)
+    (ele: any) => (ele.name === name)
   );
+  console.log(moduleStore.selectedItem);
   moduleStore.selected = true;
   moduleStore.showModal = false;
 };
 
 const handleSearchMdoule = (data: any) => {
-  if (data.target.value === "") return listOptions.value = moduleStore.ModuleItems;
+  if (data.target.value === "") return (listOptions.value = moduleStore.ModuleItems);
   listOptions.value = [];
   moduleStore.ModuleItems.forEach((ele: any, id: number) => {
     if (ele.name.indexOf(data.target.value) > -1) {

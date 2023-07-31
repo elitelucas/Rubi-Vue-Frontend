@@ -1,112 +1,208 @@
 <script setup lang="ts">
-import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
-import { useDisplay } from 'vuetify/lib/framework.mjs'
-import avatar from '@images/avatars/avatar-1.png'
-import bot from '@images/iconify-png/rubi_icon.png'
-import { useResponsiveLeftSidebar } from '@/@core/composable/useResponsiveSidebar'
-import ChatTipDrawer from '@/views/pages/chat/ChatTipDrawer.vue'
+import { PerfectScrollbar } from "vue3-perfect-scrollbar";
+import { useDisplay } from "vuetify/lib/framework.mjs";
+import avatar from "@images/avatars/avatar-1.png";
+import bot from "@images/iconify-png/rubi_icon.png";
+import { useResponsiveLeftSidebar } from "@/@core/composable/useResponsiveSidebar";
+import ChatTipDrawer from "@/views/pages/chat/ChatTipDrawer.vue";
+import ChatAPI from "@/services/chatAction/conversation";
+import { toast } from "vue3-toastify";
 
-const vuetifyDisplays = useDisplay()
+const vuetifyDisplays = useDisplay();
 
-const { isLeftSidebarOpen } = useResponsiveLeftSidebar(
-  vuetifyDisplays.smAndDown,
-)
+const { isLeftSidebarOpen } = useResponsiveLeftSidebar(vuetifyDisplays.smAndDown);
 
-const chatList = [
-  {
-    type: 'bot',
-    message: 'Hey,  I’m Rubi! Let\'s make some magic happen!',
-  },
-  {
-    type: 'user',
-    message:
-      'Generate 5 taglines for a blog post about septic pumping that are exciting, engaging, and effective.',
-  },
-  {
-    type: 'bot',
-    message: `  1. "Unleash the Power of Clean: Discover the Secrets of Effective Septic Pumping!"<br>
-                2. "Flush Away Your Worries: The Ultimate Guide to Seamless Septic Pumping Solutions."<br>
-                3. "Revitalize Your System: Unveiling the Art of Septic Pumping for a Smooth-Running Home."<br>
-                4. "From Mess to Success: How Expert Septic Pumping Ignites a Fresh Start."<br>
-                5. "Safeguarding Your Home's Health: Dive into the World of Proactive Septic Pumping."<br>
-`,
-  },
-  {
-    type: 'bot',
-    message: `  1. "Unleash the Power of Clean: Discover the Secrets of Effective Septic Pumping!"<br>
-                2. "Flush Away Your Worries: The Ultimate Guide to Seamless Septic Pumping Solutions."<br>
-                3. "Revitalize Your System: Unveiling the Art of Septic Pumping for a Smooth-Running Home."<br>
-                4. "From Mess to Success: How Expert Septic Pumping Ignites a Fresh Start."<br>
-                5. "Safeguarding Your Home's Health: Dive into the World of Proactive Septic Pumping."<br>
-`,
-  },
-  {
-    type: 'bot',
-    message: `  1. "Unleash the Power of Clean: Discover the Secrets of Effective Septic Pumping!"<br>
-                2. "Flush Away Your Worries: The Ultimate Guide to Seamless Septic Pumping Solutions."<br>
-                3. "Revitalize Your System: Unveiling the Art of Septic Pumping for a Smooth-Running Home."<br>
-                4. "From Mess to Success: How Expert Septic Pumping Ignites a Fresh Start."<br>
-                5. "Safeguarding Your Home's Health: Dive into the World of Proactive Septic Pumping."<br>
-`,
-  },
-  {
-    type: 'bot',
-    message: `  1. "Unleash the Power of Clean: Discover the Secrets of Effective Septic Pumping!"<br>
-                2. "Flush Away Your Worries: The Ultimate Guide to Seamless Septic Pumping Solutions."<br>
-                3. "Revitalize Your System: Unveiling the Art of Septic Pumping for a Smooth-Running Home."<br>
-                4. "From Mess to Success: How Expert Septic Pumping Ignites a Fresh Start."<br>
-                5. "Safeguarding Your Home's Health: Dive into the World of Proactive Septic Pumping."<br>
-`,
-  },
-]
+const chatArea = ref<HTMLDivElement>();
+const textArea = ref("");
+const isRunning = ref(false);
 
-const chatHistories = [
+const chatList = ref([
   {
-    title: 'Today',
-    itens: [
+    type: "bot",
+    message: "Hey,  I’m Rubi! Let's make some magic happen!",
+  },
+  //   {
+  //     type: "user",
+  //     message:
+  //       "Generate 5 taglines for a blog post about septic pumping that are exciting, engaging, and effective.",
+  //   },
+  //   {
+  //     type: "bot",
+  //     message: `  1. "Unleash the Power of Clean: Discover the Secrets of Effective Septic Pumping!"<br>
+  //                 2. "Flush Away Your Worries: The Ultimate Guide to Seamless Septic Pumping Solutions."<br>
+  //                 3. "Revitalize Your System: Unveiling the Art of Septic Pumping for a Smooth-Running Home."<br>
+  //                 4. "From Mess to Success: How Expert Septic Pumping Ignites a Fresh Start."<br>
+  //                 5. "Safeguarding Your Home's Health: Dive into the World of Proactive Septic Pumping."<br>
+  // `,
+  //   },
+  //   {
+  //     type: "bot",
+  //     message: `  1. "Unleash the Power of Clean: Discover the Secrets of Effective Septic Pumping!"<br>
+  //                 2. "Flush Away Your Worries: The Ultimate Guide to Seamless Septic Pumping Solutions."<br>
+  //                 3. "Revitalize Your System: Unveiling the Art of Septic Pumping for a Smooth-Running Home."<br>
+  //                 4. "From Mess to Success: How Expert Septic Pumping Ignites a Fresh Start."<br>
+  //                 5. "Safeguarding Your Home's Health: Dive into the World of Proactive Septic Pumping."<br>
+  // `,
+  //   },
+  //   {
+  //     type: "bot",
+  //     message: `  1. "Unleash the Power of Clean: Discover the Secrets of Effective Septic Pumping!"<br>
+  //                 2. "Flush Away Your Worries: The Ultimate Guide to Seamless Septic Pumping Solutions."<br>
+  //                 3. "Revitalize Your System: Unveiling the Art of Septic Pumping for a Smooth-Running Home."<br>
+  //                 4. "From Mess to Success: How Expert Septic Pumping Ignites a Fresh Start."<br>
+  //                 5. "Safeguarding Your Home's Health: Dive into the World of Proactive Septic Pumping."<br>
+  // `,
+  //   },
+  //   {
+  //     type: "bot",
+  //     message: `  1. "Unleash the Power of Clean: Discover the Secrets of Effective Septic Pumping!"<br>
+  //                 2. "Flush Away Your Worries: The Ultimate Guide to Seamless Septic Pumping Solutions."<br>
+  //                 3. "Revitalize Your System: Unveiling the Art of Septic Pumping for a Smooth-Running Home."<br>
+  //                 4. "From Mess to Success: How Expert Septic Pumping Ignites a Fresh Start."<br>
+  //                 5. "Safeguarding Your Home's Health: Dive into the World of Proactive Septic Pumping."<br>
+  // `,
+  //   },
+]);
+
+const chatHistories = ref([
+  {
+    title: "Today",
+    items: [
       {
-        name: 'Humorous Septic Experts: 10 names for2aaaaaaaaaaaaaaaaaaaaaaaaa',
+        name: "Humorous Septic Experts: 10 names for2aaaaaaaaaaaaaaaaaaaaaaaaa",
+        edited: false,
       },
       {
-        name: 'Humorous Septic Experts: 10 names for22',
+        name: "Humorous Septic Experts: 10 names for22",
+        edited: false,
       },
       {
-        name: 'Humorous Septic Experts: 10 names for222',
+        name: "Humorous Septic Experts: 10 names for222",
+        edited: false,
       },
     ],
   },
   {
-    title: 'Yeterday',
-    itens: [
+    title: "Yeterday",
+    items: [
       {
-        name: 'SEO Report Analysis',
+        name: "SEO Report Analysis",
+        edited: false,
       },
       {
-        name: 'SEO Report Analysis1',
+        name: "SEO Report Analysis1",
+        edited: false,
       },
       {
-        name: 'SEO Report Analysis3',
+        name: "SEO Report Analysis3",
+        edited: false,
       },
     ],
   },
-]
+]);
 
-const showChatTipDrawer = ref(false)
+const SendRequestAction = async (text: string) => {
+  try {
+    let data = {
+      prompt: text,
+    };
+    let res = await ChatAPI.getResponse(data);
+    return res;
+  } catch (err: any) {
+    toast.warning(err);
+  }
+};
+
+const handleChangeEdit = (index: number, i: number, e: any) => {
+  chatHistories.value[index].items[i].name = e.target.value;
+};
+
+const handleDeleteHistory = (index: number, i: number) => {
+  chatHistories.value[index].items.splice(i, 1);
+};
+
+const handleKeyDown = async (e: any) => {
+  try {
+    let inputValue = textArea.value;
+
+    if (e.keyCode === 13) {
+      textArea.value = "";
+      chatList.value.push({
+        type: "user",
+        message: inputValue,
+      });
+      isRunning.value = true;
+      scrollControl();
+      // let result = await SendRequestAction(e.target.value);
+      let result =
+        'Hello, Guy. I am rubi so I can help you perfectly! I am designed to make content creation a breeze. With me, you can generate unique, personalized content up to 10x faster. Pretty sweet, huh?';
+      await createHistory(inputValue);
+      streamingInput(result);
+      isRunning.value = false;
+    }
+  } catch (err: any) {
+    toast.warning(err);
+  }
+};
+
+const scrollControl = () => {
+  chatArea.value?.scroll({
+    top: chatArea.value?.scrollHeight,
+  });
+};
+
+const streamingInput = async (response: string) => {
+  for (var i = 0; i < response.length; i++) {
+    if (i === 0)
+      chatList.value.push({
+        type: "bot",
+        message: response[0],
+      });
+    await DelayTime(response, i);
+  }
+};
+
+const DelayTime = async (response: string, index: number) => {
+  setTimeout(() => {
+    chatList.value[chatList.value.length - 1].message = response.slice(0, index);
+    scrollControl();
+  }, 10);
+};
+
+const createHistory = (text: string) => {
+  if (chatList.value.length === 2) {
+    chatHistories.value[0].items.unshift({
+      name: text,
+      edited: false,
+    });
+  }
+};
+
+const handleEditHistory = (index: number, id: number) => {
+  chatHistories.value[index].items[id].edited = !chatHistories.value[index].items[id]
+    .edited;
+};
+
+const showChatTipDrawer = ref(false);
+
+const handleNewChat = () => {
+  chatList.value = [
+    {
+      type: "bot",
+      message: "Hey,  I’m Rubi! Let's make some magic happen!",
+    },
+  ];
+};
 </script>
 
 <template>
   <div>
     <ChatTipDrawer v-model="showChatTipDrawer" />
-    <VRow
-      v-if="$vuetify.display.smAndDown && !isLeftSidebarOpen"
-      class="my-2"
-    >
+    <VRow v-if="$vuetify.display.smAndDown && !isLeftSidebarOpen" class="my-2">
       <IconBtn @click="isLeftSidebarOpen = !isLeftSidebarOpen">
         <VIcon icon="tabler-menu-2" />
       </IconBtn>
-      <VBtn prepend-icon="tabler-plus">
-        New Chat
-      </VBtn>
+      <VBtn prepend-icon="tabler-plus" @click="handleNewChat"> New Chat </VBtn>
     </VRow>
     <VLayout id="chat-window">
       <!-- 👉 Left sidebar   -->
@@ -121,24 +217,13 @@ const showChatTipDrawer = ref(false)
         :permanent="$vuetify.display.mdAndUp"
         style="border: none"
       >
-        <VCard
-          class="pt-2"
-          height="100%"
-        >
+        <VCard class="pt-2" height="100%">
           <VCardText>
-            <VRow
-              align="center"
-              no-gutters
-            >
-              <VBtn prepend-icon="tabler-plus">
-                New Chat
-              </VBtn>
+            <VRow align="center" no-gutters>
+              <VBtn prepend-icon="tabler-plus" @click="handleNewChat"> New Chat </VBtn>
               <VSpacer />
 
-              <VTooltip
-                content-class="balance-tooltip-content"
-                location="bottom"
-              >
+              <VTooltip content-class="balance-tooltip-content" location="bottom">
                 <template #activator="{ props }">
                   <VIcon
                     icon="custom-lightbulb"
@@ -163,44 +248,35 @@ const showChatTipDrawer = ref(false)
             </VRow>
             <VDivider class="my-4" />
 
-            <VCol
-              v-for="history in chatHistories"
-              :key="history.title"
-            >
+            <VCol v-for="(history, index) in chatHistories" :key="history.title">
               <VRow class="mb-2">
                 <span class="text-caption">{{ history.title }}</span>
               </VRow>
-              <VHover
-                v-for="item in history.itens"
-                :key="item.name"
-              >
+              <VHover v-for="(item, id) in history.items" :key="item.name">
                 <template #default="{ isHovering, props }">
-                  <VRow
-                    v-bind="props"
-                    align="center"
-                    class="my-2 chat-history-item"
-                  >
-                    <VIcon
-                      size="16"
-                      icon="tabler-message"
-                      color="text-color-heading"
-                    />
-                    <span class="text-p-small ml-1"> {{ item.name }}</span>
-                    <div
-                      v-show="isHovering"
-                      class="actions"
+                  <VRow v-bind="props" align="center" class="my-2 chat-history-item">
+                    <VIcon size="16" icon="tabler-message" color="text-color-heading" />
+                    <span class="text-p-small ml-1" v-if="!item.edited">
+                      {{ item.name }}</span
                     >
+                    <input
+                      type="text"
+                      class="text-p-small ml-1 edit_filed"
+                      :value="item.name"
+                      @change="handleChangeEdit(index, id, $event)"
+                      v-if="item.edited"
+                    />
+                    <div v-show="isHovering" class="actions">
                       <VIcon
                         size="15"
                         icon="tabler-pencil"
+                        @click="handleEditHistory(index, id)"
                       />
-                      <VIcon
-                        size="15"
-                        icon="tabler-upload"
-                      />
+                      <VIcon size="15" icon="tabler-upload" />
                       <VIcon
                         size="15"
                         icon="tabler-trash"
+                        @click="handleDeleteHistory(index, id)"
                       />
                     </div>
                   </VRow>
@@ -211,11 +287,8 @@ const showChatTipDrawer = ref(false)
         </VCard>
       </VNavigationDrawer>
       <VMain class="chat-content-container">
-        <VCard
-          class="chat"
-          height="100%"
-        >
-          <div class="body">
+        <VCard class="chat" height="100%">
+          <div class="body_chat_area" ref="chatArea">
             <PerfectScrollbar>
               <VCard
                 v-for="chat in chatList"
@@ -231,10 +304,7 @@ const showChatTipDrawer = ref(false)
                     <span v-html="chat.message" />
                     <VSpacer />
                     <div class="actions">
-                      <VIcon
-                        icon="tabler-copy"
-                        size="20"
-                      />
+                      <VIcon icon="tabler-copy" size="20" />
                     </div>
                   </div>
                 </VCardText>
@@ -249,22 +319,16 @@ const showChatTipDrawer = ref(false)
                 <AppTextField
                   placeholder="Ask Rubi..."
                   variant="solo"
-
+                  @keydown="handleKeyDown"
                   autofocus
                   class="chat-message-input"
+                  v-model="textArea"
                 >
                   <template #append-inner>
-                    <img
-                      height="25"
-                      width="25"
-                      :src="bot"
-                    >
+                    <img height="25" width="25" :src="bot" />
                   </template>
                 </AppTextField>
-                <VSwitch
-                  class="mt-2"
-                  label="Build on Conversation"
-                />
+                <VSwitch class="mt-2" label="Build on Conversation" />
               </div>
 
               <AppSelect
@@ -274,16 +338,10 @@ const showChatTipDrawer = ref(false)
                 placeholder="Persona"
               />
             </div>
-            <VRow
-              justify="center"
-              class="button-generate-row"
-            >
-              <VBtn
-                variant="outlined"
-                color="primary"
-                append-icon="tabler-refresh-dot"
-              >
-                Regenerate Response
+            <VRow justify="center" class="button-generate-row">
+              <VBtn variant="outlined" color="primary" append-icon="tabler-refresh-dot" @click="isRunning = false">
+                <VProgressCircular :size="20" width="3" color="primary" indeterminate v-if="isRunning" />
+                {{ !isRunning ? "Regenerate Response" : "Stop generating" }}
               </VBtn>
             </VRow>
           </div>
@@ -337,10 +395,10 @@ const showChatTipDrawer = ref(false)
   }
 }
 .chat {
-  .body {
+  .body_chat_area {
     height: 80%;
     overflow-y: scroll;
-    padding-bottom: 50px;
+    padding-bottom: 80px;
 
     @include media-query("lg") {
       height: 100%;
@@ -464,6 +522,11 @@ const showChatTipDrawer = ref(false)
   border-radius: 6px;
   cursor: pointer;
   position: relative;
+
+  .edit_filed {
+    width: 200px;
+    outline: 0.1px solid gray;
+  }
 
   span {
     white-space: nowrap;

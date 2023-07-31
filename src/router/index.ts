@@ -16,15 +16,15 @@ router.beforeEach((to, _, next) => {
   // eslint-disable-next-line no-prototype-builtins
   const requiredAuth = to.meta.hasOwnProperty('requiredAuth') ? to.meta.requiredAuth : true
 
-  if (to.name === 'login' && isLoggedIn)
-    next('/')
+  // if (to.name === 'login' && isLoggedIn)
+  //   next('/')
 
-  if (requiredAuth) {
-    if (isLoggedIn)
-      return next()
-    else
-      return next({ name: 'login' })
-  }
+  // if (requiredAuth) {
+  //   if (isLoggedIn)
+  //     return next()
+  //   else
+  //     return next({ name: 'login' })
+  // }
 
   return next()
 })
