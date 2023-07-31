@@ -3,6 +3,7 @@ import { useTheme } from 'vuetify/lib/framework.mjs'
 import navItems from '@/navigation/horizontal'
 import { useThemeConfig } from '@core/composable/useThemeConfig'
 import { themeConfig } from '@themeConfig'
+import http from "@/utils/http";
 
 // Components
 import Footer from '@/layouts/components/Footer.vue'
@@ -25,6 +26,43 @@ const darkNode = h('div', {
   innerHTML: logoDark,
   style: 'line-height:0; color: rgb(var(--v-global-theme-primary))',
 })
+
+
+
+onMounted(async () => {
+  try {
+    const response = await http.get(
+      "/v1/subscriptions?order_col=id",
+      {},
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    let resdata = response.data?.data;
+
+    let newsubitems = [];
+    resdata.map((item) =>
+      newsubitems.push({
+        title: item.name,
+        to: {
+          name: "account-settings",
+          params: {
+            id: item.id,
+          },
+        },
+      })
+    );
+
+    const foundItem = navItems.find((item) => item.title === "My Accounts");
+    if (foundItem) {
+      foundItem.children = newsubitems;
+    }
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+});
 </script>
 
 <template>
