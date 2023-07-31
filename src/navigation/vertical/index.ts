@@ -20,25 +20,7 @@ export default [
             id: 1,
           },
         },
-      },
-      {
-        title: 'Nickname 2',
-        to: {
-          name: 'account-settings',
-          params: {
-            id: 2,
-          },
-        },
-      },
-      {
-        title: 'Nickname 3',
-        to: {
-          name: 'account-settings',
-          params: {
-            id: 3,
-          },
-        },
-      },
+      }           
     ],
   },
   {
