@@ -113,6 +113,23 @@ const SendRequestAction = async (text: string) => {
   }
 };
 
+const handleGenerate = async () => {
+  if (!isRunning.value) {
+    if (chatList.value.length > 1) {
+      chatList.value.splice(chatList.value.length - 1, 1);
+    }
+    isRunning.value = true;
+    scrollControl();
+    let result = await SendRequestAction(
+      chatList.value[chatList.value.length - 1].message
+    );
+    // let result =
+    //   'Hello, Guy. I am rubi so I can help you perfectly! I am designed to make content creation a breeze. With me, you can generate unique, personalized content up to 10x faster. Pretty sweet, huh?';
+    streamingInput(result);
+    isRunning.value = false;
+  }
+};
+
 const handleChangeEdit = (index: number, i: number, e: any) => {
   chatHistories.value[index].items[i].name = e.target.value;
 };
@@ -133,9 +150,9 @@ const handleKeyDown = async (e: any) => {
       });
       isRunning.value = true;
       scrollControl();
-      // let result = await SendRequestAction(e.target.value);
-      let result =
-        'Hello, Guy. I am rubi so I can help you perfectly! I am designed to make content creation a breeze. With me, you can generate unique, personalized content up to 10x faster. Pretty sweet, huh?';
+      let result = await SendRequestAction(e.target.value);
+      // let result =
+      //   'Hello, Guy. I am rubi so I can help you perfectly! I am designed to make content creation a breeze. With me, you can generate unique, personalized content up to 10x faster. Pretty sweet, huh?';
       await createHistory(inputValue);
       streamingInput(result);
       isRunning.value = false;
@@ -331,16 +348,27 @@ const handleNewChat = () => {
                 <VSwitch class="mt-2" label="Build on Conversation" />
               </div>
 
-              <AppSelect
+              <!-- <AppSelect
                 :items="['Persona 1']"
                 class="select placeholder-white"
                 bg-color="primary"
                 placeholder="Persona"
-              />
+              /> -->
             </div>
             <VRow justify="center" class="button-generate-row">
-              <VBtn variant="outlined" color="primary" append-icon="tabler-refresh-dot" @click="isRunning = false">
-                <VProgressCircular :size="20" width="3" color="primary" indeterminate v-if="isRunning" />
+              <VBtn
+                variant="outlined"
+                color="primary"
+                append-icon="tabler-refresh-dot"
+                @click="handleGenerate"
+              >
+                <VProgressCircular
+                  :size="20"
+                  width="3"
+                  color="primary"
+                  indeterminate
+                  v-if="isRunning"
+                />
                 {{ !isRunning ? "Regenerate Response" : "Stop generating" }}
               </VBtn>
             </VRow>
