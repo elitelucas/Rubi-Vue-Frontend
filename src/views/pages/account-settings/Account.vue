@@ -166,7 +166,7 @@ async function handleDeleteButtonClick() {
         <VForm @submit.prevent="() => {}">
           <VRow>
             <VCol cols="12" lg="6" md="6" sm="12">
-              <VRadio label="Make primary account" color="primary" />
+              <VCheckbox label="Make primary account" v-model="account_data.primary"/>
               <AppTextField
                 label="Account Nickname"
                 v-model="account_data.nickname"
@@ -226,7 +226,6 @@ async function handleDeleteButtonClick() {
             <VBtn type="submit" color="error" @click="handleDeleteButtonClick">
               Deactivate Subscription
             </VBtn>
-            <!-- <p style="display: block">{{ profileStore.uuid }}</p> -->
           </VCol>
         </VRow>
       </VCardText>
