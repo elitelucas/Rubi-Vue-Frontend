@@ -1,26 +1,81 @@
 <script setup lang="ts">
+import http from "@/utils/http";
+import { useProfileStore } from '@/store/profile'
+import router from "@/router";
+
 interface Emit {
   (e: 'update:isDialogVisible', value: boolean): void
+}
+interface rawDataObject {
+  id: number,
+  nickname: string,
+  short_description: string,
+  keywords: Array<string>,
+  collaborators: number
 }
 
 interface Props {
   isDialogVisible: boolean
   isEditMode?: boolean
+  activeRawData?: rawDataObject
+  userSubscriptionId?: string
 }
 
+const profileStore = useProfileStore()
 const props = withDefaults(defineProps<Props>(), {})
 const emit = defineEmits<Emit>()
 
+const workspace_data = ref({});
+const collaboratorList = [
+  {
+    id: 1,
+    label: 'Nick name 1'
+  },
+  {
+    id: 2,
+    label: 'Nick name 2'
+  }
+]
 const form = reactive({
-  name: '',
+  nickname: '',
+  short_description: '',
   keywords: [],
-  collaborator: '',
+  collaborator: {id: 0, label: ''},
   search: null,
   items: [''],
 })
+const uid = profileStore.uuid;
 
-const formSubmit = () => {
-  console.log('submit')
+onUpdated(
+  () =>{
+    form.nickname = props?.activeRawData?.nickname as string
+    form.short_description = props?.activeRawData?.short_description as string
+    form.keywords = props?.activeRawData?.keywords as never[]
+    form.collaborator = {
+      id: props?.activeRawData?.collaborators as number,
+      label: 'Nick name 1'
+    } 
+  }
+ 
+);
+
+const formSubmit = async () => {
+   try {
+     console.log(props.userSubscriptionId,"@@@subscription")
+    let httpRequestmethod = props.isEditMode ? http.patch : http.post
+    const response = await httpRequestmethod(
+     props.isEditMode ?  "/v1/user/"+ uid + "/workspaces/" + props.activeRawData?.id : "/v1/user/"+ uid + "/workspaces",
+      { ...form, user_subscription_id: props.userSubscriptionId, active: false},
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );    
+    window.location.reload()
+  } catch (error) {
+    console.error("Error in async function:", error);
+  }
 }
 
 const removeKey = (key: string) => form.keywords = form.keywords.filter(item => item !== key)
@@ -57,9 +112,16 @@ const dialogModelValueUpdate = (val: boolean) => {
           <VRow>
             <VCol cols="12">
               <AppTextField
-                v-model="form.name"
+                v-model="form.nickname"
                 label="Workspace Name"
-                placeholder="Workspace Name"
+                placeholder="Workspace Name"                
+              />
+            </VCol>
+            <VCol cols="12">
+              <AppTextField
+                v-model="form.short_description"
+                label="description"
+                placeholder="short description"                
               />
             </VCol>
 
@@ -81,10 +143,14 @@ const dialogModelValueUpdate = (val: boolean) => {
             </VCol>
             <VCol cols="12">
               <AppSelect
-                v-model="form.collaborator"
-                label="Add Collaborators"
-                placeholder="Collaborator"
-                :items="['NickName', 'NickName 2']"
+                  v-model="form.collaborator"
+                  :items="collaboratorList"
+                  item-title="label"
+                  item-value="id"
+                  label="Select"
+                  persistent-hint
+                  return-object
+                  single-line
               />
             </VCol>
 
