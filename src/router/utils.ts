@@ -5,4 +5,7 @@
  */
 export const TOKEN_KEY = '@rubi.ai/token'
 export const TOKEN_TYPE = '@rubi.ai/token_type'
+export const MYUUID = '@rubi.ai/uuid'
+export const MYUSERNAME = '@rubi.ai/username'
+export const MYEMAIL = '@rubi.ai/email'
 export const isUserLoggedIn = () => !!(localStorage.getItem(TOKEN_KEY) && localStorage.getItem(TOKEN_TYPE))

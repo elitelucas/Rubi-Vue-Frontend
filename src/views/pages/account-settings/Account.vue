@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import avatar1 from "@images/avatars/avatar-14.png";
 import http from "@/utils/http";
+
 import { useProfileStore } from "@/store/profile";
 const profileStore = useProfileStore();
+
+console.log("myuuid", profileStore.uuid);
+
 const refInputEl = ref<HTMLElement>();
 const router = useRouter();
 const accountData = {
@@ -56,7 +60,7 @@ watch(
     const foundItem = resdata.find((item) => item.id == props.account_id);
     if (foundItem) {
       account_data.value = foundItem;
-      console.log("account_data", account_data.value)
+      console.log("account_data", account_data.value);
     }
   },
   { immediate: true }
@@ -85,7 +89,7 @@ const showErrorForDelete = ref(false);
 
 async function handleDeleteButtonClick() {
   try {
-    if (!isDelConfirmChecked.value) {    
+    if (!isDelConfirmChecked.value) {
       showErrorForDelete.value = true;
       return;
     }
@@ -166,7 +170,10 @@ async function handleDeleteButtonClick() {
         <VForm @submit.prevent="() => {}">
           <VRow>
             <VCol cols="12" lg="6" md="6" sm="12">
-              <VCheckbox label="Make primary account" v-model="account_data.primary"/>
+              <VCheckbox
+                label="Make primary account"
+                v-model="account_data.primary"
+              />
               <AppTextField
                 label="Account Nickname"
                 v-model="account_data.nickname"
