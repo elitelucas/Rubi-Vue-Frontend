@@ -1,7 +1,7 @@
 import { MYUUID, MYEMAIL, MYUSERNAME } from "@/router/utils";
 import profile from "@/services/profile";
 
-export const useProfileStore = defineStore("auth", {
+export const useProfileStore = defineStore("profile", {
   state: () => ({
     uuid: localStorage.getItem(MYUUID) || "",
     username:  localStorage.getItem(MYUSERNAME) || "",

@@ -1,48 +1,106 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
-import { VDataTable } from 'vuetify/labs/VDataTable'
-import DialogNewWorkSpace from '@/views/pages/account-settings/workspaces/DialogNewWorkSpace.vue'
+import { useI18n } from "vue-i18n";
+import { VDataTable } from "vuetify/labs/VDataTable";
+import DialogNewWorkSpace from "@/views/pages/account-settings/workspaces/DialogNewWorkSpace.vue";
+import http from "@/utils/http";
+import { useProfileStore } from "@/store/profile";
+const profileStore = useProfileStore();
 
-const { d, n } = useI18n()
+interface Props {
+  workspaceList: Array<Object>;
+  account_id: string;
+}
 
-const data = [
-  {
-    workspace: 'BitJar Labs',
-    sub_title: 'Software Development',
-    status: true,
-    contributors: 5,
-    joined_date: Date.now(),
-    usage: 1210,
-  },
-  {
-    workspace: 'BitJar Labs',
-    sub_title: 'Software Development',
-    contributors: 5,
-    status: true,
-    joined_date: Date.now(),
-    usage: 1210,
-  },
-  {
-    workspace: 'BitJar Labs',
-    sub_title: 'Software Development',
-    contributors: 5,
-    status: false,
-    joined_date: Date.now(),
-    usage: 1210,
-  },
-]
+const props = defineProps<Props>();
+const workspaceList = ref(props.workspaceList);
+const account_id = ref(props.account_id);
+
+const { d, n } = useI18n();
 
 const headers = [
-  { title: 'WORKSPACE', sortable: true, key: 'workspace' },
-  { title: 'STATUS', key: 'status' },
-  { title: 'CONTRIBUTORS', key: 'contributors' },
-  { title: 'JOINED DATE', key: 'joined_date' },
-  { title: 'USAGE', key: 'usage' },
-  { title: 'ACTIONS', key: 'actions', sortable: false },
-]
+  { title: "WORKSPACE", sortable: true, key: "nickname" },
+  { title: "STATUS", key: "active" },
+  { title: "Collaborators", key: "collaborators" },
+  { title: "CREATED DATE", key: "created_at" },
+  { title: "USAGE", key: "usage" },
+  { title: "ACTIONS", key: "actions", sortable: false },
+];
 
-const showDialogNewWorkSpace = ref(false)
-const editMode = ref(false)
+const showDialogNewWorkSpace = ref(false);
+const showConfirmDialog = ref(false);
+const editMode = ref(false);
+const activeRawData = ref({
+  id: 0,
+  nickname: "",
+  short_description: "",
+  keywords: [],
+  active: false,
+});
+const uid = profileStore.uuid;
+const sortOptions = ["All", "Active", "Inactive"];
+const sortOption = ref("All");
+
+watch(
+  () => uid,
+  async () => {
+    try {
+      const response = await http.get(
+        "/v1/user/" +
+          uid +
+          "/workspaces/?order_col=nickname&order_dir=asc&per_page=10",
+        {},
+        {
+          headers: {
+            "content-type": "multipart/form-data",
+          },
+        }
+      );
+      let resdata = response.data?.data;
+      workspaceList.value = resdata;
+    } catch {
+      console.log("error");
+    }
+  },
+  { immediate: true }
+);
+
+async function removeWorkspace() {
+  try {
+    const response = await http.delete(
+      "/v1/user/" + uid + "/workspaces/" + activeRawData?.value.id,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    window.location.reload();
+  } catch {
+    console.log("error");
+  }
+}
+
+async function changeState() {
+  try {
+    const response = await http.patch(
+      "/v1/user/" + uid + "/workspaces/" + activeRawData?.value.id,
+      {
+        nickname: activeRawData?.value.nickname,
+        short_description: activeRawData?.value.short_description,
+        keywords: activeRawData?.value.keywords,
+        active: !activeRawData?.value.active,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    window.location.reload();
+  } catch (error) {
+    console.error("Error in async function:", error);
+  }
+}
 </script>
 
 <template>
@@ -50,70 +108,111 @@ const editMode = ref(false)
     <DialogNewWorkSpace
       v-model:is-dialog-visible="showDialogNewWorkSpace"
       :is-edit-mode="editMode"
+      :active-raw-data="activeRawData"
+      :user-subscription-id="account_id"
     />
+    <v-dialog v-model="showConfirmDialog" width="auto">
+      <VCard class="pa-5 pa-sm-8">
+        <VCardText class="pt-6"> Are you sure to change state?. </VCardText>
+        <VRow>
+          <VCol cols="12" class="text-center">
+            <VBtn class="me-3" type="submit" @click="changeState"> OK </VBtn>
+            <VBtn
+              color="secondary"
+              variant="tonal"
+              @click="showConfirmDialog = false"
+            >
+              Cancel
+            </VBtn>
+          </VCol>
+        </VRow>
+      </VCard>
+    </v-dialog>
+    <v-dialog v-model="showRemoveConfirmDialog" width="auto">
+      <VCard class="pa-5 pa-sm-8">
+        <VCardText class="pt-6"> Delete workspace?. </VCardText>
+        <VRow>
+          <VCol cols="12" class="text-center">
+            <VBtn class="me-3" type="submit" @click="removeWorkspace">
+              OK
+            </VBtn>
+            <VBtn
+              color="secondary"
+              variant="tonal"
+              @click="showRemoveConfirmDialog = false"
+            >
+              Cancel
+            </VBtn>
+          </VCol>
+        </VRow>
+      </VCard>
+    </v-dialog>
     <VCard>
       <VCardText>
         <VRow>
-          <VCol
-            cols="12"
-            lg="2"
-            md="2"
-            sm="12"
-          >
+          <VCol cols="12" lg="2" md="2" sm="12">
             <VBtn
               prepend-icon="tabler-plus"
               style="width: 100%"
-              @click="editMode = false;showDialogNewWorkSpace = true"
+              @click="
+                activeRawData = {};
+                editMode = false;
+                showDialogNewWorkSpace = true;
+              "
             >
-              Create New Workspace
+              Create New Workspace 
             </VBtn>
           </VCol>
           <VSpacer />
-          <VCol
+          <!-- <VCol
             cols="12"
             lg="2"
             md="4"
             sm="12"
           >
             <AppTextField placeholder="Search Guests" />
-          </VCol>
-          <VCol
-            cols="12"
-            lg="2"
-            md="4"
-            sm="12"
-          >
-            <AppSelect placeholder="Select Status" />
+          </VCol> -->
+          <VCol cols="12" lg="2" md="4" sm="12">
+            <AppSelect
+              placeholder="Select Status"
+              v-model="sortOption"
+              :items="sortOptions"
+            />
           </VCol>
         </VRow>
       </VCardText>
       <VCardText>
         <VDataTable
           :headers="headers"
-          :items="data"
+          :items="workspaceList"
+          :search="sortOption == 'All' ? '' : sortOption == 'Active' ? 'true' : 'false'"
         >
-          <template #item.workspace="{ item }">
-            <span class="text-h6">{{ item.raw.workspace }}</span><br>
+          <template #item.nickname="{ item }">
+            <span class="text-h6">{{ item.raw.nickname }}</span
+            ><br />
             <span class="text-p-small text-muted">{{
-              item.raw.sub_title
+              item.raw.short_description
             }}</span>
           </template>
-          <template #item.status="{ item }">
+          <template #item.active="{ item }">
             <VChip
-              :color="item.raw.status ? 'success' : 'error'"
+              :color="item.raw.active ? 'success' : 'error'"
               rounded="sm"
               variant="flat"
             >
-              {{ item.raw.status ? 'Active' : 'Inactive' }}
+              {{ item.raw.active ? "Active" : "Inactive" }}
             </VChip>
+          </template>
+          <template #item.collaborators="{ item }">
+            {{ n(item.raw.collaborators) }}
+          </template>
+          <template #item.created_at="{ item }">
+            {{ d(item.raw.created_at) }}
           </template>
           <template #item.usage="{ item }">
             {{ n(item.raw.usage) }} words
           </template>
-          <template #item.joined_date="{ item }">
-            {{ d(item.raw.joined_date) }}
-          </template>
-          <template #item.actions>
+          <template #item.actions="{ item }">
             <VMenu>
               <template #activator="{ props }">
                 <VBtn
@@ -125,13 +224,34 @@ const editMode = ref(false)
               </template>
 
               <VList>
-                <VListItem @click="editMode = true;showDialogNewWorkSpace = true">
+                <VListItem
+                  @click="
+                    activeRawData = item.raw;
+                    editMode = true;
+                    showDialogNewWorkSpace = true;
+                  "
+                >
                   <VListItemTitle>Edit</VListItemTitle>
                 </VListItem>
-                <VListItem>
-                  <VListItemTitle>Deactivate</VListItemTitle>
+                <!-- <VListItem @click="changeState(item.raw, !item.raw.active)"> -->
+                <VListItem
+                  @click="
+                    activeRawData = item.raw;
+                    showConfirmDialog = true;
+                  "
+                >
+                  <VListItemTitle>
+                    {{
+                      item.raw.active ? "Deactivate" : "Activate"
+                    }}</VListItemTitle
+                  >
                 </VListItem>
-                <VListItem>
+                <VListItem
+                  @click="
+                    activeRawData = item.raw;
+                    showRemoveConfirmDialog = true;
+                  "
+                >
                   <VListItemTitle>Remove</VListItemTitle>
                 </VListItem>
               </VList>
