@@ -4,6 +4,7 @@ import { VDataTable } from "vuetify/labs/VDataTable";
 import DialogNewWorkSpace from "@/views/pages/account-settings/workspaces/DialogNewWorkSpace.vue";
 import http from "@/utils/http";
 import { useProfileStore } from "@/store/profile";
+import func from "vue-temp/vue-editor-bridge";
 const profileStore = useProfileStore();
 
 interface Props {
@@ -116,6 +117,22 @@ async function changeState() {
     console.error("Error in async function:", error);
   }
 }
+function updateDialogVisible(state: boolean) {
+  showDialogNewWorkSpace.value = state
+}
+function updateList(itemData:any, isEdit: boolean) {
+  if(isEdit) {
+    console.log(itemData,"@@@@@@@@@@")
+    const result = update(workspaceList.value, itemData.id, itemData)
+    workspaceList.value = result
+    showDialogNewWorkSpace.value = false
+  }
+  else {
+    console.log(itemData,"@@@@@@@@@@1111")
+    workspaceList.value.unshift(itemData);
+    showDialogNewWorkSpace.value = false
+  }
+}
 </script>
 
 <template>
@@ -125,6 +142,8 @@ async function changeState() {
       :is-edit-mode="editMode"
       :active-raw-data="activeRawData"
       :user-subscription-id="account_id"
+      @updateDialogVisible="updateDialogVisible"
+      @updateList="updateList"
     />
     <v-dialog v-model="showConfirmDialog" width="auto">
       <VCard class="pa-5 pa-sm-8">
