@@ -128,7 +128,11 @@ watch(selectedBoost, () => {
   showDialogBoost.value = true;
 });
 
-watch(moduleStore, () => (moduleStore.selected && !moduleStore.showModal) && ModuleItems.value.push(moduleStore.selectedItem));
+watch(moduleStore, () => {
+  if(moduleStore.selected && !moduleStore.showModal) {
+    ModuleItems.value.unshift(moduleStore.selectedItem)
+  }
+});
 
 const handleChangeContent = (e: any) => {
   promptData.value = e.ops[0].insert;
@@ -284,11 +288,11 @@ const GenerateAction = async () => {
           @click="moduleStore.showModal = true"
         />
         <AppCardActions
-          v-for="(item, index) in ModuleItems"
-          :icon-img="item.icon ?? houseCheck"
-          :title="item.name"
+          v-for="item in ModuleItems"
+          :icon="item[0].icon ?? houseCheck"
+          :title="item[0].name"
           class="mt-1 pr-1"
-          :sub-title="item.des"
+          :sub-title="item[0].des"
           show-arrow
           bg-icon-color-light="#28C76F"
           bg-icon-color-dark="#28C76F"
