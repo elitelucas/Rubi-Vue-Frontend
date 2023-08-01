@@ -25,6 +25,12 @@ switchToVerticalNavOnLtOverlayNavBreakpoint(windowWidth)
 const { layoutAttrs, injectSkinClasses } = useSkins()
 
 injectSkinClasses()
+// get profile
+import { useProfileStore } from '@/store/profile'
+const profileStore = useProfileStore();
+onMounted(async () => {
+  await profileStore.handleGetMyInfo();
+});
 </script>
 
 <template>

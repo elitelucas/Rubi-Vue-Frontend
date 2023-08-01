@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import avatar1 from '@images/avatars/avatar-14.png'
 import http from "@/utils/http";
-
+import { useProfileStore } from '@/store/profile'
+const profileStore = useProfileStore()
 const refInputEl = ref<HTMLElement>()
 
 const accountData = {
@@ -223,6 +224,7 @@ async function handleButtonClick() {
             >
               Deactivate Subscription
             </VBtn>
+            <p style="display:block">{{profileStore.uuid}}</p>
           </VCol>
         </VRow>
       </VCardText>
