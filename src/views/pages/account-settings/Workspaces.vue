@@ -4,6 +4,9 @@ import { VDataTable } from "vuetify/labs/VDataTable";
 import DialogNewWorkSpace from "@/views/pages/account-settings/workspaces/DialogNewWorkSpace.vue";
 import http from "@/utils/http";
 import { useProfileStore } from "@/store/profile";
+import func from "vue-temp/vue-editor-bridge";
+import { toast } from 'vue3-toastify'
+
 const profileStore = useProfileStore();
 
 interface Props {
@@ -19,15 +22,16 @@ const { d, n } = useI18n();
 
 const headers = [
   { title: "WORKSPACE", sortable: true, key: "nickname" },
-  { title: "STATUS", key: "active" },
+   { title: "STATUS", key: "active" },
   { title: "Collaborators", key: "collaborators" },
-  { title: "CREATED DATE", key: "created_at" },
-  { title: "USAGE", key: "usage" },
+   { title: "CREATED DATE", key: "created_at" },
+   { title: "USAGE", key: "usage" },
   { title: "ACTIONS", key: "actions", sortable: false },
 ];
 
 const showDialogNewWorkSpace = ref(false);
 const showConfirmDialog = ref(false);
+const showRemoveConfirmDialog = ref(false);
 const editMode = ref(false);
 const activeRawData = ref({
   id: 0,
@@ -56,6 +60,7 @@ watch(
         }
       );
       let resdata = response.data?.data;
+      console.log(resdata, '====================')
       workspaceList.value = resdata;
     } catch {
       console.log("error");
@@ -63,6 +68,13 @@ watch(
   },
   { immediate: true }
 );
+
+ function update(arr:any, id:any, updatedData:any) {
+  return arr.map((item:any) => (item.id === id ? { ...item, ...updatedData } : item))
+}
+function removeItem(arr:any, id:any) {
+  return arr.filter((item:any) => {return item.id !== id} )
+}
 
 async function removeWorkspace() {
   try {
@@ -74,9 +86,17 @@ async function removeWorkspace() {
         },
       }
     );
-    window.location.reload();
-  } catch {
-    console.log("error");
+    const result = removeItem(workspaceList.value, activeRawData?.value.id)
+    workspaceList.value = result
+     toast.success("Workspace removed!", {
+      position: "top-right",
+    });
+    showRemoveConfirmDialog.value = false
+  } catch (error: any) {
+     toast.warning(`Error: ${error.message}`, {
+      position: "top-right",
+    });
+    showRemoveConfirmDialog.value = false
   }
 }
 
@@ -96,9 +116,39 @@ async function changeState() {
         },
       }
     );
-    window.location.reload();
-  } catch (error) {
-    console.error("Error in async function:", error);
+
+    const updatedData = { active: !activeRawData?.value.active }
+    const result = update(workspaceList.value, activeRawData?.value.id, updatedData)
+    workspaceList.value = result
+     toast.success("Status changed!", {
+      position: "top-right",
+    });  
+    showConfirmDialog.value = false
+  } catch (error:any) {
+     toast.warning(`Error: ${error.message}`, {
+      position: "top-right",
+    });
+    showConfirmDialog.value = false
+  }
+}
+function updateDialogVisible(state: boolean) {
+  showDialogNewWorkSpace.value = state
+}
+function updateList(itemData:any, isEdit: boolean) {
+  if(isEdit) {
+    const result = update(workspaceList.value, itemData.id, itemData)
+    workspaceList.value = result
+     toast.success("Workspace updated!", {
+      position: "top-right",
+    });  
+    showDialogNewWorkSpace.value = false
+  }
+  else {
+    workspaceList.value.unshift(itemData);
+     toast.success("Workspace created!", {
+      position: "top-right",
+    });  
+    showDialogNewWorkSpace.value = false
   }
 }
 </script>
@@ -110,6 +160,8 @@ async function changeState() {
       :is-edit-mode="editMode"
       :active-raw-data="activeRawData"
       :user-subscription-id="account_id"
+      @updateDialogVisible="updateDialogVisible"
+      @updateList="updateList"
     />
     <v-dialog v-model="showConfirmDialog" width="auto">
       <VCard class="pa-5 pa-sm-8">
@@ -204,7 +256,7 @@ async function changeState() {
             </VChip>
           </template>
           <template #item.collaborators="{ item }">
-            {{ n(item.raw.collaborators) }}
+            {{ item.raw.collaborators.length }}            
           </template>
           <template #item.created_at="{ item }">
             {{ d(item.raw.created_at) }}
