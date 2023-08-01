@@ -28,6 +28,7 @@ const headers = [
 
 const showDialogNewWorkSpace = ref(false);
 const showConfirmDialog = ref(false);
+const showRemoveConfirmDialog = ref(false);
 const editMode = ref(false);
 const activeRawData = ref({
   id: 0,
@@ -64,6 +65,13 @@ watch(
   { immediate: true }
 );
 
+ function update(arr:any, id:any, updatedData:any) {
+  return arr.map((item:any) => (item.id === id ? { ...item, ...updatedData } : item))
+}
+function removeItem(arr:any, id:any) {
+  return arr.filter((item:any) => {return item.id !== id} )
+}
+
 async function removeWorkspace() {
   try {
     const response = await http.delete(
@@ -74,7 +82,9 @@ async function removeWorkspace() {
         },
       }
     );
-    window.location.reload();
+    const result = removeItem(workspaceList.value, activeRawData?.value.id)
+    workspaceList.value = result
+    showRemoveConfirmDialog.value = false
   } catch {
     console.log("error");
   }
@@ -96,7 +106,12 @@ async function changeState() {
         },
       }
     );
-    window.location.reload();
+
+    const updatedData = { active: !activeRawData?.value.active }
+    const result = update(workspaceList.value, activeRawData?.value.id, updatedData)
+    workspaceList.value = result
+    showConfirmDialog.value = false
+  
   } catch (error) {
     console.error("Error in async function:", error);
   }
