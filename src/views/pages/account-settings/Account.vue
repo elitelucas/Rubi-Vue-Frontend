@@ -22,9 +22,31 @@ const changeAvatar = (file: Event) => {
 
   if (files && files.length) {
     fileReader.readAsDataURL(files[0]);
-    fileReader.onload = () => {
-      if (typeof fileReader.result === "string")
+    fileReader.onload = async () => {
+      if (typeof fileReader.result === "string") {
         accountDataLocal.value.avatarImg = fileReader.result;
+
+        try {
+          const formData = new FormData();
+          formData.append("avatar", files[0]);
+
+          const response = await http.post(
+            "/v1/user-subscriptions/" +
+              account_data.value?.id +
+              "/avatar-upload",
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          );
+          alert("Saved successfully!");
+          // window.location.reload();
+        } catch (error) {
+          console.error("Error in async function:", error);
+        }
+      }
     };
   }
 };

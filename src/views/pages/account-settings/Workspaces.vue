@@ -5,6 +5,8 @@ import DialogNewWorkSpace from "@/views/pages/account-settings/workspaces/Dialog
 import http from "@/utils/http";
 import { useProfileStore } from "@/store/profile";
 import func from "vue-temp/vue-editor-bridge";
+import { toast } from 'vue3-toastify'
+
 const profileStore = useProfileStore();
 
 interface Props {
@@ -20,10 +22,10 @@ const { d, n } = useI18n();
 
 const headers = [
   { title: "WORKSPACE", sortable: true, key: "nickname" },
-  { title: "STATUS", key: "active" },
+   { title: "STATUS", key: "active" },
   { title: "Collaborators", key: "collaborators" },
-  { title: "CREATED DATE", key: "created_at" },
-  { title: "USAGE", key: "usage" },
+   { title: "CREATED DATE", key: "created_at" },
+   { title: "USAGE", key: "usage" },
   { title: "ACTIONS", key: "actions", sortable: false },
 ];
 
@@ -58,6 +60,7 @@ watch(
         }
       );
       let resdata = response.data?.data;
+      console.log(resdata, '====================')
       workspaceList.value = resdata;
     } catch {
       console.log("error");
@@ -85,9 +88,15 @@ async function removeWorkspace() {
     );
     const result = removeItem(workspaceList.value, activeRawData?.value.id)
     workspaceList.value = result
+     toast.success("Workspace removed!", {
+      position: "top-right",
+    });
     showRemoveConfirmDialog.value = false
-  } catch {
-    console.log("error");
+  } catch (error: any) {
+     toast.warning(`Error: ${error.message}`, {
+      position: "top-right",
+    });
+    showRemoveConfirmDialog.value = false
   }
 }
 
@@ -111,10 +120,15 @@ async function changeState() {
     const updatedData = { active: !activeRawData?.value.active }
     const result = update(workspaceList.value, activeRawData?.value.id, updatedData)
     workspaceList.value = result
+     toast.success("Status changed!", {
+      position: "top-right",
+    });  
     showConfirmDialog.value = false
-  
-  } catch (error) {
-    console.error("Error in async function:", error);
+  } catch (error:any) {
+     toast.warning(`Error: ${error.message}`, {
+      position: "top-right",
+    });
+    showConfirmDialog.value = false
   }
 }
 function updateDialogVisible(state: boolean) {
@@ -122,14 +136,18 @@ function updateDialogVisible(state: boolean) {
 }
 function updateList(itemData:any, isEdit: boolean) {
   if(isEdit) {
-    console.log(itemData,"@@@@@@@@@@")
     const result = update(workspaceList.value, itemData.id, itemData)
     workspaceList.value = result
+     toast.success("Workspace updated!", {
+      position: "top-right",
+    });  
     showDialogNewWorkSpace.value = false
   }
   else {
-    console.log(itemData,"@@@@@@@@@@1111")
     workspaceList.value.unshift(itemData);
+     toast.success("Workspace created!", {
+      position: "top-right",
+    });  
     showDialogNewWorkSpace.value = false
   }
 }
@@ -238,7 +256,7 @@ function updateList(itemData:any, isEdit: boolean) {
             </VChip>
           </template>
           <template #item.collaborators="{ item }">
-            {{ n(item.raw.collaborators) }}
+            {{ item.raw.collaborators.length }}            
           </template>
           <template #item.created_at="{ item }">
             {{ d(item.raw.created_at) }}
