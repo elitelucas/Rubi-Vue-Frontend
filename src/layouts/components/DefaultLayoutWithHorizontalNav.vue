@@ -34,7 +34,7 @@ const darkNode = h('div', {
 onMounted(async () => {
   try {
     const response = await http.get(
-      "/v1/subscriptions?order_col=id",
+      "/v1/user-subscriptions?order_col=nickname&order_dir=asc",
       {},
       {
         headers: {
@@ -43,11 +43,12 @@ onMounted(async () => {
       }
     );
     let resdata = response.data?.data;
+    console.log(resdata)
 
     let newsubitems = [];
     resdata.map((item) =>
       newsubitems.push({
-        title: item.name,
+        title: item.nickname,
         to: {
           name: "account-settings",
           params: {
