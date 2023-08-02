@@ -80,7 +80,7 @@ async function handleSubmit() {
           />
 
           <h5 class="text-h5 mb-1 text-auth-welcome-title">
-            Say hello to <span class="text-capitalize"> {{ themeConfig.app.title }} </span>. 👋
+            Say hello to&nbsp;<span class="text-capitalize"> {{ themeConfig.app.title }} </span>. 👋
           </h5>
 
           <p class="mb-0">
