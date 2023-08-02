@@ -51,6 +51,16 @@ onMounted(async () => {
         global.current.value.colors.primary,
       )}`"
     >
+      <div
+        v-if="loading"
+        id="loading-bg"
+      >
+        <div class="loading-logo">
+          <!-- SVG Logo -->
+          <LogoAnimated />
+          <span> we are optimizing your experience, hang tight... </span>
+        </div>
+      </div>
       <RouterView />
       <ScrollToTop />
     </VApp>
