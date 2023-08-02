@@ -19,7 +19,7 @@ const authThemeImg = useGenerateImageVariant(authBackgroundIllustrationLight, au
 const isPasswordVisible = ref(false)
 
 const refVForm = ref<VForm>()
-const email = ref('')
+const username = ref('')
 const password = ref('')
 const rememberMe = ref(false)
 const inputValidations = [(v: string) => v.length || 'This field is required']
@@ -32,7 +32,7 @@ async function handleSubmit() {
     try {
       showError.value = false
       loading.value = true
-      await authStore.handleLogin(email.value, password.value)
+      await authStore.handleLogin(username.value, password.value)
       await authStore.handleMe()
       router.push('/')
     }
@@ -105,7 +105,7 @@ async function handleSubmit() {
               <!-- email -->
               <VCol cols="12">
                 <AppTextField
-                  v-model="email"
+                  v-model="username"
                   label="Email or Username"
                   placeholder="Email or Username"
                   type="email"

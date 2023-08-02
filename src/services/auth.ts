@@ -27,8 +27,11 @@ export interface UserMeData {
 }
 
 export default {
-  async login(email: string, password: string) {
-    return http.post<LoginResponse>(`/v1/login?email=${email}&password=${password}`)
+  async login(username: string, password: string) {
+    return http.post<LoginResponse>('/v1/login', {
+        username,
+        password
+    })
   },
   async me() {
     return http.get<UserMeResponse>('/v1/me')
