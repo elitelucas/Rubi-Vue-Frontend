@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import avatar1 from "@images/avatars/avatar-14.png";
 import http from "@/utils/http";
-
+import { toast } from "vue3-toastify";
 import { useMenuStore } from "@/store/menu";
 import { useProfileStore } from "@/store/profile";
 import {
@@ -38,8 +38,9 @@ const changeAvatar = (file: Event) => {
           formData.append("avatar", files[0]);
 
           await userSubscriptionUploadAvatar(account_data.value?.id, formData);
-
-          alert("Saved successfully!");
+          toast.success("Avatar uploaded successfully!", {
+            position: "top-right",
+          });
         } catch (error) {
           console.error("Error in async function:", error);
         }
@@ -79,7 +80,9 @@ async function handleUpdateButtonClick() {
       account_data.value
     );
     console.log(data.data);
-    alert("Saved successfully!");
+    toast.success("Updated successfully!", {
+      position: "top-right",
+    });
   } catch (error) {
     console.error("Error :", error);
   }
@@ -96,7 +99,9 @@ async function handleDeleteButtonClick() {
       return;
     }
     await userSubscriptionDelete(account_data.value?.id);
-    alert("Deleted successfully!");
+    toast.success("Deleted successfully!", {
+      position: "top-right",
+    });
     router.push("/");
     await menuStore.updateNavItems();
   } catch (error) {

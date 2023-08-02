@@ -31,7 +31,7 @@ async function handleSubmit() {
     try {
       showError.value = false
       await authStore.handleLogin(email.value, password.value)
-      window.location = "/"
+      router.push('/')
     }
     catch (error) {
       showError.value = true

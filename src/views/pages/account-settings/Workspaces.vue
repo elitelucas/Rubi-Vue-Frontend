@@ -51,6 +51,12 @@ const sortOption = ref("All");
 watch(
   () => uid,
   async () => {
+    await listWorkspaces();
+  },
+  { immediate: true }
+);
+
+async function listWorkspaces(){
     try {
       const response = await workspaceLists();
       let resdata = response.data?.data;
@@ -58,9 +64,7 @@ watch(
     } catch (error) {
       console.log("error", error.message);
     }
-  },
-  { immediate: true }
-);
+}
 
 function update(arr: any, id: any, updatedData: any) {
   return arr.map((item: any) =>
