@@ -14,6 +14,8 @@ import { createApp } from 'vue'
 import i18n from './plugins/i18n'
 import type { ToastContainerOptions } from 'vue3-toastify'
 import Vue3Toastify from 'vue3-toastify'
+import { abilitiesPlugin } from '@casl/vue'
+import ability from '@/plugins/casl/ability'
 
 loadFonts()
 
@@ -29,6 +31,9 @@ app.use(vuetify)
 app.use(createPinia())
 app.use(router)
 app.use(layoutsPlugin)
+app.use(abilitiesPlugin, ability, {
+  useGlobalProperties: true,
+})
 
 // Mount vue app
 app.mount('#app')
