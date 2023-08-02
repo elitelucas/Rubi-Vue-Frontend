@@ -2,10 +2,17 @@
 import avatar1 from "@images/avatars/avatar-14.png";
 import http from "@/utils/http";
 
+import { useMenuStore } from "@/store/menu";
 import { useProfileStore } from "@/store/profile";
-const profileStore = useProfileStore();
+import {
+  userSubscriptionShow,
+  userSubscriptionUpdate,
+  userSubscriptionDelete,
+  userSubscriptionUploadAvatar,
+} from "@/services/usersubscription";
 
-console.log("myuuid", profileStore.uuid);
+const menuStore = useMenuStore();
+const profileStore = useProfileStore();
 
 const refInputEl = ref<HTMLElement>();
 const router = useRouter();
@@ -30,19 +37,9 @@ const changeAvatar = (file: Event) => {
           const formData = new FormData();
           formData.append("avatar", files[0]);
 
-          const response = await http.post(
-            "/v1/user-subscriptions/" +
-              account_data.value?.id +
-              "/avatar-upload",
-            formData,
-            {
-              headers: {
-                "Content-Type": "multipart/form-data",
-              },
-            }
-          );
+          await userSubscriptionUploadAvatar(account_data.value?.id, formData);
+
           alert("Saved successfully!");
-          // window.location.reload();
         } catch (error) {
           console.error("Error in async function:", error);
         }
@@ -68,43 +65,26 @@ watch(
   async (newVal, oldVla) => {
     account_id.value = newVal;
 
-    const response = await http.get(
-      "/v1/user-subscriptions?order_col=nickname&order_dir=asc",
-      {},
-      {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      }
-    );
-    let resdata = response.data?.data;
-
-    const foundItem = resdata.find((item) => item.id == props.account_id);
-    if (foundItem) {
-      account_data.value = foundItem;
-      console.log("account_data", account_data.value);
-    }
+    const { data } = await userSubscriptionShow(props.account_id);
+    account_data.value = data.data;
   },
   { immediate: true }
 );
 
+//update
 async function handleUpdateButtonClick() {
   try {
-    const response = await http.patch(
-      "/v1/user-subscriptions/" + account_data.value?.id,
-      { ...account_data.value },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
+    const { data } = await userSubscriptionUpdate(
+      account_data.value?.id,
+      account_data.value
     );
+    console.log(data.data);
     alert("Saved successfully!");
-    // window.location.reload();
   } catch (error) {
-    console.error("Error in async function:", error);
+    console.error("Error :", error);
   }
 }
+
 // Delete
 const isDelConfirmChecked = ref(false);
 const showErrorForDelete = ref(false);
@@ -115,19 +95,12 @@ async function handleDeleteButtonClick() {
       showErrorForDelete.value = true;
       return;
     }
-    const response = await http.delete(
-      "/v1/user-subscriptions/" + account_data.value?.id,
-      {},
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    await userSubscriptionDelete(account_data.value?.id);
     alert("Deleted successfully!");
-    window.location = "/";
+    router.push("/");
+    await menuStore.updateNavItems();
   } catch (error) {
-    console.error("Error in async function:", error);
+    console.error("Error :", error);
   }
 }
 </script>
@@ -138,7 +111,6 @@ async function handleDeleteButtonClick() {
       title="Subscription Account Details"
       subtitle="Define and manage your subscription."
     >
-      <!-- <p>{{ JSON.stringify(account_data) }}</p> -->
       <VCardText>
         <VRow>
           <VCol cols="12" lg="6" md="6" sm="12">

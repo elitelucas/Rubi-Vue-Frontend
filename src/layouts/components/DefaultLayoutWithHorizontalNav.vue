@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { useTheme } from 'vuetify/lib/framework.mjs'
-import navItems from '@/navigation/horizontal'
 import { useThemeConfig } from '@core/composable/useThemeConfig'
 import { themeConfig } from '@themeConfig'
 import http from "@/utils/http";
@@ -13,9 +12,11 @@ import logoDark from '@images/logo-dark.svg?raw'
 import { HorizontalNavLayout } from '@layouts'
 import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
 import { useModuleStore } from '@/store/module'
+import { useMenuStore } from '@/store/menu'
 
 
 const moduleStore = useModuleStore()
+const { navItems } = useMenuStore()
 
 
 const { appRouteTransition } = useThemeConfig()
@@ -28,44 +29,6 @@ const darkNode = h('div', {
   innerHTML: logoDark,
   style: 'line-height:0; color: rgb(var(--v-global-theme-primary))',
 })
-
-
-
-onMounted(async () => {
-  try {
-    const response = await http.get(
-      "/v1/user-subscriptions?order_col=nickname&order_dir=asc",
-      {},
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    let resdata = response.data?.data;
-    console.log(resdata)
-
-    let newsubitems = [];
-    resdata.map((item) =>
-      newsubitems.push({
-        title: item.nickname,
-        to: {
-          name: "account-settings",
-          params: {
-            id: item.id,
-          },
-        },
-      })
-    );
-
-    const foundItem = navItems.find((item) => item.title === "My Accounts");
-    if (foundItem) {
-      foundItem.children = newsubitems;
-    }
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
-});
 </script>
 
 <template>

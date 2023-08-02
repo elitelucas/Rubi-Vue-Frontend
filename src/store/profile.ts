@@ -8,16 +8,12 @@ export const useProfileStore = defineStore("profile", {
     email:  localStorage.getItem(MYEMAIL) || "",
   }),
   actions: {
-    async handleGetMyInfo() {
+    async fetchMyProfile() { //no need
       try {
         const { data } = await profile.getMyInfo();
 
         let profileData = data.data;
-        console.log("fetched profile...", profileData);
-
-        // this.uuid = profileData.uuid;
-        // this.username = profileData.username;
-        // this.email = profileData.email;   
+        console.log("fetchMyProfile...", profileData); 
       } finally {
       }
     },

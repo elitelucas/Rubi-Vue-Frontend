@@ -2,10 +2,14 @@
 import { useI18n } from "vue-i18n";
 import { VDataTable } from "vuetify/labs/VDataTable";
 import DialogNewWorkSpace from "@/views/pages/account-settings/workspaces/DialogNewWorkSpace.vue";
-import http from "@/utils/http";
 import { useProfileStore } from "@/store/profile";
 import func from "vue-temp/vue-editor-bridge";
-import { toast } from 'vue3-toastify'
+import { toast } from "vue3-toastify";
+import {
+  workspaceLists,
+  workspaceUpdate,
+  workspaceDelete,
+} from "@/services/workspace";
 
 const profileStore = useProfileStore();
 
@@ -22,10 +26,10 @@ const { d, n } = useI18n();
 
 const headers = [
   { title: "WORKSPACE", sortable: true, key: "nickname" },
-   { title: "STATUS", key: "active" },
+  { title: "STATUS", key: "active" },
   { title: "Collaborators", key: "collaborators" },
-   { title: "CREATED DATE", key: "created_at" },
-   { title: "USAGE", key: "usage" },
+  { title: "CREATED DATE", key: "created_at" },
+  { title: "USAGE", key: "usage" },
   { title: "ACTIONS", key: "actions", sortable: false },
 ];
 
@@ -48,107 +52,88 @@ watch(
   () => uid,
   async () => {
     try {
-      const response = await http.get(
-        "/v1/user/" +
-          uid +
-          "/workspaces/?order_col=nickname&order_dir=asc&per_page=10",
-        {},
-        {
-          headers: {
-            "content-type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await workspaceLists();
       let resdata = response.data?.data;
-      console.log(resdata, '====================')
       workspaceList.value = resdata;
-    } catch {
-      console.log("error");
+    } catch (error) {
+      console.log("error", error.message);
     }
   },
   { immediate: true }
 );
 
- function update(arr:any, id:any, updatedData:any) {
-  return arr.map((item:any) => (item.id === id ? { ...item, ...updatedData } : item))
+function update(arr: any, id: any, updatedData: any) {
+  return arr.map((item: any) =>
+    item.id === id ? { ...item, ...updatedData } : item
+  );
 }
-function removeItem(arr:any, id:any) {
-  return arr.filter((item:any) => {return item.id !== id} )
+function removeItem(arr: any, id: any) {
+  return arr.filter((item: any) => {
+    return item.id !== id;
+  });
 }
 
 async function removeWorkspace() {
   try {
-    const response = await http.delete(
-      "/v1/user/" + uid + "/workspaces/" + activeRawData?.value.id,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    const result = removeItem(workspaceList.value, activeRawData?.value.id)
-    workspaceList.value = result
-     toast.success("Workspace removed!", {
+    await workspaceDelete(activeRawData?.value.id);
+    const result = removeItem(workspaceList.value, activeRawData?.value.id);
+    workspaceList.value = result;
+    toast.success("Workspace removed!", {
       position: "top-right",
     });
-    showRemoveConfirmDialog.value = false
+    showRemoveConfirmDialog.value = false;
   } catch (error: any) {
-     toast.warning(`Error: ${error.message}`, {
+    toast.warning(`Error: ${error.message}`, {
       position: "top-right",
     });
-    showRemoveConfirmDialog.value = false
+    showRemoveConfirmDialog.value = false;
   }
 }
 
 async function changeState() {
   try {
-    const response = await http.patch(
-      "/v1/user/" + uid + "/workspaces/" + activeRawData?.value.id,
-      {
-        nickname: activeRawData?.value.nickname,
-        short_description: activeRawData?.value.short_description,
-        keywords: activeRawData?.value.keywords,
-        active: !activeRawData?.value.active,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    await workspaceUpdate(activeRawData?.value.id, {
+      nickname: activeRawData?.value.nickname,
+      short_description: activeRawData?.value.short_description,
+      keywords: activeRawData?.value.keywords,
+      active: !activeRawData?.value.active,
+    });
 
-    const updatedData = { active: !activeRawData?.value.active }
-    const result = update(workspaceList.value, activeRawData?.value.id, updatedData)
-    workspaceList.value = result
-     toast.success("Status changed!", {
-      position: "top-right",
-    });  
-    showConfirmDialog.value = false
-  } catch (error:any) {
-     toast.warning(`Error: ${error.message}`, {
+    const updatedData = { active: !activeRawData?.value.active };
+    const result = update(
+      workspaceList.value,
+      activeRawData?.value.id,
+      updatedData
+    );
+    workspaceList.value = result;
+    toast.success("Status changed!", {
       position: "top-right",
     });
-    showConfirmDialog.value = false
+    showConfirmDialog.value = false;
+  } catch (error: any) {
+    toast.warning(`Error: ${error.message}`, {
+      position: "top-right",
+    });
+    showConfirmDialog.value = false;
   }
 }
 function updateDialogVisible(state: boolean) {
-  showDialogNewWorkSpace.value = state
+  showDialogNewWorkSpace.value = state;
 }
-function updateList(itemData:any, isEdit: boolean) {
-  if(isEdit) {
-    const result = update(workspaceList.value, itemData.id, itemData)
-    workspaceList.value = result
-     toast.success("Workspace updated!", {
+function updateList(itemData: any, isEdit: boolean) {
+  if (isEdit) {
+    const result = update(workspaceList.value, itemData.id, itemData);
+    workspaceList.value = result;
+    toast.success("Workspace updated!", {
       position: "top-right",
-    });  
-    showDialogNewWorkSpace.value = false
-  }
-  else {
+    });
+    showDialogNewWorkSpace.value = false;
+  } else {
     workspaceList.value.unshift(itemData);
-     toast.success("Workspace created!", {
+    toast.success("Workspace created!", {
       position: "top-right",
-    });  
-    showDialogNewWorkSpace.value = false
+    });
+    showDialogNewWorkSpace.value = false;
   }
 }
 </script>
@@ -212,7 +197,7 @@ function updateList(itemData:any, isEdit: boolean) {
                 showDialogNewWorkSpace = true;
               "
             >
-              Create New Workspace 
+              Create New Workspace
             </VBtn>
           </VCol>
           <VSpacer />
@@ -237,7 +222,9 @@ function updateList(itemData:any, isEdit: boolean) {
         <VDataTable
           :headers="headers"
           :items="workspaceList"
-          :search="sortOption == 'All' ? '' : sortOption == 'Active' ? 'true' : 'false'"
+          :search="
+            sortOption == 'All' ? '' : sortOption == 'Active' ? 'true' : 'false'
+          "
         >
           <template #item.nickname="{ item }">
             <span class="text-h6">{{ item.raw.nickname }}</span
@@ -256,7 +243,7 @@ function updateList(itemData:any, isEdit: boolean) {
             </VChip>
           </template>
           <template #item.collaborators="{ item }">
-            {{ item.raw.collaborators.length }}            
+            {{ item.raw.collaborators.length }}
           </template>
           <template #item.created_at="{ item }">
             {{ d(item.raw.created_at) }}

@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import navItems from '@/navigation/vertical'
 import { useThemeConfig } from '@core/composable/useThemeConfig'
 
 // Components
@@ -10,7 +9,9 @@ import UserProfile from '@/layouts/components/UserProfile.vue'
 // @layouts plugin
 import { VerticalNavLayout } from '@layouts'
 import { useModuleStore } from '@/store/module'
+import { useMenuStore } from '@/store/menu'
 
+const { navItems } = useMenuStore()
 const { appRouteTransition, isLessThanOverlayNavBreakpoint } = useThemeConfig()
 const { width: windowWidth } = useWindowSize()
 const workspace = ref('BitJar Labs Workspace')
