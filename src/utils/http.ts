@@ -16,6 +16,18 @@ instancia.interceptors.request.use((config: any) => {
 
   return config
 })
+instancia.interceptors.response.use(
+  response => response,
+  error => {
+    if (error.response?.status === 401 && localStorage.getItem(TOKEN_KEY)) {
+      localStorage.removeItem(TOKEN_KEY)
+      localStorage.removeItem(TOKEN_TYPE)
+      window.location.href = '/'
+    }
+
+    return Promise.reject(error)
+  },
+)
 
 instancia.defaults.withCredentials = true
 

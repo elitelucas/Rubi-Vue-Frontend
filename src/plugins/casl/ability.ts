@@ -1,12 +1,4 @@
 import { Ability } from '@casl/ability'
-import type { UserAbility } from './AppAbility'
-
-export const initialAbility: UserAbility[] = [
-  {
-    action: 'read',
-    subject: 'Auth',
-  },
-]
 
 //  Read ability from localStorage
 // 👉 Handles auto fetching previous abilities if already logged in user
@@ -15,4 +7,4 @@ export const initialAbility: UserAbility[] = [
 const stringifiedUserAbilities = localStorage.getItem('userAbilities')
 const existingAbility = stringifiedUserAbilities ? JSON.parse(stringifiedUserAbilities) : null
 
-export default new Ability(existingAbility || initialAbility)
+export default new Ability(existingAbility)

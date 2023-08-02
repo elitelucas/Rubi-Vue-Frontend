@@ -9,6 +9,7 @@ services:
       ASUSER: "${KOOL_ASUSER:-0}"
       UID: "${UID:-0}"
       VITE_BASE_URL: "https://api.dev.rubi-ai.com/api"
+      # VITE_BASE_URL: "https://api.staging.rubi-ai.com/api"
     volumes:
       - .:/app:delegated
     networks:

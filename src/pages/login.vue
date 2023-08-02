@@ -24,17 +24,23 @@ const password = ref('')
 const rememberMe = ref(false)
 const inputValidations = [(v: string) => v.length || 'This field is required']
 const showError = ref(false)
+const loading = ref(false)
 
 async function handleSubmit() {
   const { valid } = await refVForm.value?.validate() as never
   if (valid) {
     try {
       showError.value = false
+      loading.value = true
       await authStore.handleLogin(email.value, password.value)
+      await authStore.handleMe()
       router.push('/')
     }
     catch (error) {
       showError.value = true
+    }
+    finally {
+      loading.value = false
     }
   }
 }
@@ -136,7 +142,7 @@ async function handleSubmit() {
 
                 <VBtn
                   block
-                  :loading="authStore.loading_login"
+                  :loading="loading"
                   type="submit"
                 >
                   Sign in
