@@ -79,7 +79,7 @@ const showDetails = ref(false)
             md="4"
             sm="12"
           >
-            <AppTextField placeholder="Search Audiences" />
+            <AppTextField placeholder="Search Personas" />
           </VCol>
           <VCol
             cols="12"

@@ -107,7 +107,7 @@ const data = ref([])
 
 const headers = [
   { title: 'Matched Plagiarized Phrase', sortable: false, key: 'matched' },
-  { title: 'Averag\nScore', key: 'average_score' },
+  { title: 'Average\nScore', key: 'average_score' },
   { title: 'Matched\nWebsites', key: 'websites' },
 ]
 

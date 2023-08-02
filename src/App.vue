@@ -57,7 +57,6 @@ onMounted(async () => {
       >
         <div class="loading-logo">
           <!-- SVG Logo -->
-          <LogoAnimated />
           <span> we are optimizing your experience, hang tight... </span>
         </div>
       </div>
