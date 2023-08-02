@@ -2,6 +2,7 @@
 import { useTheme } from 'vuetify'
 
 import { useAuthStore } from './store/auth'
+import { isUserLoggedIn } from './router/utils'
 import ScrollToTop from '@core/components/ScrollToTop.vue'
 import { useThemeConfig } from '@core/composable/useThemeConfig'
 import { hexToRgb } from '@layouts/utils'
@@ -36,7 +37,10 @@ async function handleloadUserInfo() {
     loading.value = false
   }
 }
-onMounted(async () => await handleloadUserInfo())
+onMounted(async () => {
+  if (isUserLoggedIn())
+    await handleloadUserInfo()
+})
 </script>
 
 <template>
@@ -47,17 +51,7 @@ onMounted(async () => await handleloadUserInfo())
         global.current.value.colors.primary,
       )}`"
     >
-      <div
-        v-if="loading"
-        id="loading-bg"
-      >
-        <div class="loading-logo">
-          <!-- SVG Logo -->
-          <LogoAnimated />
-          <span> we are optimizing your experience, hang tight... </span>
-        </div>
-      </div>
-      <RouterView v-else />
+      <RouterView />
       <ScrollToTop />
     </VApp>
   </VLocaleProvider>
