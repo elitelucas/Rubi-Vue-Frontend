@@ -1,19 +1,16 @@
 <script setup lang="ts">
+import http from "@/utils/http";
 import { useProfileStore } from "@/store/profile";
-import router from "@/router";
 import {
   workspaceLists,
   workspaceCreate,
   workspaceUpdate,
   workspaceDelete,
 } from "@/services/workspace";
-
-interface Emit {
-  (e: "update:isDialogVisible", value: boolean): void;
-}
 interface rawDataObject {
   id: number;
   nickname: string;
+  active: boolean;
   short_description: string;
   keywords: Array<string>;
   collaborators: number;
@@ -28,7 +25,7 @@ interface Props {
 
 const profileStore = useProfileStore();
 const props = withDefaults(defineProps<Props>(), {});
-const emit = defineEmits<Emit>();
+const emit = defineEmits(["updateList", "updateDialogVisible"]);
 
 const workspace_data = ref({});
 const collaboratorList = [
@@ -63,19 +60,18 @@ onUpdated(() => {
 
 const formSubmit = async () => {
   try {
-    var data = {
+    let updateData = {
       ...form,
       user_subscription_id: props.userSubscriptionId,
-      active: false,
+      active: props.isEditMode ? props?.activeRawData?.active : false,
     };
-    if (props.isEditMode) {
-      //update
-      await workspaceUpdate(props.activeRawData?.id, data);
-    } else {
-      //create
-      await workspaceCreate(data);
-    }   
-    window.location.reload();
+    const response = props.isEditMode
+      ? await workspaceUpdate(
+          props.activeRawData?.id,
+          updateData
+        )
+      : await workspaceCreate(updateData);
+    emit("updateList", response.data.data, props.isEditMode);
   } catch (error) {
     console.error("Error in async function:", error);
   }
@@ -85,7 +81,7 @@ const removeKey = (key: string) =>
   (form.keywords = form.keywords.filter((item) => item !== key));
 
 const dialogModelValueUpdate = (val: boolean) => {
-  emit("update:isDialogVisible", val);
+  emit("updateDialogVisible", val);
 };
 </script>
 
