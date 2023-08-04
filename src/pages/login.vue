@@ -19,22 +19,29 @@ const authThemeImg = useGenerateImageVariant(authBackgroundIllustrationLight, au
 const isPasswordVisible = ref(false)
 
 const refVForm = ref<VForm>()
-const email = ref('')
+const username = ref('')
 const password = ref('')
 const rememberMe = ref(false)
 const inputValidations = [(v: string) => v.length || 'This field is required']
 const showError = ref(false)
+const loading = ref(false)
 
 async function handleSubmit() {
   const { valid } = await refVForm.value?.validate() as never
   if (valid) {
     try {
       showError.value = false
-      await authStore.handleLogin(email.value, password.value)
+      loading.value = true
+      await authStore.handleLogin(username.value, password.value)
+      await authStore.handleMe()
+      await authStore.handleWorkSpaces(authStore.auth.uuid)
       router.push('/')
     }
     catch (error) {
       showError.value = true
+    }
+    finally {
+      loading.value = false
     }
   }
 }
@@ -74,7 +81,7 @@ async function handleSubmit() {
           />
 
           <h5 class="text-h5 mb-1 text-auth-welcome-title">
-            Say hello to <span class="text-capitalize"> {{ themeConfig.app.title }} </span>. 👋
+            Say hello to&nbsp;<span class="text-capitalize"> {{ themeConfig.app.title }} </span>. 👋
           </h5>
 
           <p class="mb-0">
@@ -99,7 +106,7 @@ async function handleSubmit() {
               <!-- email -->
               <VCol cols="12">
                 <AppTextField
-                  v-model="email"
+                  v-model="username"
                   label="Email or Username"
                   placeholder="Email or Username"
                   type="email"
@@ -136,7 +143,7 @@ async function handleSubmit() {
 
                 <VBtn
                   block
-                  :loading="authStore.loading_login"
+                  :loading="loading"
                   type="submit"
                 >
                   Sign in

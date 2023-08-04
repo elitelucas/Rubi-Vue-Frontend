@@ -17,8 +17,8 @@ const options = ref([
     color: "#FCCC0F",
   },
   {
-    name: "Businessg",
-    value: "Businessg",
+    name: "Business",
+    value: "Business",
     color: "#FF7012",
   },
 ]);

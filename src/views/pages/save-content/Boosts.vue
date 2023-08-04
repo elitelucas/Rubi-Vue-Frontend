@@ -18,8 +18,8 @@ const data = [
 
 const headers = [
   { title: 'CREATOR', sortable: true, key: 'creator' },
-  { title: 'BOOSTS NAME', key: 'boost_name' },
-  { title: 'RUNT DATE', key: 'run_date' },
+  { title: 'BOOST NAME', key: 'boost_name' },
+  { title: 'RUN DATE', key: 'run_date' },
   { title: 'OUTPUT TYPE', key: 'output_type' },
   { title: 'ACTIONS', key: 'actions', sortable: false },
 ]

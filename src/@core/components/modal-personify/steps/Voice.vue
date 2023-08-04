@@ -9,8 +9,9 @@ defineEmits(['onSave', 'onClear'])
 
 const modalStore = usePersonifyModalStore()
 const representText = ref('')
-const analizyOption = ref([])
 const analizyOptions = ['Informal', 'Friendly', 'Enthusiastic', 'Persuasive']
+
+const analizyOption = ref(analizyOptions)
 </script>
 
 <template>

@@ -94,6 +94,4 @@ Go on back and let’s try that again ;) `,
 <route lang="yaml">
 meta:
   layout: blank
-  action: read
-  subject: Auth
 </route>

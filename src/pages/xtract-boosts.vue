@@ -41,7 +41,7 @@ const showDialogXtractScraperMode = ref(false)
             md="4"
             sm="12"
           >
-            <AppTextField placeholder="Search Guests" />
+            <AppTextField placeholder="Search Boosts" />
           </VCol>
           <VCol
             cols="12"

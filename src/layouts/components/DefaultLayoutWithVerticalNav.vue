@@ -10,11 +10,12 @@ import UserProfile from '@/layouts/components/UserProfile.vue'
 import { VerticalNavLayout } from '@layouts'
 import { useModuleStore } from '@/store/module'
 import { useMenuStore } from '@/store/menu'
+import { useAuthStore } from '@/store/auth'
 
 const { navItems } = useMenuStore()
 const { appRouteTransition, isLessThanOverlayNavBreakpoint } = useThemeConfig()
 const { width: windowWidth } = useWindowSize()
-const workspace = ref('BitJar Labs Workspace')
+const authStore = useAuthStore()
 const moduleStore = useModuleStore()
 </script>
 
@@ -47,12 +48,14 @@ const moduleStore = useModuleStore()
     </template>
     <div class="d-flex">
       <AppSelect
-        v-model="workspace"
-        :items="['BitJar Labs Workspace', 'BitJar Labs Workspace2']"
-        class="app-select-header mb-4"
-        base-color="rgba(var(--v-theme-on-background), var(--v-high-emphasis-opacity))"
-        color="rgba(var(--v-theme-on-background), var(--v-high-emphasis-opacity))"
-        item-color="rgba(var(--v-theme-on-background), var(--v-high-emphasis-opacity))"
+        v-model="authStore.selected_worspace"
+        :items="authStore.workspaces"
+        item-title="nickname"
+        item-value="id"
+        class="app-select-header"
+        base-color="primary"
+        color="primary"
+        item-color="primary"
       />
       <IconBtn @click="() => moduleStore.setModal(true)">
         <VIcon

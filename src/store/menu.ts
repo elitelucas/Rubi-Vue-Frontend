@@ -10,9 +10,9 @@ export const useMenuStore = defineStore("menu", {
       try {
         const { data } = await userSubscriptionList();
         let resdata = data?.data;
-        console.log('updateNavItems...', resdata);
+        console.log("updateNavItems...", resdata);
 
-        let newsubitems:any = [];
+        let newsubitems: any = [];
         resdata.map((item) =>
           newsubitems.push({
             title: item.nickname,
@@ -22,10 +22,14 @@ export const useMenuStore = defineStore("menu", {
                 id: item.id,
               },
             },
+            action: "menu-all",
+            subject: "User",
           })
         );
 
-        const foundItem = this.navItems.find((item) => item.title === "My Accounts");
+        const foundItem = this.navItems.find(
+          (item) => item.title === "My Accounts"
+        );
         if (foundItem) {
           foundItem.children = newsubitems;
         }
