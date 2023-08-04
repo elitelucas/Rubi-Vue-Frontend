@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/store/auth'
-import avatar1 from '@images/avatars/avatar-1.png'
 
 const authStore = useAuthStore()
 const router = useRouter()
 
+const user = computed(() => authStore.auth)
 function handleLogout() {
   authStore.handleLogout()
   router.push({ name: 'login' })
@@ -25,7 +25,7 @@ function handleLogout() {
       color="primary"
       variant="tonal"
     >
-      <VImg :src="avatar1" />
+      <VImg :src="user.avatar" />
 
       <!-- SECTION Menu -->
       <VMenu
@@ -50,16 +50,16 @@ function handleLogout() {
                     color="primary"
                     variant="tonal"
                   >
-                    <VImg :src="avatar1" />
+                    <VImg :src="user.avatar" />
                   </VAvatar>
                 </VBadge>
               </VListItemAction>
             </template>
 
             <VListItemTitle class="font-weight-semibold">
-              John Doe
+              {{ user.name }}
             </VListItemTitle>
-            <VListItemSubtitle>Admin</VListItemSubtitle>
+            <VListItemSubtitle>{{ user.role }}</VListItemSubtitle>
           </VListItem>
 
           <VDivider class="my-2" />

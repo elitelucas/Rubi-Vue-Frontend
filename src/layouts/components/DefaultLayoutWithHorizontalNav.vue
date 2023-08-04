@@ -12,12 +12,12 @@ import logoDark from '@images/logo-dark.svg?raw'
 import { HorizontalNavLayout } from '@layouts'
 import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
 import { useModuleStore } from '@/store/module'
+import { useAuthStore } from '@/store/auth'
 
 const moduleStore = useModuleStore()
+const authStore = useAuthStore()
 
 const { appRouteTransition } = useThemeConfig()
-
-const workspace = ref('BitJar Labs Workspace')
 
 const theme = useTheme()
 
@@ -43,8 +43,10 @@ const darkNode = h('div', {
       </RouterLink>
       <VCol lg="2">
         <AppSelect
-          v-model="workspace"
-          :items="['BitJar Labs Workspace', 'BitJar Labs Workspace2']"
+          v-model="authStore.selected_worspace"
+          :items="authStore.workspaces"
+          item-title="nickname"
+          item-value="id"
           class="app-select-header"
           base-color="primary"
           color="primary"

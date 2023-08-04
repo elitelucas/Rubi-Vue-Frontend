@@ -1,10 +1,10 @@
 import ability from '@/plugins/casl/ability'
 import { TOKEN_KEY, TOKEN_TYPE } from '@/router/utils'
-import type { UserMeData } from '@services/auth'
+import type { UserMeData, Workspace } from '@services/auth'
 import auth from '@services/auth'
 
 export const useAuthStore = defineStore('auth', {
-  state: () => ({ auth: {} as UserMeData, loading_login: false, loading_auth: false }),
+  state: () => ({ auth: {} as UserMeData, loading_login: false, loading_auth: false, workspaces: [] as Workspace[], selected_worspace: undefined as number | undefined, loading_workspaces: false }),
   actions: {
     async handleLogin(email: string, password: string) {
       try {
@@ -39,6 +39,25 @@ export const useAuthStore = defineStore('auth', {
       finally {
         this.loading_auth = false
       }
+    },
+    async handleWorkSpaces(user_id: string, per_page = 20) {
+      try {
+        this.loading_workspaces = true
+
+        const response = await auth.workspaces(user_id, per_page)
+
+        this.workspaces = response.data.data
+
+        const primaryWorkspace = this.workspaces.find(work => work.subscription.primary)
+
+        this.selected_worspace = primaryWorkspace?.id
+      }
+      finally {
+        this.loading_workspaces = false
+      }
+    },
+    async handleUpdateUserAvatar(user_id: string, data: FormData) {
+      return auth.updateAvatar(user_id, data)
     },
     handleLogout() {
       localStorage.removeItem(TOKEN_KEY)
