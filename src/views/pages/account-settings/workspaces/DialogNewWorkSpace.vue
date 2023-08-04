@@ -1,33 +1,88 @@
 <script setup lang="ts">
-interface Emit {
-  (e: 'update:isDialogVisible', value: boolean): void
+import http from "@/utils/http";
+import { useProfileStore } from "@/store/profile";
+import {
+  workspaceLists,
+  workspaceCreate,
+  workspaceUpdate,
+  workspaceDelete,
+} from "@/services/workspace";
+interface rawDataObject {
+  id: number;
+  nickname: string;
+  active: boolean;
+  short_description: string;
+  keywords: Array<string>;
+  collaborators: number;
 }
 
 interface Props {
-  isDialogVisible: boolean
-  isEditMode?: boolean
+  isDialogVisible: boolean;
+  isEditMode?: boolean;
+  activeRawData?: rawDataObject;
+  userSubscriptionId?: string;
 }
 
-const props = withDefaults(defineProps<Props>(), {})
-const emit = defineEmits<Emit>()
+const profileStore = useProfileStore();
+const props = withDefaults(defineProps<Props>(), {});
+const emit = defineEmits(["updateList", "updateDialogVisible"]);
 
+const workspace_data = ref({});
+const collaboratorList = [
+  {
+    id: 1,
+    label: "Nick name 1",
+  },
+  {
+    id: 2,
+    label: "Nick name 2",
+  },
+];
 const form = reactive({
-  name: '',
+  nickname: "",
+  short_description: "",
   keywords: [],
-  collaborator: '',
+  collaborator: { id: 0, label: "" },
   search: null,
-  items: [''],
-})
+  items: [""],
+});
+const uid = profileStore.uuid;
 
-const formSubmit = () => {
-  console.log('submit')
-}
+onUpdated(() => {
+  form.nickname = props?.activeRawData?.nickname as string;
+  form.short_description = props?.activeRawData?.short_description as string;
+  form.keywords = props?.activeRawData?.keywords as never[];
+  form.collaborator = {
+    id: props?.activeRawData?.collaborators as number,
+    label: "Nick name 1",
+  };
+});
 
-const removeKey = (key: string) => form.keywords = form.keywords.filter(item => item !== key)
+const formSubmit = async () => {
+  try {
+    let updateData = {
+      ...form,
+      user_subscription_id: props.userSubscriptionId,
+      active: props.isEditMode ? props?.activeRawData?.active : false,
+    };
+    const response = props.isEditMode
+      ? await workspaceUpdate(
+          props.activeRawData?.id,
+          updateData
+        )
+      : await workspaceCreate(updateData);
+    emit("updateList", response.data.data, props.isEditMode);
+  } catch (error) {
+    console.error("Error in async function:", error);
+  }
+};
+
+const removeKey = (key: string) =>
+  (form.keywords = form.keywords.filter((item) => item !== key));
 
 const dialogModelValueUpdate = (val: boolean) => {
-  emit('update:isDialogVisible', val)
-}
+  emit("updateDialogVisible", val);
+};
 </script>
 
 <template>
@@ -45,10 +100,11 @@ const dialogModelValueUpdate = (val: boolean) => {
         <AppLogo />
         <div class="my-3" />
         <VCardTitle class="text-h5 font-weight-medium mb-3">
-          {{ isEditMode ? 'Edit' : 'Create New' }} Workspace
+          {{ isEditMode ? "Edit" : "Create New" }} Workspace
         </VCardTitle>
         <p class="mb-0">
-          {{ isEditMode ? 'Edit' : 'A new' }} workspace segments your content, personas and collaborators.
+          {{ isEditMode ? "Edit" : "A new" }} workspace segments your content,
+          personas and collaborators.
         </p>
       </VCardItem>
 
@@ -57,9 +113,16 @@ const dialogModelValueUpdate = (val: boolean) => {
           <VRow>
             <VCol cols="12">
               <AppTextField
-                v-model="form.name"
+                v-model="form.nickname"
                 label="Workspace Name"
                 placeholder="Workspace Name"
+              />
+            </VCol>
+            <VCol cols="12">
+              <AppTextField
+                v-model="form.short_description"
+                label="description"
+                placeholder="short description"
               />
             </VCol>
 
@@ -82,23 +145,20 @@ const dialogModelValueUpdate = (val: boolean) => {
             <VCol cols="12">
               <AppSelect
                 v-model="form.collaborator"
-                label="Add Collaborators"
-                placeholder="Collaborator"
-                :items="['NickName', 'NickName 2']"
+                :items="collaboratorList"
+                item-title="label"
+                item-value="id"
+                label="Select"
+                persistent-hint
+                return-object
+                single-line
               />
             </VCol>
 
             <!-- 👉 Card actions -->
-            <VCol
-              cols="12"
-              class="text-center"
-            >
-              <VBtn
-                class="me-3"
-                type="submit"
-                @click="formSubmit"
-              >
-                {{ isEditMode ? 'Save' : 'Submit' }}
+            <VCol cols="12" class="text-center">
+              <VBtn class="me-3" type="submit" @click="formSubmit">
+                {{ isEditMode ? "Save" : "Submit" }}
               </VBtn>
               <VBtn
                 color="secondary"

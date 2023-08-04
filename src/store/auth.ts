@@ -1,5 +1,6 @@
+
 import ability from '@/plugins/casl/ability'
-import { TOKEN_KEY, TOKEN_TYPE } from '@/router/utils'
+import { TOKEN_KEY, TOKEN_TYPE, MYEMAIL, MYUSERNAME, MYUUID } from '@/router/utils'
 import type { UserMeData, Workspace } from '@services/auth'
 import auth from '@services/auth'
 
@@ -14,6 +15,9 @@ export const useAuthStore = defineStore('auth', {
 
         localStorage.setItem(TOKEN_KEY, data.access_token)
         localStorage.setItem(TOKEN_TYPE, data.token_type)
+        localStorage.setItem(MYUUID, data.uuid)
+        localStorage.setItem(MYUSERNAME, data.username)
+        localStorage.setItem(MYEMAIL, data.email)
         console.log(data)
       }
       finally {

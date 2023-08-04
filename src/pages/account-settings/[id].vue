@@ -34,6 +34,16 @@ watch(() => route.fullPath, () => {
 onMounted(() => {
   setTimeout(() => activeTab.value = route.query.tab || 'account', 100)
 })
+
+const myAccountID = ref(route.params.id);
+
+watch(
+  () => route.params.id,
+  (newID, oldID) => {   
+    myAccountID.value = newID
+  },
+  { immediate: true } 
+);
 </script>
 
 <template>
@@ -79,7 +89,7 @@ onMounted(() => {
     >
       <!-- Account -->
       <VWindowItem value="account">
-        <Account />
+        <Account :account_id="myAccountID"/>
       </VWindowItem>
 
       <!-- Collaborators -->
@@ -99,7 +109,7 @@ onMounted(() => {
 
       <!-- Personas -->
       <VWindowItem value="workspaces">
-        <Workspaces />
+        <Workspaces :account_id="myAccountID"/>
       </VWindowItem>
     </VWindow>
   </div>

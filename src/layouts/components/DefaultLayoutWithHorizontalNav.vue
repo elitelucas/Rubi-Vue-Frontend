@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { useTheme } from 'vuetify/lib/framework.mjs'
-import navItems from '@/navigation/horizontal'
 import { useThemeConfig } from '@core/composable/useThemeConfig'
 import { themeConfig } from '@themeConfig'
+import http from "@/utils/http";
 
 // Components
 import Footer from '@/layouts/components/Footer.vue'
@@ -12,10 +12,13 @@ import logoDark from '@images/logo-dark.svg?raw'
 import { HorizontalNavLayout } from '@layouts'
 import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
 import { useModuleStore } from '@/store/module'
+
 import { useAuthStore } from '@/store/auth'
+import { useMenuStore } from '@/store/menu'
 
 const moduleStore = useModuleStore()
 const authStore = useAuthStore()
+const { navItems } = useMenuStore()
 
 const { appRouteTransition } = useThemeConfig()
 

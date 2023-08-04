@@ -25,6 +25,15 @@ switchToVerticalNavOnLtOverlayNavBreakpoint(windowWidth)
 const { layoutAttrs, injectSkinClasses } = useSkins()
 
 injectSkinClasses()
+// get profile
+import { useMenuStore } from '@/store/menu'
+import { useProfileStore } from '@/store/profile'
+const profileStore = useProfileStore();
+const menuStore = useMenuStore();
+onMounted(async () => {
+  await menuStore.updateNavItems();
+  // await profileStore.handleGetMyInfo();
+});
 </script>
 
 <template>
