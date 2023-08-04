@@ -34,6 +34,7 @@ async function handleSubmit() {
       loading.value = true
       await authStore.handleLogin(username.value, password.value)
       await authStore.handleMe()
+      await authStore.handleWorkSpaces(authStore.auth.uuid)
       router.push('/')
     }
     catch (error) {

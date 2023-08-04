@@ -3,6 +3,7 @@ import { useTheme } from 'vuetify'
 
 import { useAuthStore } from './store/auth'
 import { isUserLoggedIn } from './router/utils'
+import LogoAnimated from './components/LogoAnimated.vue'
 import ScrollToTop from '@core/components/ScrollToTop.vue'
 import { useThemeConfig } from '@core/composable/useThemeConfig'
 import { hexToRgb } from '@layouts/utils'
@@ -29,6 +30,7 @@ async function handleloadUserInfo() {
   try {
     loading.value = true
     await authStore.handleMe()
+    await authStore.handleWorkSpaces(authStore.auth.uuid)
   }
   catch (error) {
     console.log(error)
@@ -57,10 +59,11 @@ onMounted(async () => {
       >
         <div class="loading-logo">
           <!-- SVG Logo -->
+          <LogoAnimated />
           <span> we are optimizing your experience, hang tight... </span>
         </div>
       </div>
-      <RouterView />
+      <RouterView v-else />
       <ScrollToTop />
     </VApp>
   </VLocaleProvider>
